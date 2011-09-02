@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> - Thurloat.com</title>
+    <link href='http://fonts.googleapis.com/css?family=Quattrocento&v2' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/media/style.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/media/pygments.css" type="text/css" media="screen" />
+    
+</head>
+<body>
+    <header>
+        <h1>Thurloat.com</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div id="content">
+    
+    <article>
+        <header>
+            <h1>Google Closure Linter TextMate Bundle</h1>
+            <span class="date">February 19, 2011</span> - Posted by Thurloat
+        </header>
+        <section>
+            <img alt="Google Closure TextMate Bundle" class="align-center" src="http://thurloat.com/wp-content/uploads/2011/02/googleclosuretmbundle.png" />
+<p>I love the <a class="reference external" href="http://code.google.com/closure/utilities/">Google Closure</a>
+project. As a big fan of its compiler and the linter, I use both
+regularly at work and for my personal projects. However, it is not
+without its flaws. The biggest hurtle to integrating the Closure Linter
+into my workflow: it's strictly a command line tool. I have nothing against using
+the terminal but, the workflow for running the linter over my JS looks
+like this:</p>
+<ol class="arabic simple">
+<li>Make some changes to the JS file.</li>
+<li>Open the terminal, run <tt class="docutils literal">gsjlint source.js</tt></li>
+<li>Look over the results (<cite>ugly terminal output</cite>).</li>
+<li>Jump back to the Editor, and find where the problems were.</li>
+<li>go to 1.</li>
+</ol>
+<p>This tedium quickly became frustrating. I wanted a more automated
+approach to running the Closure Linter; so I hacked together a TextMate Bundle
+to make all of our lives a little easier. I was able to integrate the linter into
+my TextMate workflow without a hitch. Thus, here's my new workflow:</p>
+<ol class="arabic simple">
+<li>Make some changes to the JS file.</li>
+<li>Hit &quot;<tt class="docutils literal">Shift + Ctl + Opt + A</tt>&quot;, results appear in a TextMate Browser
+window, next to the code.</li>
+<li>Keep making changes, and using keyboard shortcut to update the
+linter window.</li>
+</ol>
+<p>Here's a screenshot of this new workflow in action:</p>
+<img alt="Closure Linter Workflow" class="align-center" src="http://thurloat.com/wp-content/uploads/2011/02/ClosureLinter-1024x672.jpg" style="width: 625px;" />
+<p><em>Pretty neat</em>! However, some of the changes that the Closure Linter wants
+you to make are monotonous. I don't want to waste time putting a space
+before my <tt class="docutils literal">=</tt> sign, or converting double quotes <tt class="docutils literal">&quot;</tt> to single quotes <tt class="docutils literal">'</tt>.
+Luckily, part of the Closure Linter utilities is a &quot;<tt class="docutils literal">fixjsstyle.py</tt>&quot;
+utility that will run over your JS and perform all of those little
+corrections for you. I've included this in the Bundle with the shortcut
+&quot;<tt class="docutils literal">Shift + Ctl + Opt + Z</tt>&quot;. This will run the style fixer over your
+current file and display what it fixed in a tooltip.</p>
+<img alt="Google Closure Style Fixer" class="align-center" src="http://thurloat.com/wp-content/uploads/2011/02/Google-Closure-Style-Fixer-1024x409.jpg" style="width: 625px;" />
+<p>If you're interested in giving it a try you can
+<a class="reference external" href="https://github.com/thurloat/GoogleClosure.tmbundle/tarball/master">download</a>
+the bundle directly. The
+<a class="reference external" href="http://code.google.com/closure/utilities/docs/linter_howto.html">Closure Utilities</a>
+are required for this bundle to work. Alternatively, the source code is available on
+<a class="reference external" href="https://github.com/thurloat/GoogleClosure.tmbundle">GitHub</a>. The README
+contains installation instructions for the git version; you can keep the
+bundle up to date using the
+<a class="reference external" href="https://github.com/adamsalter/GetBundles.tmbundle">GetBundles</a> manager
+(which you should be using if you aren't already). If you find any bugs,
+or have any feature requests, GitHub has a great Issue Tracker that I'd
+love if you used. This way I can keep everything in one spot. Feel free
+to fork and contribute any patches; all are welcome.</p>
+<div class="section" id="good-luck">
+<h2>Good Luck !</h2>
+</div>
+
+        </section>
+        <footer>
+            
+            <a href="/category/programming/">Programming</a>, 
+            
+            <a href="/category/github/">GitHub</a>, 
+            
+            <a href="/category/google/">Google</a>
+            
+        </footer>
+    </article>
+
+    </div>
+    
+    <footer>
+        <p>
+            &copy; 2011 - All rights reserved. Licensed under the terms of GPLv3.
+        </p> 
+    </footer>
+</body>
+</html>

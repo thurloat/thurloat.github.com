@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> - Thurloat.com</title>
+    <link href='http://fonts.googleapis.com/css?family=Quattrocento&v2' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/media/style.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/media/pygments.css" type="text/css" media="screen" />
+    
+</head>
+<body>
+    <header>
+        <h1>Thurloat.com</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div id="content">
+    
+    <article>
+        <header>
+            <h1>Rietveld Rocks. Tips for other newbies!</h1>
+            <span class="date">July 05, 2010</span> - Posted by Thurloat
+        </header>
+        <section>
+            <div class="section" id="the-potatoes">
+<h2>The Potatoes</h2>
+<p>Peer code review has become one of my favorite feedback processes by
+far. At the SheepDog office, we're forming the habit of reviewing any
+code that comes out of a sprint. In order to move a task from tested to
+verified, it must get signed off by an engineer who did not write
+the code. This process was quickly becoming cumbersome when done manually.
+For example; A large feature would be created, then tested, and no one had the
+time to look it over because the review process was: check out the source code
+at the correct location, comb through it, and provide manual feedback to
+the other developer -- had it not slipped your mind to review it in the
+first place.</p>
+<p>We installed the code review tool Rietveld on our production domain this week.
+Getting it installed on our domain was incredibly easy; however it's not the
+easiest option to find. <em>PROTIP</em>: Once you're in the Google Apps Domain Control
+Panel, click <tt class="docutils literal">Add Services</tt>, Then you'll see this little link at the bottom
+where you can install it..</p>
+<img alt="Domain Labs" src="http://commondatastorage.googleapis.com/thurloat/domainlabs.png" />
+<p>Once inside, you can install the application as you would any other to
+the domain. Of the many cool features, one of the things we quickly fell
+in love with was the ability to leave a review without touching the
+mouse. This made reviewing code much easier and seemingly familiar with
+vi-ish key bindings; for example:</p>
+<ul class="simple">
+<li><tt class="docutils literal">j</tt> next diff,</li>
+<li><tt class="docutils literal">k</tt> previous diff,</li>
+<li><tt class="docutils literal">n</tt> next line,</li>
+<li><tt class="docutils literal">p</tt> previous line,</li>
+<li><tt class="docutils literal">m</tt> commit and mail review.</li>
+</ul>
+</div>
+<div class="section" id="the-meat">
+<h2>The Meat</h2>
+<p>On top of the slick navigation, the Google team has made it even more brainless to
+actually post your diff online for review using the <em>git</em> commands that we
+already knew! One of the things that isn't so well documented in the
+wiki is the <tt class="docutils literal">Upload.py</tt> usage. There's a fun little operator on the end
+that gets no documentation [-- diff_options] which allows for more
+advanced diff patches.</p>
+<p>simply upload all un-commited changes to be reviewed</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>upload.py
+</pre></div>
+</td></tr></table><div class="section" id="these-are-some-cooler-usages">
+<h3>these are some cooler usages</h3>
+<p>upload all changes to a file from a certain commit point to the
+present for review</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>upload.py -- GIT_COMMIT_ID..HEAD -- src/main.py
+</pre></div>
+</td></tr></table><p>upload all changes for a span commits to a module for review</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>upload.py -- GIT_COMMIT_ID..GIT_COMMIT_ID2 -- src/gisthub/
+</pre></div>
+</td></tr></table><p>append a new diff patch to an existing issue, useful if someone has asked for a
+change in review</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>upload.py -i ISSUE_ID src/main.py
+</pre></div>
+</td></tr></table><p>We're currently working on layering our own python script on top of the
+upload one in order to better match our newly defined internal
+processes. Any other shortcuts and time-savers we discover; I'll be sure
+to share them here. Hopefully that'll get your wheels spinning and into
+a better habit of doing peer code review. Happy Coding!</p>
+</div>
+</div>
+
+        </section>
+        <footer>
+            
+            <a href="/category/programming/">Programming</a>, 
+            
+            <a href="/category/google/">Google</a>, 
+            
+            <a href="/category/code-review/">Code Review</a>
+            
+        </footer>
+    </article>
+
+    </div>
+    
+    <footer>
+        <p>
+            &copy; 2011 - All rights reserved. Licensed under the terms of GPLv3.
+        </p> 
+    </footer>
+</body>
+</html>

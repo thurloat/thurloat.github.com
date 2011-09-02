@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> - Thurloat.com</title>
+    <link href='http://fonts.googleapis.com/css?family=Quattrocento&v2' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/media/style.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/media/pygments.css" type="text/css" media="screen" />
+    
+</head>
+<body>
+    <header>
+        <h1>Thurloat.com</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div id="content">
+    
+    <article>
+        <header>
+            <h1>Advanced App Engine Bulk Downloading</h1>
+            <span class="date">February 25, 2011</span> - Posted by Thurloat
+        </header>
+        <section>
+            <p>The new Bulkloader data exporter is much easier and more automated than
+the nasty old
+way of exporting. As good as it is, there were a lot of additional
+requirements for one export script that I was tasked to write which
+looked beyond the scope of the Bulkloader YAML configuration file.
+Through reading the documentation and diving into the
+I was able to find some creative solutions and for the most part -- keep
+using the YAML file.</p>
+<div class="section" id="the-long-and-winding-road">
+<h2>The long and winding road</h2>
+<p>I'm going to go through the problems I faced, and how I was able to
+solve them using primarily the YAML config file with the new Bulkloader.</p>
+<div class="section" id="csv-is-out-pipe-separated-is-in">
+<h3>CSV is out, Pipe separated is in</h3>
+<p>One of the requirements of the exported data was that it wasn't
+comma-separated. It needed to be delimited by a <em>pipe</em>, &quot;<strong>|</strong>&quot;,
+character. The options for exporting data via the Bulkloader are <em>CSV</em>,
+<em>simpletext</em> and <em>xml</em>. I don't see &quot;<em>PSV</em>&quot; as an option.</p>
+<p>Here's what I did to fix this:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">kind</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">model_name</span>
+  <span class="l-Scalar-Plain">connector</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">csv</span>
+  <span class="l-Scalar-Plain">connector_options</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">export_options</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">delimiter</span><span class="p-Indicator">:</span> <span class="s">&quot;|&quot;</span>
+</pre></div>
+</td></tr></table><p>I was able to re-use the Bulkloader CSV connector by passing through
+additional arguments by proxy to the Python CSV module. The outcome was
+a nice clean pipe separated data format. This was <em>much</em>, <em>much</em> better
+than the original thought: to try and use the Python module after the
+CSV connector generated the file to re-write the CSV as pipe separated.</p>
+<p>The two parameters that you can pass to the CSV module are:
+<strong>delimeter</strong> and <strong>dialect</strong>. These options can be found in the
+<strong>ConnectorSubOptions</strong> class in</p>
+</div>
+<div class="section" id="massaging-data">
+<h3>Massaging Data</h3>
+<p>There were additional data formatting changes that needed to occur to
+meet the requirements of the &quot;<em>PSV</em>&quot; formatted file. By default, the
+Bulkloader auto-generated configuration writes out some default
+export_transform properties for objects who don't convert nicely to
+strings. They cover some use-cases, but not enough to help with these
+requirements.</p>
+<p>Here's a few simple examples of how I leveraged the power of lambda
+expressions to massage the data into place.</p>
+<div class="section" id="yes-no-instead-of-true-false">
+<h4>Yes / No instead of True / False</h4>
+<p>This wasn't a big deal, but it opened my brain to using lambdas to tweak
+the exported data. It simply reads in the True / False value and outputs
+a 'yes' / 'no' string as the formatted value.</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">property</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">boolean_field</span>
+  <span class="l-Scalar-Plain">external_name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Boolean Field</span>
+  <span class="l-Scalar-Plain">import_transform</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">transform.regexp_bool(&#39;true&#39;, re.IGNORECASE)</span>
+  <span class="l-Scalar-Plain">export_transform</span><span class="p-Indicator">:</span> <span class="s">&quot;lambda</span><span class="nv"> </span><span class="s">x:</span><span class="nv"> </span><span class="s">&#39;yes&#39;</span><span class="nv"> </span><span class="s">if</span><span class="nv"> </span><span class="s">x</span><span class="nv"> </span><span class="s">else</span><span class="nv"> </span><span class="s">&#39;no&#39;&quot;</span>
+</pre></div>
+</td></tr></table></div>
+<div class="section" id="convert-list-to-comma-separated-string">
+<h4>Convert list to Comma-Separated String</h4>
+<p>I used this one often in my exporter. It's common to want to store data
+in a list but python string formats a list as <em>&quot;[u'item1', u'item2']&quot;</em>.
+Clearly un-acceptable for a pretty data export; this new transformer
+will output the list as <em>&quot;item1,item2&quot;</em>.</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">property</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">list_field</span>
+  <span class="l-Scalar-Plain">external_name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">List Field</span>
+  <span class="l-Scalar-Plain">export_transform</span><span class="p-Indicator">:</span> <span class="s">&quot;lambda</span><span class="nv"> </span><span class="s">x:</span><span class="nv"> </span><span class="s">&#39;,&#39;.join(x)</span><span class="nv"> </span><span class="s">if</span><span class="nv"> </span><span class="s">type(x)</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">list</span><span class="nv"> </span><span class="s">else</span><span class="nv"> </span><span class="s">x</span><span class="nv"> </span><span class="s">if</span><span class="nv"> </span><span class="s">x</span><span class="nv"> </span><span class="s">else</span><span class="nv"> </span><span class="s">&#39;&#39;&quot;</span>
+</pre></div>
+</td></tr></table></div>
+<div class="section" id="convert-a-list-of-values-into-single-values-split-in-multiple-columns">
+<h4>Convert a list of values into single values split in Multiple Columns</h4>
+<p>This example is a little more specific to my use case, however it can
+still serve as a good example for having a single column in the database
+act as <em>multiple</em> columns in the exported file. Here, I have a
+de-normalized list of person details so I can leverage App Engine's
+exact list equality matching function, for example: I'm looking for an
+object who's person is &quot;Adam&quot;, &quot;Thurlow&quot; or, &quot;<a class="reference external" href="mailto:thurloat&#64;gmail.com">thurloat&#64;gmail.com</a>&quot;. Here,
+we're separating each of those list items out into their own column.</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">property</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">person_details</span>
+  <span class="l-Scalar-Plain">export</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">external_name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">First Name</span>
+        <span class="l-Scalar-Plain">export_transform</span><span class="p-Indicator">:</span> <span class="s">&quot;lambda</span><span class="nv"> </span><span class="s">x:</span><span class="nv"> </span><span class="s">x[1]</span><span class="nv"> </span><span class="s">if</span><span class="nv"> </span><span class="s">type(x)</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">list</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">len(x)</span><span class="nv"> </span><span class="s">&gt;</span><span class="nv"> </span><span class="s">1</span><span class="nv"> </span><span class="s">else</span><span class="nv"> </span><span class="s">&#39;&#39;&quot;</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">external_name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Last Name</span>
+        <span class="l-Scalar-Plain">export_transform</span><span class="p-Indicator">:</span> <span class="s">&quot;lambda</span><span class="nv"> </span><span class="s">x:</span><span class="nv"> </span><span class="s">x[2]</span><span class="nv"> </span><span class="s">if</span><span class="nv"> </span><span class="s">type(x)</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">list</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">len(x)</span><span class="nv"> </span><span class="s">&gt;</span><span class="nv"> </span><span class="s">2</span><span class="nv"> </span><span class="s">else</span><span class="nv"> </span><span class="s">&#39;&#39;&quot;</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">external_name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Email</span>
+        <span class="l-Scalar-Plain">export_transform</span><span class="p-Indicator">:</span> <span class="s">&quot;lambda</span><span class="nv"> </span><span class="s">x:</span><span class="nv"> </span><span class="s">x[0]</span><span class="nv"> </span><span class="s">if</span><span class="nv"> </span><span class="s">type(x)</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">list</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">len(x)</span><span class="nv"> </span><span class="s">&gt;</span><span class="nv"> </span><span class="s">0</span><span class="nv"> </span><span class="s">else</span><span class="nv"> </span><span class="s">&#39;&#39;&quot;</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="quoted-printables">
+<h3>Quoted Printables</h3>
+<p>One of the problems discovered early on was that <strong>db.Text</strong> fields
+longer than 80 characters ended a line with '=\n' or '=20\n'. The
+cause of this problem is that when you POST form data to the Blobstore:
+the Blobstore encodes all large text as <em>MIME quoted-printable</em>. The
+simplest way that I found to get around this was to take advantage of
+the python <strong>quopri</strong> module.</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td><td class="code"><div class="highlight"><pre><span class="l-Scalar-Plain">python_preabmle</span><span class="p-Indicator">:</span>
+<span class="nn">...</span>
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">import</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">quopri</span>
+<span class="nn">...</span>
+
+<span class="l-Scalar-Plain">transformers</span><span class="p-Indicator">:</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">kind</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">model_name</span>
+  <span class="l-Scalar-Plain">property_map</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">property</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">message_body</span>
+      <span class="l-Scalar-Plain">import_transform</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">db.Text</span>
+      <span class="l-Scalar-Plain">export_transform</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">quopri.decode_string</span>
+</pre></div>
+</td></tr></table></div>
+<div class="section" id="de-normalizing-related-data">
+<h3>De-normalizing related data</h3>
+<p>This was by far the biggest challenge for the exporter. Reading through
+the
+It's mentioned that to do more complicated things, such as adding
+columns, or modifying the file in &quot;<em>arbitrary</em>&quot; ways you should use the
+<strong>post_import_function_</strong> option for the property. This way seemed
+overly complicated, so here's how I dove into discovering the right way
+to do this:</p>
+<p>Using Django non-rel on App Engine proved ineffective when it came to
+using the models with the remote_api. In order to pull the additional
+related data into the exported file, I had to re-write small portions of
+my model using <strong>google.appengine.ext.db.Model</strong> rather than the Django
+models due mostly to un-resolved imports (unless I want to pollute my
+Bulkloader python_preamble with a ton of Django imports).</p>
+<p>Here's some <em>hopefully</em> over commented code on how I was able to do this
+with the YAML configuration file.</p>
+<div class="section" id="derefr-py">
+<h4>derefr.py</h4>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># Import the App Engine DB module</span>
+<span class="kn">from</span> <span class="nn">google.appengine.ext</span> <span class="kn">import</span> <span class="n">db</span>
+
+<span class="c"># Skeleton App Engine compatible models</span>
+<span class="k">class</span> <span class="nc">user</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">IntegerProperty</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">user_alt_info</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">country</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">StringProperty</span><span class="p">()</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">StringProperty</span><span class="p">()</span>
+
+
+<span class="c"># Data Transformation functions to Output the user&#39;s related Country and State data.</span>
+
+<span class="k">def</span> <span class="nf">get_user_info</span><span class="p">(</span><span class="n">user_key</span><span class="p">):</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">GqlQuery</span><span class="p">(</span><span class="s">&quot;SELECT * FROM user_alt_info WHERE user_id = :1&quot;</span><span class="p">,</span> <span class="n">key</span><span class="o">.</span><span class="n">id</span><span class="p">())</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">q</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="bp">None</span>
+
+<span class="k">def</span> <span class="nf">get_user_country</span><span class="p">(</span><span class="n">user_key</span><span class="p">):</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">get_user_info</span><span class="p">(</span><span class="n">user_key</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">u</span><span class="o">.</span><span class="n">country</span> <span class="k">if</span> <span class="n">u</span> <span class="k">else</span> <span class="s">&quot;&quot;</span>
+
+<span class="k">def</span> <span class="nf">get_user_state</span><span class="p">(</span><span class="n">user_key</span><span class="p">):</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">get_user_info</span><span class="p">(</span><span class="n">user_key</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">u</span><span class="o">.</span><span class="n">state</span> <span class="k">if</span> <span class="n">u</span> <span class="k">else</span> <span class="s">&quot;&quot;</span>
+</pre></div>
+</td></tr></table></div>
+<div class="section" id="bulkloader-yaml">
+<h4>bulkloader.yaml</h4>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24</pre></div></td><td class="code"><div class="highlight"><pre><span class="l-Scalar-Plain">python_preamble</span><span class="p-Indicator">:</span>
+<span class="nn">...</span>
+<span class="c1"># Import the new denormalizing script.</span>
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">import</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">derefr</span>
+<span class="nn">...</span>
+
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">kind</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">user</span>
+  <span class="l-Scalar-Plain">...</span>
+  <span class="l-Scalar-Plain">property_map</span><span class="p-Indicator">:</span>
+
+    <span class="c1"># Here, I make extra use of the __key__ property for the model. I am</span>
+    <span class="c1"># able to resolve references to the user_info model through using this</span>
+    <span class="c1"># key.</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">property</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">__key__</span>
+      <span class="l-Scalar-Plain">export</span><span class="p-Indicator">:</span>
+
+        <span class="c1"># Using the KEY as an argument, we can pull in the related values.</span>
+        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">external_name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">User Country</span>
+          <span class="l-Scalar-Plain">derefr.get_user_country</span>
+
+        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">external_name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">User State</span>
+          <span class="l-Scalar-Plain">derefr.get_user_state</span>
+  <span class="l-Scalar-Plain">...</span>
+</pre></div>
+</td></tr></table><p>That about sums it up. It ended up taking me a lot less time than
+originally anticipated, and appears to be void of bugs. I contribute
+this to the fact that in no way do I ever try to manually interact with
+the &quot;<em>PSV</em>&quot; / &quot;<em>CSV</em>&quot; that is generated by my script.</p>
+<p>I hope this can shed some insight into how powerful this new YAML
+configuration exporter is, and help overcome the lacklustre
+documentation, and examples on the Official Bulkloader project page.</p>
+</div>
+</div>
+</div>
+<div class="section" id="cheers">
+<h2>Cheers!</h2>
+</div>
+
+        </section>
+        <footer>
+            
+            <a href="/category/google/">Google</a>, 
+            
+            <a href="/category/programming/">programming</a>
+            
+        </footer>
+    </article>
+
+    </div>
+    
+    <footer>
+        <p>
+            &copy; 2011 - All rights reserved. Licensed under the terms of GPLv3.
+        </p> 
+    </footer>
+</body>
+</html>

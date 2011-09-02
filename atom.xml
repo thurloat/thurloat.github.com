@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Adam Thurlow - Awesome.</title><link href="thurloat.com/atom.xml" rel="self"/><link href="thurloat.com"/><updated>2011-09-02T03:02::08</updated><id>thurloat.com</id><entry><title>Advanced App Engine Bulk Downloading</title><author><name>Adam Thurlow</name></author><link href="thurloat.com/2011/02/25/advanced-app-engine-bulk-downloading"/><updated>2011-02-25T14:44::00</updated><published>2011-02-25T14:44::00</published><id>thurloat.com/2011/02/25/advanced-app-engine-bulk-downloading</id><content type="html">
+            
+                &lt;p&gt;The new Bulkloader data exporter is much easier and more automated than
+the nasty old
+way of exporting. As good as it is, there were a lot of additional
+requirements ...&lt;/p&gt;
+            
+            </content></entry><entry><title>Google Closure Linter TextMate Bundle</title><author><name>Adam Thurlow</name></author><link href="thurloat.com/2011/02/19/google-closure-linter-textmate-bundle"/><updated>2011-02-19T22:41::00</updated><published>2011-02-19T22:41::00</published><id>thurloat.com/2011/02/19/google-closure-linter-textmate-bundle</id><content type="html">
+            
+                &lt;img alt=&quot;Google Closure TextMate Bundle&quot; class=&quot;align-center&quot; src=&quot;http://thurloat.com/wp-content/uploads/2011/02/googleclosuretmbundle.png&quot; /&gt;
+&lt;p&gt;I love the &lt;a class=&quot;reference external&quot; href=&quot;http://code.google.com/closure/utilities/&quot;&gt;Google Closure&lt;/a&gt;
+project. As a big fan of its compiler and the linter, I use both
+regularly at work and for my personal projects. However, it is ...&lt;/p&gt;
+            
+            </content></entry><entry><title>Rietveld Rocks. Tips for other newbies!</title><author><name>Adam Thurlow</name></author><link href="thurloat.com/2010/07/05/rietveld-rocks-tips-for-other-newbies"/><updated>2010-07-05T21:20::06</updated><published>2010-07-05T21:20::06</published><id>thurloat.com/2010/07/05/rietveld-rocks-tips-for-other-newbies</id><content type="html">
+            
+                &lt;div class=&quot;section&quot; id=&quot;the-potatoes&quot;&gt;
+&lt;h2&gt;The Potatoes&lt;/h2&gt;
+&lt;p&gt;Peer code review has become one of my favorite feedback processes by
+far. At the SheepDog office, we&#39;re forming the habit of reviewing any
+code that comes ...&lt;/p&gt;&lt;/div&gt;
+            
+            </content></entry></feed>
