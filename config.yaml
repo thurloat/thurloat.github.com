@@ -1,0 +1,14 @@
+site_name: Thurloat.com
+author: Thurloat
+posts_per_page: 50
+url: thurloat.com
+date_format: "%B %d, %Y"
+text_processor: extension
+templates: django
+append_slash: false
+url_include_day: true
+inline_css: false
+pygments:
+    linenos: true
+    noclasses: false
+    style: 'pastie'

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block main %}
+    <ul>
+    {% for post in posts %}
+        <li>
+            <div class="cat_date">
+                {{ post.date }}
+                <ul class="hidden_categories">
+                    {% for c in post.categories %}
+                        <li>
+                            {{ c.name }}
+                        </li>
+                    {% endfor %}    
+                </ul>
+            </div>
+            <h4><a href="/{{ post.url }}">{{ post.config.title }}</a></h4>
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock %}

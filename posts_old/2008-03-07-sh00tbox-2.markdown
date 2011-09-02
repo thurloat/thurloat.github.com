@@ -1,0 +1,19 @@
+--------------------------------------------------------------------------------
+author: Thurloat
+date: 2008-03-07 00:15:37
+layout: post
+slug: sh00tbox-2
+status: publish
+title: sh00tbox!
+categories:
+    - Programming
+--------------------------------------------------------------------------------
+
+Well it looks like i finally found a use for the AJAX shoutbox i
+developed in the fall. I’ve spend the past few days debugging it so it
+would seemlessly integrate with Wordpress and there it is! If everyone
+would please take a look to your right, you will see a pretty little
+sh00tbox. Feel free to leave some messages. Also i’d like to thank Sonic
+for helping me debug it (even though you didn’t actually do anything,
+you were always there for me
+![;)](http://blog.at1pc.com/wp-includes/images/smilies/icon_wink.gif) )
