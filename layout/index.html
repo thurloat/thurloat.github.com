@@ -1,9 +1,8 @@
 {% extends "base.html" %}
 
 {% block main %}
-    <ul>
     {% for post in posts %}
-        <li>
+        <article class="home">
             <div class="cat_date">
                 {{ post.date }}
                 <ul class="hidden_categories">
@@ -14,8 +13,12 @@
                     {% endfor %}    
                 </ul>
             </div>
-            <h4><a href="/{{ post.url }}">{{ post.config.title }}</a></h4>
-        </li>
+            <div class="post_body">
+                <h1><a href="/{{ post.url }}">{{ post.config.title }}</a></h1>
+                <section>
+                    {{ post.contents|truncatewords_html:100|safe }}
+                </section>
+            </div>
+        </article>
     {% endfor %}
-    </ul>
 {% endblock %}
