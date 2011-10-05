@@ -5,29 +5,40 @@
     <link href='http://fonts.googleapis.com/css?family=Quattrocento&v2' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="/media/style.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="/media/pygments.css" type="text/css" media="screen" />
-    
 </head>
 <body>
+    <div id="fixed_nav">
+        <div id="visible_portion">
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/archives">Archives</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/projects">Projects</a></li>
+                </ul>
+            </nav>
+            <h2>Adam Thurlo<span>at</span></h2>
+        </div>
+    </div>
     <header>
         <div class="avatar_holder">
-            <img src="http://0.gravatar.com/avatar/11748328e57fff12f212fb14df91cbbf?s=100" alt="me" />
+            <img src="http://0.gravatar.com/avatar/11748328e57fff12f212fb14df91cbbf?s=85" alt="me" />
         </div>
-        <h1>Adam Thurlow</h1>
-        <h2>My Blog is Blue</h2>
+        <h1>Thurloat</h1>
+        <h2>Adam Thurlow</h2>
         <nav>
             <ul>
                 <li><a href="/">Home</a></li>
+                <li><a href="/archives">Archives</a></li>
                 <li><a href="/about">About</a></li>
-                <li><a href="http://github.com/thurloat">GitHub</a></li>
-                <li><a href="http://twitter.com/thurloat">Twitter</a></li>
+                <li><a href="/projects">Projects</a></li>
             </ul>
         </nav>
     </header>
     <div id="content">
     
-    <ul>
     
-        <li>
+        <article class="home">
             <div class="cat_date">
                 February 25, 2011
                 <ul class="hidden_categories">
@@ -42,10 +53,26 @@
                         
                 </ul>
             </div>
-            <h4><a href="/2011/02/25/advanced-app-engine-bulk-downloading">Advanced App Engine Bulk Downloading</a></h4>
-        </li>
+            <div class="post_body">
+                <h1><a href="/2011/02/25/advanced-app-engine-bulk-downloading">Advanced App Engine Bulk Downloading</a></h1>
+                <section>
+                    <p>The new Bulkloader data exporter is much easier and more automated than
+the nasty old
+way of exporting. As good as it is, there were a lot of additional
+requirements for one export script that I was tasked to write which
+looked beyond the scope of the Bulkloader YAML configuration file.
+Through reading the documentation and diving into the
+I was able to find some creative solutions and for the most part -- keep
+using the YAML file.</p>
+<div class="section" id="the-long-and-winding-road">
+<h2>The long and winding road</h2>
+<p>I'm going to go through the problems I faced, and how I was able to
+solve them ...</p></div>
+                </section>
+            </div>
+        </article>
     
-        <li>
+        <article class="home">
             <div class="cat_date">
                 February 19, 2011
                 <ul class="hidden_categories">
@@ -64,10 +91,27 @@
                         
                 </ul>
             </div>
-            <h4><a href="/2011/02/19/google-closure-linter-textmate-bundle">Google Closure Linter TextMate Bundle</a></h4>
-        </li>
+            <div class="post_body">
+                <h1><a href="/2011/02/19/google-closure-linter-textmate-bundle">Google Closure Linter TextMate Bundle</a></h1>
+                <section>
+                    <img alt="Google Closure TextMate Bundle" class="align-center" src="http://thurloat.com/wp-content/uploads/2011/02/googleclosuretmbundle.png" />
+<p>I love the <a class="reference external" href="http://code.google.com/closure/utilities/">Google Closure</a>
+project. As a big fan of its compiler and the linter, I use both
+regularly at work and for my personal projects. However, it is not
+without its flaws. The biggest hurtle to integrating the Closure Linter
+into my workflow: it's strictly a command line tool. I have nothing against using
+the terminal but, the workflow for running the linter over my JS looks
+like this:</p>
+<ol class="arabic simple">
+<li>Make some changes to the JS file.</li>
+<li>Open the terminal, run <tt class="docutils literal">gsjlint source.js</tt></li>
+<li>Look over the results (<cite>ugly terminal output</cite>).</li>
+<li>Jump back to the Editor, and find ...</li></ol>
+                </section>
+            </div>
+        </article>
     
-        <li>
+        <article class="home">
             <div class="cat_date">
                 July 05, 2010
                 <ul class="hidden_categories">
@@ -86,10 +130,64 @@
                         
                 </ul>
             </div>
-            <h4><a href="/2010/07/05/rietveld-rocks-tips-for-other-newbies">Rietveld Rocks. Tips for other newbies!</a></h4>
-        </li>
+            <div class="post_body">
+                <h1><a href="/2010/07/05/rietveld-rocks-tips-for-other-newbies">Rietveld Rocks. Tips for other newbies!</a></h1>
+                <section>
+                    <div class="section" id="the-potatoes">
+<h2>The Potatoes</h2>
+<p>Peer code review has become one of my favorite feedback processes by
+far. At the SheepDog office, we're forming the habit of reviewing any
+code that comes out of a sprint. In order to move a task from tested to
+verified, it must get signed off by an engineer who did not write
+the code. This process was quickly becoming cumbersome when done manually.
+For example; A large feature would be created, then tested, and no one had the
+time to look it over because the review process was: check out the source code
+at the correct ...</p></div>
+                </section>
+            </div>
+        </article>
     
-    </ul>
+        <article class="home">
+            <div class="cat_date">
+                June 10, 2010
+                <ul class="hidden_categories">
+                    
+                        <li>
+                            programming
+                        </li>
+                    
+                        <li>
+                            GitHub
+                        </li>
+                    
+                        <li>
+                            Google
+                        </li>
+                    
+                        <li>
+                            Personal
+                        </li>
+                        
+                </ul>
+            </div>
+            <div class="post_body">
+                <h1><a href="/2010/06/10/github-gists-rss-reader-gistrss">GitHub Gists + RSS Reader = GistRSS</a></h1>
+                <section>
+                    <p>I am pleased to announce <a class="reference external" href="http://gistrss.appspot.com/">GistRSS</a>
+(a.k.a &quot;Pretty GitHub Gist RSS Feed App&quot;) to the world. The idea for this
+application came about after a frustrating conversation with a friend of mine.
+The problem that we exposed was that GitHub currently has mediocre
+Gist atom feeds. GistRSS will allow you to subscribe to any GitHubber's
+Gist feed and their Gist content will be sent straight to your RSS
+Reader fully syntax highlighed.</p>
+<div class="section" id="the-history">
+<h2>The History</h2>
+<p>After scouring the internet for some great tech RSS feeds, and bugging
+my friends for help, Erik Kastner came to the rescue with ...</p></div>
+                </section>
+            </div>
+        </article>
+    
 
     </div>
     

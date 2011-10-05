@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> - Thurloat.com</title>
+    <link href='http://fonts.googleapis.com/css?family=Quattrocento&v2' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/media/style.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/media/pygments.css" type="text/css" media="screen" />
+</head>
+<body>
+    <div id="fixed_nav">
+        <div id="visible_portion">
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/archives">Archives</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/projects">Projects</a></li>
+                </ul>
+            </nav>
+            <h2>Adam Thurlo<span>at</span></h2>
+        </div>
+    </div>
+    <header>
+        <div class="avatar_holder">
+            <img src="http://0.gravatar.com/avatar/11748328e57fff12f212fb14df91cbbf?s=85" alt="me" />
+        </div>
+        <h1>Thurloat</h1>
+        <h2>Adam Thurlow</h2>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/archives">Archives</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/projects">Projects</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div id="content">
+    
+    <article>
+        <header>
+            <h1>GitHub Gists + RSS Reader = GistRSS</h1>
+            <span class="date">June 10, 2010</span> - Posted by Thurloat
+        </header>
+        <section>
+            <p>I am pleased to announce <a class="reference external" href="http://gistrss.appspot.com/">GistRSS</a>
+(a.k.a &quot;Pretty GitHub Gist RSS Feed App&quot;) to the world. The idea for this
+application came about after a frustrating conversation with a friend of mine.
+The problem that we exposed was that GitHub currently has mediocre
+Gist atom feeds. GistRSS will allow you to subscribe to any GitHubber's
+Gist feed and their Gist content will be sent straight to your RSS
+Reader fully syntax highlighed.</p>
+<div class="section" id="the-history">
+<h2>The History</h2>
+<p>After scouring the internet for some great tech RSS feeds, and bugging
+my friends for help, Erik Kastner came to the rescue with an idea to get
+fresh content into my RSS Reader.</p>
+<div class="section" id="the-transcript">
+<h3>The Transcript</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre>Erik: I have a programming section but don&#39;t really have much in there
+Erik: I also follow defunkt&#39;s gists ;) http://gist.github.com/defunkt
+Me: i never thought of following gists, thats a neat idea
+Me: publish a new gist, so i can see what reader does when you post a new one
+Erik: it&#39;s not very great :/
+Me: sounds like a cool project, github gist pretty rss maker
+Erik: that would be fantastic
+Me: \*adds to to-do list\*
+Erik: ttyl :)
+</pre></div>
+</td></tr></table><p>A few hours later, I had a working prototype. Since then I've added some
+caching and syntax highlighting to the raw Gist content. I'm
+pretty excited to have people using GistRSS and it's become something
+that I use every day. There's no charge and never will be for this
+service, thanks for Google's App Engine for hosting my tiny apps for nil
+without coming anywhere near my free quota. According to my control
+panel, there are somewhere around 10-15 folks subscribed to 3-4 feeds
+each. Which is pretty impressive to me, for something that I may have
+only mentioned once or twice on Twitter.</p>
+<img alt="GistRSS in Google Reader" class="align-center" src="http://img.skitch.com/20100610-nhdugxi6tcp4fjmwbk3jt97tt5.png" />
+</div>
+</div>
+<div class="section" id="the-future">
+<h2>The Future</h2>
+<p>I'm hard at work on the next version, where I'm doing a bottom
+up re-write. This includes caching of popular content in the Datastore,
+and using the task queue to re-fetch any new Gists rather than
+continuously pound the GistHub API when my memcache copy goes away. I'm
+also working on generating a dynamic 'popularly subscribed gist feeds'
+so you can find out what other people have subscribed to. If you
+encounter any bugs, irregularities or have some comments on how to
+improve GistRSS, head over to my open project repo:
+<a class="reference external" href="http://github.com/thurloat/gistrss">github.com/thurloat/gistrss</a> and please submit an issue report.
+I'll be checking it occasionally. So now that you've reached the end; head over to
+<a class="reference external" href="http://gistrss.appspot.com/">gistrss.appspot.com</a> and consume
+someone's Gists.</p>
+</div>
+
+        </section>
+        <footer>
+            
+            <a href="/category/programming/">programming</a>, 
+            
+            <a href="/category/github/">GitHub</a>, 
+            
+            <a href="/category/google/">Google</a>, 
+            
+            <a href="/category/personal/">Personal</a>
+            
+        </footer>
+    </article>
+
+    </div>
+    
+    <footer>
+        <p>
+            &copy; 2011 - All rights reserved. Licensed under the terms of GPLv3.
+        </p> 
+    </footer>
+</body>
+</html>
