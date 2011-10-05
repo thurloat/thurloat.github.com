@@ -84,6 +84,7 @@ div#fixed_nav h2 {
     text-shadow: 0 1px 0 #9F9F9F; }
 div#fixed_nav h2 span {
     color: #DDD; }
+    
 /**
     Font and Text defaults.
 **/
@@ -164,14 +165,14 @@ tt.literal {
 **/
 
 div.highlight {
-    background: #F3F6FA;
+    background: #F6F9F8;
     padding: 0.8em;
     font-size: 0.8em;
     margin: 0.8em 0;
     box-shadow: inset 2px 2px 2px #DDD;
     border-radius: 5px;
     overflow: hidden;
-    width: 577px; }
+    width: 740px; }
 
 div.highlight pre {
     overflow-x: scroll;
