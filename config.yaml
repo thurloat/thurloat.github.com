@@ -2,7 +2,7 @@ site_name: Thurloat.com
 author: Thurloat
 posts_per_page: 50
 url: thurloat.com
-date_format: "%B %d, %Y"
+date_format: "%b. %d, %Y"
 text_processor: extension
 templates: django
 append_slash: false
