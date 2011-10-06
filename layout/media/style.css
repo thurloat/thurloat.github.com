@@ -38,7 +38,7 @@ body > header {
 }
 body > header > nav { margin-left: 120px; }
 body > header > nav a { font-size: 1.25em; line-height:1.35em; font-family: Helvetica; }
-body > header h1 { float: right; font-size: 5em; line-height: 1em; }
+body > header h1 { float: right; font-size: 5em; line-height: 0.9em; }
 body > header h2 { float: right; clear: right; font-size: 2.2em; line-height: 1em; color: #CCC; }
 header ul { list-style: none; }
 
@@ -103,17 +103,19 @@ article.home .cat_date {
     float: left; 
     color: #00418B;
     font-family: Helvetica;
-    font-size: 1.15em;
+    font-size: 1.5em;
+    line-height: 1.5em;
     font-weight: 900;
     padding: 15px 0;}
 article.home .cat_date ul {
     margin: 15px 0;
     list-style: none; 
     font-family: 'Quattrocento',serif;
-    font-size: 0.85em;
+    font-size: 0.7em;
     font-weight: normal;
     color: #666;}
 article.home .post_body { min-height: 60px; padding: 15px 5px 15px 15px; }
+article.home .post_body > h1 { font-size: 2em; line-height: 1em; }
 
 /**
     Article Formatting
