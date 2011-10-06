@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Adam Thurlow - Awesome.</title><link href="thurloat.com/atom.xml" rel="self"/><link href="thurloat.com"/><updated>2011-10-05T13:06::11</updated><id>thurloat.com</id><entry><title>Advanced App Engine Bulk Downloading</title><author><name>Adam Thurlow</name></author><link href="thurloat.com/2011/02/25/advanced-app-engine-bulk-downloading"/><updated>2011-02-25T14:44::00</updated><published>2011-02-25T14:44::00</published><id>thurloat.com/2011/02/25/advanced-app-engine-bulk-downloading</id><content type="html">
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Adam Thurlow - Awesome.</title><link href="thurloat.com/atom.xml" rel="self"/><link href="thurloat.com"/><updated>2011-10-06T02:50::59</updated><id>thurloat.com</id><entry><title>Advanced App Engine Bulk Downloading</title><author><name>Adam Thurlow</name></author><link href="thurloat.com/2011/02/25/advanced-app-engine-bulk-downloading"/><updated>2011-02-25T14:44::00</updated><published>2011-02-25T14:44::00</published><id>thurloat.com/2011/02/25/advanced-app-engine-bulk-downloading</id><content type="html">
             
                 &lt;p&gt;The new Bulkloader data exporter is much easier and more automated than
 the nasty old
@@ -26,5 +26,17 @@ code that comes ...&lt;/p&gt;&lt;/div&gt;
                 &lt;p&gt;I am pleased to announce &lt;a class=&quot;reference external&quot; href=&quot;http://gistrss.appspot.com/&quot;&gt;GistRSS&lt;/a&gt;
 (a.k.a &amp;quot;Pretty GitHub Gist RSS Feed App&amp;quot;) to the world. The idea for this
 application came about after a frustrating conversation with ...&lt;/p&gt;
+            
+            </content></entry><entry><title>Google Storage for Developers on App Engine Python</title><author><name>Adam Thurlow</name></author><link href="thurloat.com/2010/06/07/google-storage-for-developers-on-app-engine-python"/><updated>2010-06-07T21:08::28</updated><published>2010-06-07T21:08::28</published><id>thurloat.com/2010/06/07/google-storage-for-developers-on-app-engine-python</id><content type="html">
+            
+                &lt;p&gt;I&#39;ve been using &lt;a class=&quot;reference external&quot; href=&quot;http://code.google.com/apis/storage/&quot;&gt;Google Storage&lt;/a&gt;
+since I/O 2010, and I&#39;m impressed with it so far. At &lt;a class=&quot;reference external&quot; href=&quot;http://sheepdoginc.ca&quot;&gt;work&lt;/a&gt;,
+we&#39;ve converted some of our application resources from using ...&lt;/p&gt;
+            
+            </content></entry><entry><title>Experimenting with a new Flash</title><author><name>Adam Thurlow</name></author><link href="thurloat.com/2010/01/02/experimenting-with-a-new-flash"/><updated>2010-01-02T21:21::42</updated><published>2010-01-02T21:21::42</published><id>thurloat.com/2010/01/02/experimenting-with-a-new-flash</id><content type="html">
+            
+                &lt;p&gt;I&#39;ve been a little behind on my photography posts, but I have not been
+behind on expanding my horizons and taking all kinds of crazy pictures;
+most of which ...&lt;/p&gt;
             
             </content></entry></feed>
