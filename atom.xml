@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Adam Thurlow - Awesome.</title><link href="thurloat.com/atom.xml" rel="self"/><link href="thurloat.com"/><updated>2011-10-08T01:08::35</updated><id>thurloat.com</id><entry><title>Advanced App Engine Bulk Downloading</title><author><name>Adam Thurlow</name></author><link href="thurloat.com/2011/02/25/advanced-app-engine-bulk-downloading"/><updated>2011-02-25T14:44::00</updated><published>2011-02-25T14:44::00</published><id>thurloat.com/2011/02/25/advanced-app-engine-bulk-downloading</id><content type="html">
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Adam Thurlow - Awesome.</title><link href="thurloat.com/atom.xml" rel="self"/><link href="thurloat.com"/><updated>2011-10-09T04:22::51</updated><id>thurloat.com</id><entry><title>Advanced App Engine Bulk Downloading</title><author><name>Adam Thurlow</name></author><link href="thurloat.com/2011/02/25/advanced-app-engine-bulk-downloading"/><updated>2011-02-25T14:44::00</updated><published>2011-02-25T14:44::00</published><id>thurloat.com/2011/02/25/advanced-app-engine-bulk-downloading</id><content type="html">
             
-                &lt;p&gt;The new Bulkloader data exporter is much easier and more automated than
+                &lt;img alt=&quot;http://commondatastorage.googleapis.com/thurloat/appenginedump.png&quot; class=&quot;align-center&quot; src=&quot;http://commondatastorage.googleapis.com/thurloat/appenginedump.png&quot; /&gt;
+&lt;p&gt;The new Bulkloader data exporter is much easier and more automated than
 the nasty old
 way of exporting. As good as it is, there were a lot of additional
 requirements ...&lt;/p&gt;
@@ -45,6 +46,12 @@ most of which ...&lt;/p&gt;
 and Police report was finally submitted to halifax.ca, but they don&#39;t
 have permalinks for their reports ...&lt;/p&gt;
             
+            </content></entry><entry><title>Photography &amp;amp; The Tilt-Shift Effect</title><author><name>Adam Thurlow</name></author><link href="thurloat.com/2009/11/09/photography-amp-the-tilt-shift-effect"/><updated>2009-11-09T23:14::24</updated><published>2009-11-09T23:14::24</published><id>thurloat.com/2009/11/09/photography-amp-the-tilt-shift-effect</id><content type="html">
+            
+                &lt;p&gt;On a regular basis I find myself looking at something and thinking
+&amp;quot;damnit, I wish i could keep this&amp;quot;... often times what I&#39;m seeing in my
+head isn&#39;t ...&lt;/p&gt;
+            
             </content></entry><entry><title>Google App Engine Case Study!</title><author><name>Adam Thurlow</name></author><link href="thurloat.com/2009/09/22/google-app-engine-case-study"/><updated>2009-09-22T15:32::28</updated><published>2009-09-22T15:32::28</published><id>thurloat.com/2009/09/22/google-app-engine-case-study</id><content type="html">
             
                 &lt;p&gt;Earlier this week I was presented with the opportunity to write a blog
@@ -61,5 +68,33 @@ iPhone... did it pass ...&lt;/p&gt;
             
                 &lt;p&gt;It&#39;s about that time that I come out and see how my planned goals are
 coming. I hate making excuses for not doing things, and it hurts me to ...&lt;/p&gt;
+            
+            </content></entry><entry><title>The Greatest Man Who Ever Lived</title><author><name>Adam Thurlow</name></author><link href="thurloat.com/2009/06/28/the-greatest-man-who-ever-lived"/><updated>2009-06-28T14:14::44</updated><published>2009-06-28T14:14::44</published><id>thurloat.com/2009/06/28/the-greatest-man-who-ever-lived</id><content type="html">
+            
+                &lt;p&gt;I took a day off from going to the hospital and visiting my Dad. As much
+as we love to be there with him, we there are other people&#39;s ...&lt;/p&gt;
+            
+            </content></entry><entry><title>It&#39;s Time for a Change!</title><author><name>Adam Thurlow</name></author><link href="thurloat.com/2009/06/26/its-time-for-a-change"/><updated>2009-06-26T11:35::03</updated><published>2009-06-26T11:35::03</published><id>thurloat.com/2009/06/26/its-time-for-a-change</id><content type="html">
+            
+                &lt;p&gt;I had a good chat with Jessica the other day about my work load, the
+things I say I will do, things promise I will do, priorities, and life
+decisions ...&lt;/p&gt;
+            
+            </content></entry><entry><title>The Picard Loop</title><author><name>Adam Thurlow</name></author><link href="thurloat.com/2009/06/22/the-picard-loop"/><updated>2009-06-22T17:35::12</updated><published>2009-06-22T17:35::12</published><id>thurloat.com/2009/06/22/the-picard-loop</id><content type="html">
+            
+                &lt;p&gt;So, here I was (you are here). Sitting on the couch, leisurely watching
+“John and Kate plus 8”. When I looked over at Jessica’s Psychology Quiz.
+This text is ...&lt;/p&gt;
+            
+            </content></entry><entry><title>Google Chrome for Mac!</title><author><name>Adam Thurlow</name></author><link href="thurloat.com/2009/06/05/google-chrome-for-mac"/><updated>2009-06-05T08:50::00</updated><published>2009-06-05T08:50::00</published><id>thurloat.com/2009/06/05/google-chrome-for-mac</id><content type="html">
+            
+                &lt;p&gt;I just got my mitts on Google Chrome for Mac. The JS speed is
+incredible.&lt;/p&gt;
+&lt;div class=&quot;floatleft container&quot;&gt;
+&lt;img alt=&quot;http://img.skitch.com/20090605-gwj26p3tbqtwfak4f9u1t6kwna.png&quot; src=&quot;http://img.skitch.com/20090605-gwj26p3tbqtwfak4f9u1t6kwna.png&quot; /&gt;
+&lt;/div&gt;
+&lt;p&gt;There is actually a visually noticeable speed difference when using our
+Framework back-end.
+I might ...&lt;/p&gt;
             
             </content></entry></feed>
