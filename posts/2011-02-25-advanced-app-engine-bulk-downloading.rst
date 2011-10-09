@@ -7,6 +7,9 @@
 :categories: Google, programming
 :tags: appengine, bulkloader, development, python
 
+.. image:: http://commondatastorage.googleapis.com/thurloat/appenginedump.png
+    :align: center
+
 The new Bulkloader data exporter is much easier and more automated than
 the nasty old
 way of exporting. As good as it is, there were a lot of additional

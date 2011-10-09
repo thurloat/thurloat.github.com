@@ -115,8 +115,9 @@ div#fixed_nav a:hover{
     Font and Text defaults.
 **/
 h1, h2, h3, h4, h5 { font-family: Helvetica, sans-serif; font-weight: 700; }
-h2 { font-size: 1.75em; line-height: 2em;}
-h3 { font-size: 1.25em; line-height: 2em;}
+h2 { font-size: 1.5em; line-height: 2em; }
+h3 { font-size: 1.25em; line-height: 2em; }
+h3, h4, h5 { font-weight: 400; }
 a { color: #666; text-decoration: none; }
 a:hover { color: #00418B; }
 
@@ -130,7 +131,7 @@ article.home .cat_date {
     color: #00418B;
     font-family: Helvetica;
     font-size: 1.5em;
-    line-height: 1.5em;
+    line-height: 1.75em;
     font-weight: 900;
     padding: 15px 0;}
 article.home .cat_date ul {
@@ -141,7 +142,7 @@ article.home .cat_date ul {
     font-weight: normal;
     color: #666;}
 article.home .post_body { min-height: 60px; padding: 15px 5px 15px 15px; }
-article.home .post_body > h1 { font-size: 2em; line-height: 1em; }
+article.home .post_body > h1 { font-size: 2em; line-height: 1.25em; margin: 0 0 10px 0;}
 
 /**
     Article Formatting
@@ -151,16 +152,14 @@ article {
     font-size: 16px;}
 article p { margin: 0.8em 0; }
 article > p { margin-bottom: 1em; }
-article ul, article ol { margin: 0.8em 1.6em; }
+article ul, article ol { margin: 20px 40px; }
 article img.align-center { margin: 1.6em auto; display: block; }
 article small { font-size: .6em; }
 article > header { margin: 0; }
 article > header > h1 {
     width: 100%;
-    font-size: 1.75em;
-    line-height: 2.25em;
-    font-weight: 400;
-    letter-spacing: -1px; }
+    font-size: 2em;
+    line-height: 2.25em; }
 article > footer {
     background-color: #FFF;
     border-top: 1px dashed ececec;
@@ -193,11 +192,10 @@ tt.literal {
 **/
 
 div.highlight {
-    background: #F6F9F8;
+    background: #F6F6F6;
     padding: 0.8em;
     font-size: 0.8em;
     margin: 0.8em 0;
-    box-shadow: inset 2px 2px 2px #DDD;
     border-radius: 5px;
     overflow: hidden;
     width: 740px; }
@@ -209,5 +207,33 @@ div.highlight pre {
 
 div.linenodiv {
     font-size: 0.8em;
-    margin: 0.8em 0.2em 0.4em 0.8em; }
+    margin: 0.8em 0.4em 0.4em 0.8em; 
+    color: #999; }
+    
+blockquote {
+    padding: 20px 20px 20px 40px;
+    background: #F6F6F6;
+    position: relative;
+    border-radius: 5px;
+}
+
+blockquote:before {
+    content: '"';
+    position:absolute;
+    left:5px;
+    top: 35px;
+    color: #AAA;
+    font-size:90px;
+    text-shadow: 1px 1px 2px #666;
+}
+
+.floatleft {
+    float: left;
+    padding: 10px;
+}
+
+.floatright {
+    float: right;
+    padding: 10px;
+}
 

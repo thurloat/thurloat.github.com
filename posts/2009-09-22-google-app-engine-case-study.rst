@@ -18,13 +18,14 @@ Stability that we saw during the course of the event. True Story!
 Preview
 =======
 
-    "... we saw over 1,000,000 page views from 93 countries around the
+    ... we saw over 1,000,000 page views from 93 countries around the
     world, and experienced incredible stability and scalability from
     Google App Engine even when we were spiking 350 requests per second
     during the finals. It was a big win for Norex, and App Engine has
     proven itself to be a serious contender for developing scalable web
     applications. Thanks so much to the Google App Engine team for
-    providing such an outstanding product!"
+    providing such an outstanding product!
+    
     `link <http://googleappengine.blogspot.com/2009/09/agile-paddling-with-app-engine-lessons.html>`_
 
 Director's Cut
