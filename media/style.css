@@ -31,7 +31,7 @@ body > header:hover h1 span.z {
     display: none;
 }
 body > header > nav { margin-left: 65px; }
-body > header > nav a { font-size: 1.25em; line-height:1.35em; font-family: Helvetica; }
+body > header > nav a { font-size: 1.25em; line-height: 45px; display: inline-block; font-family: Helvetica; }
 body > header .site_title {
     height: 50px;
     width: 450px;
