@@ -13,11 +13,11 @@ body, #blockout {
     background-image: -webkit-linear-gradient(250, #E6E6E6 100%, #FFFFFF 51%);
     background-image: -ms-linear-gradient(250, #E6E6E6 100%, #FFFFFF 51%);
     background-image: -webkit-gradient(
-    	linear,
-    	left 250,
-    	left top,
-    	color-stop(1, #E6E6E6),
-    	color-stop(0.51, #FFF)
+        linear,
+        left 250,
+        left top,
+        color-stop(1, #E6E6E6),
+        color-stop(0.51, #FFF)
     );
     background-repeat: no-repeat;
 }
@@ -54,14 +54,14 @@ body > header .site_title {
     top: 10px;
     right: 10px; }
 body > header h1 {
-    font-size: 72px; 
+    font-size: 72px;
     line-height: 56px;
     margin-bottom: 16px;
     text-align: right; }
-body > header h2 { 
-    font-size: 32px; 
+body > header h2 {
+    font-size: 32px;
     line-height: 24px;
-    text-align: right; 
+    text-align: right;
     color: #CCC; }
 header ul { list-style: none; }
 
@@ -90,13 +90,13 @@ div#fixed_nav #visible_portion {
     padding: 5px 10px 10px 10px;
     height: 27px; }
 div#fixed_nav nav li {
-    float: left; 
+    float: left;
     list-style: none;
     margin: 9px 20px 0 0;
     font-size: 1.25em; }
 div#fixed_nav nav a {
     color: #EFEFEF; }
-div#fixed_nav nav a:hover { 
+div#fixed_nav nav a:hover {
     color: #00418B; }
 div#fixed_nav h2 {
     font-family: 'Quattrocento', serif;
@@ -110,7 +110,7 @@ div#fixed_nav h2 span {
     font-weight: 900; }
 div#fixed_nav a:hover{
     color: #4485e0; }
-    
+
 /**
     Font and Text defaults.
 **/
@@ -125,9 +125,9 @@ a:hover { color: #00418B; }
     Index Formatting
 **/
 article.home { margin-left: 175px; border-left: 1px solid #CCC;}
-article.home .cat_date { 
-    margin-left: -175px; 
-    float: left; 
+article.home .cat_date {
+    margin-left: -175px;
+    float: left;
     color: #00418B;
     font-family: Helvetica;
     font-size: 1.5em;
@@ -136,7 +136,7 @@ article.home .cat_date {
     padding: 15px 0;}
 article.home .cat_date ul {
     margin: 15px 0;
-    list-style: none; 
+    list-style: none;
     font-family: 'Quattrocento',serif;
     font-size: 0.7em;
     font-weight: normal;
@@ -207,9 +207,9 @@ div.highlight pre {
 
 div.linenodiv {
     font-size: 0.8em;
-    margin: 0.8em 0.4em 0.4em 0.8em; 
+    margin: 0.8em 0.4em 0.4em 0.8em;
     color: #999; }
-    
+
 blockquote {
     padding: 20px 20px 20px 40px;
     background: #F6F6F6;
