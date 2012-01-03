@@ -3,69 +3,63 @@
     padding: 0;
 }
 
-body, #blockout {
+body{
     font-family: 'Quattrocento', serif;
     font-size: 14px;
     background-color: #FFF;
-    background-image: linear-gradient(250, #E6E6E6 100%, #FFFFFF 51%);
-    background-image: -o-linear-gradient(250, #E6E6E6 100%, #FFFFFF 51%);
-    background-image: -moz-linear-gradient(250, #E6E6E6 100%, #FFFFFF 51%);
-    background-image: -webkit-linear-gradient(250, #E6E6E6 100%, #FFFFFF 51%);
-    background-image: -ms-linear-gradient(250, #E6E6E6 100%, #FFFFFF 51%);
-    background-image: -webkit-gradient(
-        linear,
-        left 250,
-        left top,
-        color-stop(1, #E6E6E6),
-        color-stop(0.51, #FFF)
-    );
-    background-repeat: no-repeat;
 }
 
 /**
     Main Layout
 **/
-#blockout {
-    height: 120px;
-    position: absolute;
+body > header {
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    z-index: 5;
-    box-shadow: 0 0 20px #FFF;
-}
-body > header {
-    position: relative;
     z-index: 6;
     text-align: left;
     margin: 0 auto;
-    padding: 10px;
-    width: 800px;
-    height: 100px;
-    margin-bottom: 10px;
-    border-bottom:1px solid #c6c9cf;
+    width: 100%;
+    height: 45px;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    background: #FFF;
 }
-body > header > nav { margin-left: 120px; }
-body > header > nav a { font-size: 1.25em; line-height:1.35em; font-family: Helvetica; }
+body > header:hover h1 span.x {
+    display: block;
+}
+body > header:hover h1 span.z {
+    display: none;
+}
+body > header > nav { margin-left: 65px; }
+body > header > nav a { font-size: 1.25em; line-height: 45px; display: inline-block; font-family: Helvetica; }
 body > header .site_title {
-    height: 95px;
-    width: 350px;
+    height: 50px;
+    width: 450px;
     position:absolute;
-    top: 10px;
+    top: 0;
     right: 10px; }
 body > header h1 {
-    font-size: 72px;
-    line-height: 56px;
-    margin-bottom: 16px;
+    font-size: 2.25em;
+    line-height: 50px;
     text-align: right; }
-body > header h2 {
-    font-size: 32px;
-    line-height: 24px;
-    text-align: right;
-    color: #CCC; }
+body > header h1 span.x {
+    color: #999;
+    display: none;
+}
 header ul { list-style: none; }
+header li {
+    padding: 0 10px;
+    line-height: 50px;
+    float: left; }
 
-#content { width: 800px; margin: 0 auto; position: relative; }
+.avatar_holder {
+    background: #FFF;
+    width: 45px;
+    height: 45px;
+    padding: 0 10px;
+    float: left;}
+
+#content { width: 800px; margin: 45px auto; position: relative; }
 
 footer {
     text-align: center;
@@ -76,41 +70,6 @@ footer {
     margin: 0 auto;
 }
 
-div#fixed_nav {
-    position:fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    margin: 0; padding: 0;
-    z-index: 4;
-    font-family: Helvetica;
-}
-div#fixed_nav #visible_portion {
-    background-color: rgba(0,0,0,0.6);
-    padding: 5px 10px 10px 10px;
-    height: 27px; }
-div#fixed_nav nav li {
-    float: left;
-    list-style: none;
-    margin: 9px 20px 0 0;
-    font-size: 1.25em; }
-div#fixed_nav nav a {
-    color: #EFEFEF; }
-div#fixed_nav nav a:hover {
-    color: #00418B; }
-div#fixed_nav h2 {
-    font-family: 'Quattrocento', serif;
-    font-size: 2.2em;
-    float: right;
-    line-height: 1em;
-    color: #FFF;
-    text-shadow: 1px 1px 1px #000;}
-div#fixed_nav h2 span {
-    color: #4485e0;
-    font-weight: 900; }
-div#fixed_nav a:hover{
-    color: #4485e0; }
-
 /**
     Font and Text defaults.
 **/
@@ -118,7 +77,7 @@ h1, h2, h3, h4, h5 { font-family: Helvetica, sans-serif; font-weight: 700; }
 h2 { font-size: 1.5em; line-height: 2em; }
 h3 { font-size: 1.25em; line-height: 2em; }
 h3, h4, h5 { font-weight: 400; }
-a { color: #666; text-decoration: none; }
+a { color: #68A; text-decoration: none; }
 a:hover { color: #00418B; }
 
 /**
@@ -176,15 +135,6 @@ tt.literal {
 .date { font-weight: bold; }
 .post p { margin-bottom: 10px; }
 
-.avatar_holder {
-    background: #FFF;
-    width: 85px;
-    height: 85px;
-    border-radius: 5px;
-    padding: 5px;
-    box-shadow: 0 0 5px #000;
-    -moz-box-shadow: 0 0 5px #000;
-    float: left; }
 
 
 /**
