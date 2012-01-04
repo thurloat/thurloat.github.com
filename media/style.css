@@ -59,7 +59,7 @@ header li {
     padding: 0 10px;
     float: left;}
 
-#content { width: 800px; margin: 45px auto; position: relative; }
+#content { width: 600px; margin: 45px auto; position: relative; }
 
 footer {
     text-align: center;
@@ -90,7 +90,7 @@ article.home .cat_date {
     color: #00418B;
     font-family: Helvetica;
     font-size: 1.5em;
-    line-height: 1.75em;
+    line-height: 2.25em;
     font-weight: 900;
     padding: 15px 0;}
 article.home .cat_date ul {
@@ -101,7 +101,7 @@ article.home .cat_date ul {
     font-weight: normal;
     color: #666;}
 article.home .post_body { min-height: 60px; padding: 15px 5px 15px 15px; }
-article.home .post_body > h1 { font-size: 2em; line-height: 1.25em; margin: 0 0 10px 0;}
+article.home .post_body > h1 { font-size: 2em; line-height: 1.6em; margin: 0 0 10px 0;}
 
 /**
     Article Formatting
@@ -114,11 +114,11 @@ article > p { margin-bottom: 1em; }
 article ul, article ol { margin: 20px 40px; }
 article img.align-center { margin: 1.6em auto; display: block; }
 article small { font-size: .6em; }
-article > header { margin: 0; }
+article > header { margin: 0; padding-top: 20px; }
 article > header > h1 {
     width: 100%;
     font-size: 2em;
-    line-height: 2.25em; }
+    line-height: 1.6em; }
 article > footer {
     background-color: #FFF;
     border-top: 1px dashed ececec;
@@ -142,7 +142,6 @@ tt.literal {
 **/
 
 div.highlight {
-    background: #F6F6F6;
     padding: 0.8em;
     font-size: 0.8em;
     margin: 0.8em 0;
@@ -152,13 +151,17 @@ div.highlight {
 
 div.highlight pre {
     overflow-x: scroll;
-    padding-bottom: 20px;
+    padding-bottom: 40px;
     margin-bottom: -40px; }
 
 div.linenodiv {
     font-size: 0.8em;
     margin: 0.8em 0.4em 0.4em 0.8em;
     color: #999; }
+
+table.highlighttable {
+    margin-left: -75px;
+}
 
 blockquote {
     padding: 20px 20px 20px 40px;
