@@ -11,4 +11,4 @@ inline_css: false
 pygments:
     linenos: true
     noclasses: false
-    style: 'pastie'
+    style: 'monokai'
