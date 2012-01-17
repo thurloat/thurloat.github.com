@@ -8,6 +8,8 @@ templates: django
 append_slash: false
 url_include_day: true
 inline_css: false
+sitemap_urls:
+  - about
 pygments:
     linenos: true
     noclasses: false
