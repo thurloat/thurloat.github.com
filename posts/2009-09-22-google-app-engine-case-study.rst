@@ -1,5 +1,5 @@
 :author: Thurloat
-:date: 2009-09-22 15:32:28
+:date: 2009-09-22 15:32:00
 :layout: post
 :slug: google-app-engine-case-study
 :status: publish

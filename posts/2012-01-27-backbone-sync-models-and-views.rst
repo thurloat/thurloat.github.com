@@ -1,5 +1,5 @@
 :author: Thurloat
-:date: 2012-01-17 20:04
+:date: 2012-01-17 20:04:00
 :layout: post
 :slug: backbone-sync-models-and-views
 :status: publish

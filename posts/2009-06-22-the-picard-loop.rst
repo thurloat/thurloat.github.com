@@ -1,5 +1,5 @@
 :author: Thurloat
-:date: 2009-06-22 17:35:12
+:date: 2009-06-22 17:35:00
 :layout: post
 :slug: the-picard-loop
 :status: publish

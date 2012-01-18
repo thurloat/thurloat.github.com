@@ -1,5 +1,5 @@
 :author: Thurloat
-:date: 2010-07-05 21:20:06
+:date: 2010-07-05 21:20:00
 :layout: post
 :slug: rietveld-rocks-tips-for-other-newbies
 :status: publish

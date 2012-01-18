@@ -1,5 +1,5 @@
 :author: Thurloat
-:date: 2009-06-26 11:35:03
+:date: 2009-06-26 11:35:00
 :layout: post
 :slug: its-time-for-a-change
 :status: publish

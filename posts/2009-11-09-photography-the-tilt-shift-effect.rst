@@ -1,5 +1,5 @@
 :author: Thurloat
-:date: 2009-11-09 23:14:24
+:date: 2009-11-09 23:14:00
 :layout: post
 :slug: photography-the-tilt-shift-effect
 :status: publish

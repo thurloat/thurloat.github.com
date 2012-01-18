@@ -1,5 +1,5 @@
 :author: Thurloat
-:date: 2010-06-07 21:08:28
+:date: 2010-06-07 21:08:00
 :layout: post
 :slug: google-storage-and-app-engine
 :status: publish

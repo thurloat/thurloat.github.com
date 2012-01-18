@@ -1,5 +1,5 @@
 :author: Thurloat
-:date: 2009-12-12 10:43:36
+:date: 2009-12-12 10:43:00
 :layout: post
 :slug: swat-team-in-my-building
 :status: publish

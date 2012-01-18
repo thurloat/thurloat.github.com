@@ -1,5 +1,5 @@
 :author: Thurloat
-:date: 2011-02-19 22:41
+:date: 2011-02-19 22:41:00
 :layout: post
 :slug: google-closure-linter-textmate-bundle
 :status: publish

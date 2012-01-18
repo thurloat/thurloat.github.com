@@ -1,5 +1,5 @@
 :author: Thurloat
-:date: 2009-08-29 23:33:04
+:date: 2009-08-29 23:33:00
 :layout: post
 :slug: iphone-tethering
 :status: publish

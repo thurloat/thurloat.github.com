@@ -1,5 +1,5 @@
 :author: Thurloat
-:date: 2009-07-13 20:57:22
+:date: 2009-07-13 20:57:00
 :layout: post
 :slug: goals-in-review
 :status: publish

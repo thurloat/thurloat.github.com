@@ -1,5 +1,5 @@
 :author: Thurloat
-:date: 2009-06-28 14:14:44
+:date: 2009-06-28 14:14:00
 :layout: post
 :slug: the-greatest-man
 :status: publish

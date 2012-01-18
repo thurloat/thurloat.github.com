@@ -1,5 +1,5 @@
 :author: Thurloat
-:date: 2010-06-10 14:50:42
+:date: 2010-06-10 14:50:00
 :layout: post
 :slug: github-gists-rss-reader-gistrss
 :status: publish
