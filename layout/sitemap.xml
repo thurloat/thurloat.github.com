@@ -2,20 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
   <loc>http://{{ url }}/</loc>
-  <lastmod>{{ now }}</lastmod>
+  <lastmod>{{ now }}Z</lastmod>
   <changefreq>daily</changefreq>
 </url>
 {% for static_url in sitemap_urls %}
 <url>
   <loc>http://{{ url }}/{{ static_url }}</loc>
-  <lastmod>{{ now }}</lastmod>
+  <lastmod>{{ now }}Z</lastmod>
   <changefreq>daily</changefreq>
 </url>
 {% endfor %}
 {% for post in posts %}
 <url>
   <loc>http://{{ url }}/{{ post.url }}</loc>
-  <lastmod>{{ post.atom_date }}</lastmod>
+  <lastmod>{{ post.atom_date }}Z</lastmod>
   <changefreq>daily</changefreq>
 </url>
 {% endfor %}
