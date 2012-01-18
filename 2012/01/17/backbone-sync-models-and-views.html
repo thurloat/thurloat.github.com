@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> - Thurloat.com</title>
+    <link href='http://fonts.googleapis.com/css?family=Quattrocento&v2' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/media/style.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/media/pygments.css" type="text/css" media="screen" />
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-8047218-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+</head>
+<body>
+    <header>
+        <div class="avatar_holder">
+            <img src="http://0.gravatar.com/avatar/11748328e57fff12f212fb14df91cbbf?s=45" alt="me" />
+        </div>
+        <div class="site_title">
+            <h1>
+                <span class="z">Thurloat</span>
+                <span class="x">Adam Thurlow</span>
+            </h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/archives">Archives</a></li>
+                <li><a href="/about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div id="content">
+    
+    <article>
+        <header>
+            <h1>Backbone.js - Keeping a View&#39;s model in sync</h1>
+            <span class="date">Jan. 17, 2012</span> - Posted by Thurloat
+        </header>
+        <section>
+            <p>I'm doing a lot of experimenting with Backbone.js for the team at
+Sheepdog these days. We're working on compiling a front end stack to build
+our internal and client projects that require complex front end
+interactions.</p>
+<p>One of our &quot;wants&quot; for Backbone is to easily bind a Backbone.View containing
+many form elements directly to a Backbone.Model instance. I wanted to implement
+this in the most declarative way possible, similar to the way a view is
+structured. The solution involved creating a subclass of Backbone.View called
+FormView.</p>
+<div class="section" id="the-example">
+<h2>The Example</h2>
+<p>To explain it, I'll go through a simple example of creating a simple Model
+and View to lay it all out. I'll start by creating a model for the User with
+some fields fullName, foo, and bar.</p>
+<p><strong>model.coffee</strong></p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">class</span> <span class="nx">User</span> <span class="k">extends</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Model</span>
+  <span class="nv">defaults:</span>
+    <span class="nv">fullName: </span><span class="s1">&#39;&#39;</span>
+    <span class="nv">foo: </span><span class="s1">&#39;&#39;</span>
+    <span class="nv">bar: </span><span class="s1">&#39;&#39;</span>
+</pre></div>
+</td></tr></table><p>Then create a View to display this new User class.</p>
+<p><strong>view.coffee</strong></p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">class</span> <span class="nx">UserForm</span> <span class="k">extends</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span>
+  <span class="nv">tagName: </span><span class="s1">&#39;div&#39;</span>
+
+  <span class="nv">events:</span>
+    <span class="s1">&#39;click #test_reset&#39;</span><span class="o">:</span> <span class="s1">&#39;resetModel&#39;</span>
+
+  <span class="nv">resetModel: </span><span class="o">-&gt;</span>
+    <span class="nx">@model</span><span class="p">.</span><span class="nx">set</span>
+      <span class="nv">foo: </span><span class="s1">&#39;bang&#39;</span>
+      <span class="nv">bar: </span><span class="s1">&#39;baz&#39;</span>
+      <span class="nv">fullName: </span><span class="s1">&#39;Cool Guy&#39;</span>
+
+  <span class="nv">render: </span><span class="o">-&gt;</span>
+    <span class="nx">$</span><span class="p">(</span><span class="nx">@el</span><span class="p">).</span><span class="nx">html</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">      &lt;input type=&quot;</span><span class="nx">text</span><span class="s2">&quot; id=&quot;</span><span class="nx">test_foo</span><span class="s2">&quot; /&gt;</span>
+<span class="s2">      &lt;input type=&quot;</span><span class="nx">text</span><span class="s2">&quot; id=&quot;</span><span class="nx">test_bar</span><span class="s2">&quot; /&gt;</span>
+<span class="s2">      &lt;input type=&quot;</span><span class="nx">text</span><span class="s2">&quot; id=&quot;</span><span class="nx">test_first_name</span><span class="s2">&quot; /&gt;</span>
+<span class="s2">      &lt;input type=&quot;</span><span class="nx">text</span><span class="s2">&quot; id=&quot;</span><span class="nx">test_last_name</span><span class="s2">&quot; /&gt;</span>
+<span class="s2">      &lt;input type=&quot;</span><span class="nx">submit</span><span class="s2">&quot; id=&quot;</span><span class="nx">test_reset</span><span class="s2">&quot; value=&quot;</span><span class="nx">reset</span><span class="s2">&quot; /&gt;</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+    <span class="err">@</span>
+</pre></div>
+</td></tr></table><p>Now, you pass a User object into the view when you create it, and now the goal
+is to have the model update each time the form is changed as well as propogate
+model changes back into the form when they happen. This is where things start
+to get a little ugly and WET (<strong>!DRY</strong>).</p>
+<p>You'll have to add a refresh method to your View, and bind it with
+<tt class="docutils literal">&#64;model.bind 'change', =&gt; do &#64;refresh</tt> and to sync in the other direction
+you will need to have  <tt class="docutils literal">'change input': 'toModel'</tt> declaration within your
+events object for the View.</p>
+<p>This is where you'll end up writing some ugly code like the following which
+implements naive <tt class="docutils literal">refresh</tt> and <tt class="docutils literal">toModel</tt> methods for the example.</p>
+<p><strong>view.coffee</strong></p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">class</span> <span class="nx">UserForm</span> <span class="k">extends</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span>
+
+  <span class="nv">tagName: </span><span class="s1">&#39;div&#39;</span>
+
+  <span class="nv">events:</span>
+    <span class="s1">&#39;change input&#39;</span><span class="o">:</span> <span class="s1">&#39;toModel&#39;</span>
+    <span class="s1">&#39;click #test_reset&#39;</span><span class="o">:</span> <span class="s1">&#39;resetModel&#39;</span>
+
+  <span class="nv">initialize: </span><span class="o">-&gt;</span>
+    <span class="nx">@model</span><span class="p">.</span><span class="nx">bind</span> <span class="s2">&quot;change&quot;</span><span class="p">,</span> <span class="o">=&gt;</span> <span class="nx">do</span> <span class="nx">@refresh</span>
+
+  <span class="nv">resetModel: </span><span class="o">-&gt;</span>
+    <span class="nx">@model</span><span class="p">.</span><span class="nx">set</span>
+      <span class="nv">foo: </span><span class="s1">&#39;bang&#39;</span>
+      <span class="nv">bar: </span><span class="s1">&#39;baz&#39;</span>
+      <span class="nv">fullName: </span><span class="s1">&#39;Cool Guy&#39;</span>
+
+  <span class="nv">toModel: </span><span class="o">-&gt;</span>
+    <span class="nx">@model</span><span class="p">.</span><span class="nx">set</span>
+      <span class="nv">foo: </span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#test_foo&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">()</span>
+      <span class="nv">bar: </span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#test_bar&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">()</span>
+      <span class="nv">fullName: </span><span class="s2">&quot;#{@$(&#39;#test_first_name&#39;).val()} #{@$(&#39;#test_last_name&#39;).val()}&quot;</span>
+
+  <span class="nv">refresh: </span><span class="o">-&gt;</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#test_foo&#39;</span><span class="p">).</span><span class="nx">val</span> <span class="nx">@model</span><span class="p">.</span><span class="nx">get</span> <span class="s2">&quot;foo&quot;</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#test_bar&#39;</span><span class="p">).</span><span class="nx">val</span> <span class="nx">@model</span><span class="p">.</span><span class="nx">get</span> <span class="s2">&quot;bar&quot;</span>
+    <span class="nv">names = </span><span class="nx">@model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;fullName&#39;</span><span class="p">).</span><span class="nx">split</span> <span class="s2">&quot; &quot;</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#test_first_name&#39;</span><span class="p">).</span><span class="nx">val</span> <span class="nx">names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#test_last_name&#39;</span><span class="p">).</span><span class="nx">val</span> <span class="nx">names</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+  <span class="nv">render: </span><span class="o">-&gt;</span>
+    <span class="nx">$</span><span class="p">(</span><span class="nx">@el</span><span class="p">).</span><span class="nx">html</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">      &lt;input type=&quot;</span><span class="nx">text</span><span class="s2">&quot; id=&quot;</span><span class="nx">test_foo</span><span class="s2">&quot; /&gt;</span>
+<span class="s2">      &lt;input type=&quot;</span><span class="nx">text</span><span class="s2">&quot; id=&quot;</span><span class="nx">test_bar</span><span class="s2">&quot; /&gt;</span>
+<span class="s2">      &lt;input type=&quot;</span><span class="nx">text</span><span class="s2">&quot; id=&quot;</span><span class="nx">test_first_name</span><span class="s2">&quot; /&gt;</span>
+<span class="s2">      &lt;input type=&quot;</span><span class="nx">text</span><span class="s2">&quot; id=&quot;</span><span class="nx">test_last_name</span><span class="s2">&quot; /&gt;</span>
+<span class="s2">      &lt;input type=&quot;</span><span class="nx">submit</span><span class="s2">&quot; id=&quot;</span><span class="nx">test_reset</span><span class="s2">&quot; value=&quot;</span><span class="nx">reset</span><span class="s2">&quot; /&gt;</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+    <span class="err">@</span>
+</pre></div>
+</td></tr></table><p>There are many problems with the code above for keeping the form and model
+in sync with eachother. To name a few:</p>
+<ul class="simple">
+<li>It's unclear which Model fields are bound to which form elements</li>
+<li>Lots of repetitive code</li>
+<li>Refactoring becomes a nightmare, jQuery seleectors all over the code</li>
+<li>What if you don't want to propogate ALL changes on a model? only certain fields?
+the boiler plate for this starts growing very quickly.</li>
+</ul>
+<p>Not only does the code contain the afforementioned issues, but it doesn't
+really follow the backbone paradigm of defining selectors for events
+during the View's declaration.</p>
+</div>
+<div class="section" id="syncing-solution-fieldmap">
+<h2>Syncing Solution - FieldMap</h2>
+<p>The solution we (read <a class="reference external" href="http://honza.ca">Honza</a> and I) came up with involves creating a
+&quot;<em>fieldMap</em>&quot; of input ids to model field names, and have them sync in both
+directions automatically. For the most simple case this looks similar to
+the events declaration at the top of your View class; No additional legwork
+needed.</p>
+<p>You can see that the fullName syncing isn't in the below example, I'll show
+how that can be done just as simply leveraging a slightly more complex
+fieldMap declaration.</p>
+<p><strong>view.coffee</strong></p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">class</span> <span class="nx">UserForm</span> <span class="k">extends</span> <span class="nx">FormView</span>
+
+  <span class="nv">tagName: </span><span class="s1">&#39;div&#39;</span>
+
+  <span class="nv">fieldMap:</span>
+    <span class="s1">&#39;#test_foo&#39;</span><span class="o">:</span> <span class="s1">&#39;foo&#39;</span> <span class="c1"># Binds #test_foo to User.foo</span>
+    <span class="s1">&#39;#test_bar&#39;</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span> <span class="c1"># Binds #test_bar to User.bar</span>
+
+  <span class="nv">events:</span>
+    <span class="s1">&#39;click #test_reset&#39;</span><span class="o">:</span> <span class="s1">&#39;resetModel&#39;</span>
+
+  <span class="nv">resetModel: </span><span class="o">-&gt;</span>
+    <span class="nx">@model</span><span class="p">.</span><span class="nx">set</span>
+      <span class="nv">foo: </span><span class="s1">&#39;bang&#39;</span>
+      <span class="nv">bar: </span><span class="s1">&#39;baz&#39;</span>
+      <span class="nv">fullName: </span><span class="s1">&#39;Cool Guy&#39;</span>
+
+  <span class="nv">render: </span><span class="o">-&gt;</span>
+    <span class="nx">$</span><span class="p">(</span><span class="nx">@el</span><span class="p">).</span><span class="nx">html</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">      &lt;input type=&quot;</span><span class="nx">text</span><span class="s2">&quot; id=&quot;</span><span class="nx">test_foo</span><span class="s2">&quot; /&gt;</span>
+<span class="s2">      &lt;input type=&quot;</span><span class="nx">text</span><span class="s2">&quot; id=&quot;</span><span class="nx">test_bar</span><span class="s2">&quot; /&gt;</span>
+<span class="s2">      &lt;input type=&quot;</span><span class="nx">text</span><span class="s2">&quot; id=&quot;</span><span class="nx">test_first_name</span><span class="s2">&quot; /&gt;</span>
+<span class="s2">      &lt;input type=&quot;</span><span class="nx">text</span><span class="s2">&quot; id=&quot;</span><span class="nx">test_last_name</span><span class="s2">&quot; /&gt;</span>
+<span class="s2">      &lt;input type=&quot;</span><span class="nx">submit</span><span class="s2">&quot; id=&quot;</span><span class="nx">test_reset</span><span class="s2">&quot; value=&quot;</span><span class="nx">reset</span><span class="s2">&quot; /&gt;</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+    <span class="err">@</span>
+</pre></div>
+</td></tr></table><p>Much nicer, isn't it? When the user presses the &quot;reset&quot; button which is
+generated by <tt class="docutils literal">render</tt>, the <tt class="docutils literal">resetModel</tt> method will fire to set the model's
+fields and the syncing will happen immediately to those form elements that the
+fields are bound to. Also, when a user changes the content of either textbox
+the foo and bar values will get set on the View's model instance.</p>
+<p>Now how about the complex case where the form input doesn't necessarily match
+up exactly to the data going into the Model? or if the Model's field is
+separated over multiple inputs, just like the fullName field on the User
+Model?</p>
+</div>
+<div class="section" id="complex-fieldmaps">
+<h2>Complex FieldMaps</h2>
+<p>When you require a more complex mapping between the View and the Model
+the fieldMap object can be defined in two ways.</p>
+<p><strong>simple_map.coffee</strong></p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">fieldMap:</span>
+  <span class="s1">&#39;#selector&#39;</span><span class="o">:</span> <span class="s1">&#39;fieldName&#39;</span>
+</pre></div>
+</td></tr></table><p><strong>complex_map.coffee</strong></p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">fieldMap:</span>
+  <span class="s1">&#39;#selector&#39;</span><span class="o">:</span>
+    <span class="nv">field: </span><span class="s1">&#39;fieldName&#39;</span>
+    <span class="nv">toModel: </span><span class="s1">&#39;functionToSyncFieldToModel&#39;</span>
+    <span class="nv">toForm: </span><span class="s1">&#39;functionToSyncModelToField&#39;</span>
+</pre></div>
+</td></tr></table><p>To give an example of how this long form declaration is useful, and allows for
+flexibility &amp; complexity within your sync logic, I'll implement the fullName
+fieldMap for the UserForm that we've been working with all along.</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">class</span> <span class="nx">UserForm</span> <span class="k">extends</span> <span class="nx">FormView</span>
+
+  <span class="nv">tagName: </span><span class="s1">&#39;div&#39;</span>
+
+  <span class="nv">fieldMap:</span>
+    <span class="s1">&#39;#test_foo&#39;</span><span class="o">:</span> <span class="s1">&#39;foo&#39;</span>
+    <span class="s1">&#39;#test_bar&#39;</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span>
+    <span class="s1">&#39;#test_first_name, #test_last_name&#39;</span><span class="o">:</span>
+      <span class="nv">field: </span><span class="s1">&#39;fullName&#39;</span>
+      <span class="nv">toModel: </span> <span class="s1">&#39;nameToModel&#39;</span>
+      <span class="nv">toForm: </span><span class="s1">&#39;nameToForm&#39;</span>
+
+  <span class="nv">events:</span>
+    <span class="s1">&#39;click #test_reset&#39;</span><span class="o">:</span> <span class="s1">&#39;resetModel&#39;</span>
+
+  <span class="nv">resetModel: </span><span class="o">-&gt;</span>
+    <span class="nx">@model</span><span class="p">.</span><span class="nx">set</span>
+      <span class="nv">foo: </span><span class="s1">&#39;bang&#39;</span>
+      <span class="nv">bar: </span><span class="s1">&#39;baz&#39;</span>
+      <span class="nv">fullName: </span><span class="s1">&#39;Cool Guy&#39;</span>
+
+  <span class="nv">nameToModel: </span><span class="o">-&gt;</span>
+    <span class="c1"># Your toModel function should simply return the value that the</span>
+    <span class="c1"># model expects.</span>
+    <span class="s2">&quot;#{@$(&#39;#test_first_name&#39;).val()} #{@$(&#39;#test_last_name&#39;).val()}&quot;</span>
+
+  <span class="nv">startToForm: </span><span class="o">-&gt;</span>
+    <span class="c1"># Your toForm function should just render that value out from</span>
+    <span class="c1"># the model into the inputs where it belongs.</span>
+    <span class="nv">names = </span><span class="nx">@model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;fullName&#39;</span><span class="p">).</span><span class="nx">split</span> <span class="s2">&quot; &quot;</span>
+    <span class="nx">@$</span><span class="p">(</span><span class="s1">&#39;#test_first_name&#39;</span><span class="p">).</span><span class="nx">val</span> <span class="nx">names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="nx">@$</span><span class="p">(</span><span class="s1">&#39;#test_last_name&#39;</span><span class="p">).</span><span class="nx">val</span> <span class="nx">names</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+  <span class="nv">render: </span><span class="o">-&gt;</span>
+    <span class="nx">$</span><span class="p">(</span><span class="nx">@el</span><span class="p">).</span><span class="nx">html</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">      &lt;input type=&quot;</span><span class="nx">text</span><span class="s2">&quot; id=&quot;</span><span class="nx">test_foo</span><span class="s2">&quot; /&gt;</span>
+<span class="s2">      &lt;input type=&quot;</span><span class="nx">text</span><span class="s2">&quot; id=&quot;</span><span class="nx">test_bar</span><span class="s2">&quot; /&gt;</span>
+<span class="s2">      &lt;input type=&quot;</span><span class="nx">text</span><span class="s2">&quot; id=&quot;</span><span class="nx">test_first_name</span><span class="s2">&quot; /&gt;</span>
+<span class="s2">      &lt;input type=&quot;</span><span class="nx">text</span><span class="s2">&quot; id=&quot;</span><span class="nx">test_last_name</span><span class="s2">&quot; /&gt;</span>
+<span class="s2">      &lt;input type=&quot;</span><span class="nx">submit</span><span class="s2">&quot; id=&quot;</span><span class="nx">test_reset</span><span class="s2">&quot; value=&quot;</span><span class="nx">reset</span><span class="s2">&quot; /&gt;</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+    <span class="err">@</span>
+</pre></div>
+</td></tr></table><p>You can see this is much cleaner than our initial <tt class="docutils literal">UserForm</tt> view containing
+the full two way sync. It's now easy to tell which fields are linked to which
+model fields, as well as being able to quickly spot where any complexities lie.</p>
+<p>If you're interested in seeing how the FormView is implemented, I created
+it as a gist on GitHub: <a class="reference external" href="https://gist.github.com/1630584">https://gist.github.com/1630584</a> . There's a Docstring
+on the class with a similar example, but more condensed. I'd be happy to answer
+any questions in comments if you have them.</p>
+</div>
+
+        </section>
+        <footer>
+            
+            <a href="/category/programming/">programming</a>, 
+            
+            <a href="/category/backbone/">backbone</a>
+            
+        </footer>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'thurloatblog';
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+    </article>
+
+    </div>
+    
+    <footer>
+        <p>
+            &copy; 2011 Adam Thurlow - All rights reserved.
+        </p> 
+    </footer>
+</body>
+</html>
