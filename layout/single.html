@@ -16,6 +16,12 @@
             <a href="/category/{{ c.slug }}/">{{ c.name }}</a>{% if not forloop.last %}, {% endif %}
             {% endfor %}
         </footer>
+        <a href="http://twitter.com/share" 
+        class="twitter-share-button"
+        data-url="http://{{ url }}/{{ post.url }}"
+        data-via="thurloat"
+        data-text="{{ post.config.title }}"
+        data-count="none">Tweet</a>
         <div id="disqus_thread"></div>
         <script type="text/javascript">
             var disqus_shortname = 'thurloatblog';
