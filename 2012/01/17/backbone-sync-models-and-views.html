@@ -56,9 +56,14 @@ many form elements directly to a Backbone.Model instance. I wanted to implement
 this in the most declarative way possible, similar to the way a view is
 structured. The solution involved creating a subclass of Backbone.View called
 FormView.</p>
-<div class="section" id="the-example">
-<h2>The Example</h2>
-<p>To explain it, I'll go through a simple example of creating a simple Model
+<p>Before I start, I'd just like to show an example of the git diff stat from the
+commit where I changed one of our View implementations to use FormView. They
+say that you can calculate the value of your work by the lines of code that it
+shrinks while maintaining functionality.</p>
+<img alt="https://img.skitch.com/20120119-x8mb3hq586hm3kygxqgrki35j8.jpg" class="align-center" src="https://img.skitch.com/20120119-x8mb3hq586hm3kygxqgrki35j8.jpg" />
+<div class="section" id="moving-on">
+<h2>Moving On</h2>
+<p>To explain fieldMap, I'll go through a simple example of creating a simple Model
 and View to lay it all out. I'll start by creating a model for the User with
 some fields fullName, foo, and bar.</p>
 <p><strong>model.coffee</strong></p>
