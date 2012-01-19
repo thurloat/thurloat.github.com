@@ -18,10 +18,18 @@ this in the most declarative way possible, similar to the way a view is
 structured. The solution involved creating a subclass of Backbone.View called
 FormView.
 
-The Example
-===========
+Before I start, I'd just like to show an example of the git diff stat from the 
+commit where I changed one of our View implementations to use FormView. They 
+say that you can calculate the value of your work by the lines of code that it
+shrinks while maintaining functionality.
 
-To explain it, I'll go through a simple example of creating a simple Model
+.. image:: https://img.skitch.com/20120119-x8mb3hq586hm3kygxqgrki35j8.jpg
+    :align: center
+
+Moving On
+=========
+
+To explain fieldMap, I'll go through a simple example of creating a simple Model
 and View to lay it all out. I'll start by creating a model for the User with
 some fields fullName, foo, and bar. 
 
