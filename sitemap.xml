@@ -2,16 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
   <loc>http://thurloat.com/</loc>
-  <lastmod>2012-01-19T15:59:11Z</lastmod>
+  <lastmod>2012-01-22T02:31:07Z</lastmod>
   <changefreq>daily</changefreq>
 </url>
 
 <url>
   <loc>http://thurloat.com/about</loc>
-  <lastmod>2012-01-19T15:59:11Z</lastmod>
+  <lastmod>2012-01-22T02:31:07Z</lastmod>
   <changefreq>daily</changefreq>
 </url>
 
+
+<url>
+  <loc>http://thurloat.com/2012/01/21/backbonejs-readable-modular-testable-views</loc>
+  <lastmod>2012-01-21T18:15:00Z</lastmod>
+  <changefreq>daily</changefreq>
+</url>
 
 <url>
   <loc>http://thurloat.com/2012/01/17/backbone-sync-models-and-views</loc>

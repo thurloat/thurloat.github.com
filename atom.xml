@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Adam Thurlow - Awesome.</title><link href="thurloat.com/atom.xml" rel="self"/><link href="thurloat.com"/><updated>2012-01-19T15:59:11Z</updated><id>thurloat.com</id><entry><title>Backbone.js - Keeping a View&#39;s model in sync</title><author><name>Adam Thurlow</name></author><link href="thurloat.com/2012/01/17/backbone-sync-models-and-views"/><updated>2012-01-17T20:04:00Z</updated><published>2012-01-17T20:04:00Z</published><id>thurloat.com/2012/01/17/backbone-sync-models-and-views</id><content type="html">
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Adam Thurlow - Awesome.</title><link href="thurloat.com/atom.xml" rel="self"/><link href="thurloat.com"/><updated>2012-01-22T02:31:07Z</updated><id>thurloat.com</id><entry><title>Backbone.js - Modular, Readable and Testable Views</title><author><name>Adam Thurlow</name></author><link href="thurloat.com/2012/01/21/backbonejs-readable-modular-testable-views"/><updated>2012-01-21T18:15:00Z</updated><published>2012-01-21T18:15:00Z</published><id>thurloat.com/2012/01/21/backbonejs-readable-modular-testable-views</id><content type="html">
+            
+                &lt;p&gt;After more work with Backbone on projects at &lt;a class=&quot;reference external&quot; href=&quot;http://sheepdoginc.ca&quot;&gt;Sheepdog&lt;/a&gt;, we are starting
+to develop a solid foundation that will allow us to easily develop,
+&lt;strong&gt;test&lt;/strong&gt;, and maintain our Backbone.js ...&lt;/p&gt;
+            
+            </content></entry><entry><title>Backbone.js - Keeping a View&#39;s model in sync</title><author><name>Adam Thurlow</name></author><link href="thurloat.com/2012/01/17/backbone-sync-models-and-views"/><updated>2012-01-17T20:04:00Z</updated><published>2012-01-17T20:04:00Z</published><id>thurloat.com/2012/01/17/backbone-sync-models-and-views</id><content type="html">
             
                 &lt;p&gt;I&#39;m doing a lot of experimenting with Backbone.js for the team at
 Sheepdog these days. We&#39;re working on compiling a front end stack to build

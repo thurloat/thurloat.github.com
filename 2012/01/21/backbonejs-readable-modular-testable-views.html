@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Backbone.js - Modular, Readable and Testable Views - Thurloat.com</title>
+    <link href='http://fonts.googleapis.com/css?family=Quattrocento&v2' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/media/style.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/media/pygments.css" type="text/css" media="screen" />
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-8047218-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+    <script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
+</head>
+<body>
+    <header>
+        <div class="avatar_holder">
+            <img src="http://0.gravatar.com/avatar/11748328e57fff12f212fb14df91cbbf?s=45" alt="me" />
+        </div>
+        <div class="site_title">
+            <h1>
+                <span class="z">Thurloat</span>
+                <span class="x">Adam Thurlow</span>
+            </h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/archives">Archives</a></li>
+                <li><a href="/about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div id="content">
+    
+    <article>
+        <header>
+            <h1>Backbone.js - Modular, Readable and Testable Views</h1>
+            <span class="date">Jan. 21, 2012</span> - Posted by Thurloat
+        </header>
+        <section>
+            <p>After more work with Backbone on projects at <a class="reference external" href="http://sheepdoginc.ca">Sheepdog</a>, we are starting
+to develop a solid foundation that will allow us to easily develop,
+<strong>test</strong>, and maintain our Backbone.js applications. Having these properties in
+our JS / CoffeeScript is very important, as we're striving toward better test
+coverage from server to client in order to best deliver the highest quality
+product to our clients.</p>
+<p>The approach that I'm taking to solve our problem is a simple implementation
+of two common design patterns found in MVP applications. The Observer Pattern,
+and the Factory Pattern.</p>
+<div class="section" id="i-observer">
+<h2>I, Observer</h2>
+<p>Obtaining much of my MVP knowledge from one of our products written in GWT
+(<a class="reference external" href="http://gtraxapp.com/">gTrax</a>) using the awesome GWT-Presenter and EventBus
+libraries, it's been ingrained into my being that all independant pieces of
+the application should  communicate exclusively over an agreed-upon API.
+Rather than touting the benefits of modular code, I'll assume that since you're
+still reading this you understand.</p>
+<p>EventBus helps consolidate communication while developing in java and GWT,
+and I didn't have to look far to find a flexible solution already available.
+Backbone already mixes in the <strong>Backbone.Events</strong> class into all core pieces
+of the framework so it's the perfect candidate (<em>shaving a yak, and all that</em>).
+While I've seen this pattern implemented a few times, at <a class="reference external" href="http://lostechies.com/derickbailey/2011/07/19/references-routing-and-the-event-aggregator-coordinating-views-in-backbone-js/">Los Techies</a> most
+notably, it has been missing a key piece of the puzzle. Either people are
+binding an instance of <strong>Backbone.Events</strong> directly to the window, and operate
+using that, or manually pass an instance of it to each vew they create. I have
+two main problems with these methods which I'll outline in my review of the
+following code example.</p>
+<p><strong>problem.coffee</strong></p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">class</span> <span class="nx">MyView</span> <span class="k">extends</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span>
+
+  <span class="nv">tagName: </span><span class="s2">&quot;div&quot;</span>
+
+  <span class="nv">events:</span>
+    <span class="s2">&quot;click .close_button&quot;</span><span class="o">:</span> <span class="s2">&quot;closeView&quot;</span>
+    <span class="s2">&quot;change input&quot;</span><span class="o">:</span> <span class="s2">&quot;formChanged&quot;</span>
+
+  <span class="nv">initialize: </span><span class="o">-&gt;</span>
+    <span class="c1"># ... some post-constructor stuff</span>
+    <span class="c1"># bind on our eventBus object</span>
+    <span class="nx">@options</span><span class="p">.</span><span class="nx">eventBus</span><span class="p">.</span><span class="nx">bind</span> <span class="s2">&quot;globalEvent&quot;</span><span class="p">,</span> <span class="nx">@respondToGlobal</span>
+
+  <span class="nv">render: </span><span class="o">-&gt;</span>
+    <span class="c1"># ...</span>
+
+<span class="nx">$</span> <span class="o">-&gt;</span>
+  <span class="nv">eventBus = </span><span class="nx">_</span><span class="p">.</span><span class="nx">extend</span> <span class="p">{},</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Events</span>
+
+  <span class="c1"># Create a view, pass the bus</span>
+  <span class="nv">myView = </span><span class="k">new</span> <span class="nx">MyView</span>
+    <span class="nv">eventBus: </span><span class="nx">eventBus</span>
+
+  <span class="c1"># Create a second view, and pass the event bus to it as well</span>
+  <span class="nv">mySecondView = </span><span class="k">new</span> <span class="nx">MyView</span>
+    <span class="nv">eventBus: </span><span class="nx">eventBus</span>
+</pre></div>
+</td></tr></table><p>My first problem with the above code is that it doesn't follow the IMO
+&quot;Awesomeness&quot; that is Backbone.js style. I am of the opinion that one of the
+best parts of Backbone is how they suggest you structure your View classes.
+To me it is immediately obvious that, in the above class declaration:</p>
+<ul class="simple">
+<li>The View will render in a <tt class="docutils literal"><span class="pre">&lt;div&gt;&lt;/div&gt;</span></tt>.</li>
+<li>It respondes to a click event on the <tt class="docutils literal">.close_button</tt> class.</li>
+<li>It watches for changes on any form inputs, then calls <tt class="docutils literal">formChanged</tt>.</li>
+</ul>
+<p>There is a key piece of information is being tucked away in <tt class="docutils literal">MyView</tt>'s
+declaration. It registers its most important event <tt class="docutils literal">globalEvent</tt> which
+gets exposed via the global eventBus. It should be a first class citizen
+along with <tt class="docutils literal">events</tt> and <tt class="docutils literal">tagName</tt> which clearly outlines how the View
+will behave.</p>
+<p>The second problem I have with the above code is that you're required in your
+implementation to create your own instance of <strong>Backbone.Events</strong> and pass
+it to each view you want to create, anywhere in the application. This isn't
+the <strong>worst</strong> thing, however, what happens when your views have 2 dependancies?
+3? 4? ...</p>
+</div>
+<div class="section" id="enter-f-tories">
+<h2>Enter F%#tories</h2>
+<p>So many programmers cringe when they hear the word <strong>Factory</strong>. Factory,
+factory, factory, factory. Now that you've said it 5 times it just sounds
+silly and we can talk about them seriously and without cringing.</p>
+<p>This following ViewFactory solves the second problem that I had with our
+initial introduction to the Observer pattern above, and I'll address the first
+and most serious problem a little later.</p>
+<p><strong>factory.coffee</strong></p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">class</span> <span class="nx">ViewFactory</span>
+  <span class="nv">constructor: </span><span class="o">-&gt;</span>
+    <span class="vi">@eventBus = </span><span class="nx">_</span><span class="p">.</span><span class="nx">extend</span> <span class="p">{},</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Events</span>
+    <span class="vi">@registry =</span>
+      <span class="nv">factory: </span><span class="err">@</span>
+  <span class="nv">register: </span><span class="nf">(key, value) -&gt;</span>
+    <span class="nx">@registry</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">value</span>
+  <span class="nv">create: </span><span class="nf">(ViewClass, options) -&gt;</span>
+    <span class="nv">options = </span><span class="nx">options</span> <span class="o">or</span> <span class="p">{}</span>
+    <span class="nv">passedOptions = </span><span class="nx">_</span><span class="p">.</span><span class="nx">extend</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">@registry</span><span class="p">,</span> <span class="nv">pubSub: </span><span class="nx">@pubSub</span>
+    <span class="nv">klass = </span><span class="nx">ViewClass</span>
+    <span class="nv">klass.prototype.eventBus = </span><span class="nx">@eventBus</span>
+    <span class="k">new</span> <span class="nx">klass</span><span class="p">(</span><span class="nx">passedOptions</span><span class="p">)</span>
+</pre></div>
+</td></tr></table><p><strong>usage.coffee</strong></p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span class="nx">$</span> <span class="o">-&gt;</span>
+  <span class="nv">factory = </span><span class="k">new</span> <span class="nx">Factory</span>
+  <span class="nv">myView = </span><span class="nx">factory</span><span class="p">.</span><span class="nx">create</span> <span class="nx">MyView</span>
+
+<span class="c1"># or</span>
+
+<span class="nx">$</span> <span class="o">-&gt;</span>
+  <span class="nv">factory = </span><span class="k">new</span> <span class="nx">Factory</span>
+  <span class="nx">factory</span><span class="p">.</span><span class="nx">register</span> <span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="s2">&quot;bar&quot;</span>
+  <span class="p">...</span>
+</pre></div>
+</td></tr></table><p>In 10 lines of coffeescript, I've shown how you can have a simple factory that
+is useful in a few key ways that are adventageous for structuring a large
+Backbone.js application.</p>
+<ol class="arabic simple">
+<li>It will automatically bind the eventBus (Observer) object to any class
+we create.</li>
+<li>It has a registry that will bolt onto Backbone's <tt class="docutils literal">&#64;options</tt> for any View
+built using the factory for when your views become more complext and require
+additional dependancies.</li>
+</ol>
+</div>
+<div class="section" id="the-final-countdown">
+<h2>The Final Countdown</h2>
+<p>Now you're ready for the good stuff. Using the <tt class="docutils literal">ViewFactory</tt> we can guarantee
+that our views will be built with the dependencies injected, and use it to
+build a class that looks like this.</p>
+<p><strong>awesome.coffee</strong></p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">class</span> <span class="nx">MyView</span> <span class="k">extends</span> <span class="nx">ModularView</span>
+
+  <span class="nv">tagName: </span><span class="s2">&quot;div&quot;</span>
+
+  <span class="nv">events:</span>
+    <span class="s2">&quot;click .close_button&quot;</span><span class="o">:</span> <span class="s2">&quot;closeView&quot;</span>
+    <span class="s2">&quot;change input&quot;</span><span class="o">:</span> <span class="s2">&quot;formChanged&quot;</span>
+
+  <span class="nv">globalEvents:</span>
+    <span class="s2">&quot;globalEvent&quot;</span><span class="o">:</span> <span class="s2">&quot;respondToGlobal&quot;</span>
+
+  <span class="nv">initialize: </span><span class="o">-&gt;</span>
+    <span class="c1"># ... some post-constructor stuff</span>
+
+  <span class="nv">render: </span><span class="o">-&gt;</span>
+    <span class="c1"># ...</span>
+</pre></div>
+</td></tr></table><p>Notice 2 big changes to the <tt class="docutils literal">MyView</tt> class that I've defined in awesome.coffee.
+It now extends <tt class="docutils literal">ModularView</tt>, which I'll link to at the end, and it's
+<strong>immediately</strong> obvious what the API for this View looks like after promoting
+<tt class="docutils literal">globalEvents</tt> to being a first class citizen. The outcome? we just blew the
+readability, modularity, and testability of <tt class="docutils literal">MyView</tt> out of the water.</p>
+<div class="section" id="readability">
+<h3>Readability</h3>
+<p>Any new developer that needs to know how your View responds to global events
+simply needs to look right at the top of your declaration for <tt class="docutils literal">globalEvents</tt>
+to see which ones the View has registered. This has already improved the workflow
+on our team by reducing confusion, as well as getting rid of horrid documentation
+in favour of people actually understanding what the View is supposed to to
+simply by reading the code.</p>
+<p><strong>docstring.coffee</strong></p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span class="c1"># MyView Class</span>
+<span class="c1"># This View is responsible for frobbing the fizzbar, as well as</span>
+<span class="c1"># bazarating the foonatch.</span>
+<span class="c1">#</span>
+<span class="c1"># ATTENTION: This View listens to &quot;globalEvent&quot; over the EventBus</span>
+<span class="c1">#</span>
+<span class="k">class</span> <span class="nx">MyView</span> <span class="k">extends</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span>
+  <span class="p">...</span>
+</pre></div>
+</td></tr></table></div>
+<div class="section" id="modularity">
+<h3>Modularity</h3>
+<p>Two months down the road, you might want to implement an alternate view that
+works on the same API. An example is starting with implementing an edit form,
+and later on, it becomes a requirement to have additionally, a compact /
+simplified view to do the same operation. Better still you want to create a
+read-only view who should still respond in the same manner as the edit form,
+but display and act in a totally different way.</p>
+<p>Using <tt class="docutils literal">ModularView</tt>, any programmer just needs to look over the
+<tt class="docutils literal">globalEvents</tt> declaration of the initial view, and ensure their new view can
+respond to these same events. This makes it possible to swap out any view in
+your application ensuring that you're not forgetting pieces, or creating
+new bugs in the process.</p>
+</div>
+<div class="section" id="testability">
+<h3>Testability</h3>
+<p>This is one of the more exciting benefits of using <tt class="docutils literal">globalEvents</tt> for me. Now,
+rather than writing tests that depend on other views you only need to test the
+interface that the View needs. If you're doing BDD with tools like
+<a class="reference external" href="http://pivotal.github.com/jasmine/">jasmine</a> and <a class="reference external" href="http://sinonjs.org/">sinon.js</a>, you can write your new View's test suite first based
+on the agreed upon <tt class="docutils literal">globalEvents</tt> interface that has been defined.</p>
+<p><strong>myview_spec.coffee</strong></p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20</pre></div></td><td class="code"><div class="highlight"><pre><span class="nx">describe</span> <span class="s2">&quot;MyView&quot;</span><span class="p">,</span> <span class="o">-&gt;</span>
+  <span class="nx">beforeEach</span> <span class="o">-&gt;</span>
+    <span class="vi">@viewFactory = </span><span class="k">new</span> <span class="nx">ViewFactory</span>
+
+    <span class="c1"># Create the view using the factory so it gets the pubSub.</span>
+    <span class="vi">@view = </span><span class="nx">@viewFactory</span><span class="p">.</span><span class="nx">create</span> <span class="nx">MyView</span>
+
+  <span class="nx">it</span> <span class="s2">&quot;should be able to respond to &#39;globalEvent&#39;&quot;</span><span class="p">,</span> <span class="o">-&gt;</span>
+
+    <span class="c1"># spy on the globalEvent listener to make sure it gets called.</span>
+    <span class="nv">eventBusSpy = </span><span class="nx">sinon</span><span class="p">.</span><span class="nx">spy</span> <span class="nx">@view</span><span class="p">,</span> <span class="s2">&quot;respondToGlobal&quot;</span>
+
+    <span class="c1"># fire the event over eventBus from an off-view location.</span>
+    <span class="nx">@viewFactory</span><span class="p">.</span><span class="nx">eventBus</span><span class="p">.</span><span class="nx">trigger</span> <span class="s2">&quot;globalEvent&quot;</span>
+
+    <span class="c1"># Ensure the event was caught</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">eventBusSpy</span><span class="p">.</span><span class="nx">calledOnce</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">()</span>
+
+    <span class="c1"># put the view back together.</span>
+    <span class="nx">do</span> <span class="nx">eventBusSpy</span><span class="p">.</span><span class="nx">restore</span>
+</pre></div>
+</td></tr></table><p>Hopefully you're as convinced as I am that this is a solid pattern for creating
+badass Views in Backbone. If you're interested in seeing how the ModularView
+is implemented, I created it as a gist on GitHub:
+<a class="reference external" href="https://gist.github.com/1655106">https://gist.github.com/1655106</a> . There's a Docstring on the class with a more
+condense example.</p>
+<p>I'd be happy to answer any questions in comments if you have them.</p>
+</div>
+</div>
+
+        </section>
+        <footer>
+            
+            <a href="/category/programming/">programming</a>, 
+            
+            <a href="/category/backbone/">backbone</a>
+            
+        </footer>
+        <a href="http://twitter.com/share" 
+        class="twitter-share-button"
+        data-url="http://thurloat.com/2012/01/21/backbonejs-readable-modular-testable-views"
+        data-via="thurloat"
+        data-text="Backbone.js - Modular, Readable and Testable Views"
+        data-count="none">Tweet</a>&nbsp;
+        <div class="g-plusone" data-size="medium" data-href="http://thurloat.com/2012/01/21/backbonejs-readable-modular-testable-views"></div>
+        <script type="text/javascript">
+          (function() {
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+            po.src = 'https://apis.google.com/js/plusone.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+          })();
+        </script>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'thurloatblog';
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+    </article>
+
+    </div>
+    
+    <footer>
+        <p>
+            &copy; 2011 Adam Thurlow - All rights reserved.
+        </p> 
+    </footer>
+</body>
+</html>
