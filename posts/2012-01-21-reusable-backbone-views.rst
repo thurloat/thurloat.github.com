@@ -262,6 +262,10 @@ condense example.
 
 I'd be happy to answer any questions in comments if you have them.
 
+This is the second post in my Backbone.js series. Please check out my entry
+on keeping a View's model in sync 
+`here <http://thurloat.com/2012/01/17/backbone-sync-models-and-views>`_.
+
 .. _`gTrax`: http://gtraxapp.com/
 .. _`jasmine`: http://pivotal.github.com/jasmine/
 .. _`sinon.js`: http://sinonjs.org/
