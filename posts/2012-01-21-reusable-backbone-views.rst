@@ -115,7 +115,7 @@ and most serious problem a little later.
         @registry[key] = value
       create: (ViewClass, options) ->
         options = options or {}
-        passedOptions = _.extend options, @registry, pubSub: @pubSub
+        passedOptions = _.extend options, @registry, eventBus: @eventBus
         klass = ViewClass
         klass.prototype.eventBus = @eventBus
         new klass(passedOptions)
@@ -236,7 +236,7 @@ on the agreed upon ``globalEvents`` interface that has been defined.
       beforeEach ->
         @viewFactory = new ViewFactory
 
-        # Create the view using the factory so it gets the pubSub.
+        # Create the view using the factory so it gets the eventBus.
         @view = @viewFactory.create MyView
       
       it "should be able to respond to 'globalEvent'", ->
