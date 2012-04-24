@@ -177,7 +177,7 @@ and most serious problem a little later.</p>
     <span class="nx">@registry</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">value</span>
   <span class="nv">create: </span><span class="nf">(ViewClass, options) -&gt;</span>
     <span class="nv">options = </span><span class="nx">options</span> <span class="o">or</span> <span class="p">{}</span>
-    <span class="nv">passedOptions = </span><span class="nx">_</span><span class="p">.</span><span class="nx">extend</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">@registry</span><span class="p">,</span> <span class="nv">pubSub: </span><span class="nx">@pubSub</span>
+    <span class="nv">passedOptions = </span><span class="nx">_</span><span class="p">.</span><span class="nx">extend</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">@registry</span><span class="p">,</span> <span class="nv">eventBus: </span><span class="nx">@eventBus</span>
     <span class="nv">klass = </span><span class="nx">ViewClass</span>
     <span class="nv">klass.prototype.eventBus = </span><span class="nx">@eventBus</span>
     <span class="k">new</span> <span class="nx">klass</span><span class="p">(</span><span class="nx">passedOptions</span><span class="p">)</span>
@@ -328,7 +328,7 @@ on the agreed upon <tt class="docutils literal">globalEvents</tt> interface that
   <span class="nx">beforeEach</span> <span class="o">-&gt;</span>
     <span class="vi">@viewFactory = </span><span class="k">new</span> <span class="nx">ViewFactory</span>
 
-    <span class="c1"># Create the view using the factory so it gets the pubSub.</span>
+    <span class="c1"># Create the view using the factory so it gets the eventBus.</span>
     <span class="vi">@view = </span><span class="nx">@viewFactory</span><span class="p">.</span><span class="nx">create</span> <span class="nx">MyView</span>
 
   <span class="nx">it</span> <span class="s2">&quot;should be able to respond to &#39;globalEvent&#39;&quot;</span><span class="p">,</span> <span class="o">-&gt;</span>
