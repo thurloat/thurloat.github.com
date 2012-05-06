@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Adam Thurlow - Awesome.</title><link href="thurloat.com/atom.xml" rel="self"/><link href="thurloat.com"/><updated>2012-01-22T16:01:43Z</updated><id>thurloat.com</id><entry><title>Backbone.js - Modular, Readable and Testable Views</title><author><name>Adam Thurlow</name></author><link href="thurloat.com/2012/01/21/backbonejs-readable-modular-testable-views"/><updated>2012-01-21T18:15:00Z</updated><published>2012-01-21T18:15:00Z</published><id>thurloat.com/2012/01/21/backbonejs-readable-modular-testable-views</id><content type="html">
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Adam Thurlow - Awesome.</title><link href="thurloat.com/atom.xml" rel="self"/><link href="thurloat.com"/><updated>2012-05-06T01:12:02Z</updated><id>thurloat.com</id><entry><title>Jackson Deserializing Polymorphic JSON</title><author><name>Adam Thurlow</name></author><link href="thurloat.com/2012/05/05/jackson-deserializing"/><updated>2012-05-05T17:45:00Z</updated><published>2012-05-05T17:45:00Z</published><id>thurloat.com/2012/05/05/jackson-deserializing</id><content type="html">
+            
+                &lt;p&gt;Recently I&#39;ve been spending time writing a REST API using a new stack.
+Java AppEngine using Jersey to build the API, and Jackson to
+handle (de)serialization into/outof ...&lt;/p&gt;
+            
+            </content></entry><entry><title>Backbone.js - Modular, Readable and Testable Views</title><author><name>Adam Thurlow</name></author><link href="thurloat.com/2012/01/21/backbonejs-readable-modular-testable-views"/><updated>2012-01-21T18:15:00Z</updated><published>2012-01-21T18:15:00Z</published><id>thurloat.com/2012/01/21/backbonejs-readable-modular-testable-views</id><content type="html">
             
                 &lt;p&gt;After more work with Backbone on projects at &lt;a class=&quot;reference external&quot; href=&quot;http://sheepdoginc.ca&quot;&gt;Sheepdog&lt;/a&gt;, we are starting
 to develop a solid foundation that will allow us to easily develop,

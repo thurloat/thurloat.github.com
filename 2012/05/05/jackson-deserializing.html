@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Jackson Deserializing Polymorphic JSON - Thurloat.com</title>
+    <link href='http://fonts.googleapis.com/css?family=Quattrocento&v2' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/media/style.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/media/pygments.css" type="text/css" media="screen" />
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-8047218-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+    <script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
+</head>
+<body>
+    <header>
+        <div class="avatar_holder">
+            <img src="http://0.gravatar.com/avatar/11748328e57fff12f212fb14df91cbbf?s=45" alt="me" />
+        </div>
+        <div class="site_title">
+            <h1>
+                <span class="z">Thurloat</span>
+                <span class="x">Adam Thurlow</span>
+            </h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/archives">Archives</a></li>
+                <li><a href="/about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div id="content">
+    
+    <article>
+        <header>
+            <h1>Jackson Deserializing Polymorphic JSON</h1>
+            <span class="date">May. 05, 2012</span> - Posted by Thurloat
+        </header>
+        <section>
+            <p>Recently I've been spending time writing a REST API using a new stack.
+Java AppEngine using Jersey to build the API, and Jackson to
+handle (de)serialization into/outof JSON. Needless to say I was running
+into <strong>many</strong> problems that just don't come up in the Python world.</p>
+<p>There was one problem that our team recently ran into that I thought I'd
+share, as it took a long time to find the correct solution and there was
+a the lack of help online in this area.</p>
+<div class="section" id="problem">
+<h2>Problem</h2>
+<p>Reading and writing polymorphic datatypes using Jackson.
+For example a <tt class="docutils literal">List&lt;Key&lt;Entity&gt;&gt;</tt> at runtime can only be recognized as
+<tt class="docutils literal"><span class="pre">List&lt;?&gt;</span></tt> due to Type Erasure with Generics so Jackson can really only
+try to searialize and deserialize that List as a list of POJOs. We already
+have a serializer that writes out the Long value of a Key as <tt class="docutils literal">&quot;[1, 2, 3]&quot;</tt>.</p>
+<p>However Jackson has no idea how to turn <tt class="docutils literal">&quot;[1, 2, 3]&quot;</tt> back into a List of
+Entity Keys and complains with something along the lines of &quot;<em>Jackson
+doesn't know how to turn type List&lt;Integer&gt; into List&lt;Key&lt;Entity&gt;</em>&quot;.</p>
+<p>There are other documented solutions to this problem that didn't fit.
+The most common was to embed type metadata into the JSON and then tell Jackson
+about it using configuration. However after looking at the JSON users would
+have to POST to the API, this was obiously a no-start.</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22</pre></div></td><td class="code"><div class="highlight"><pre><span class="cm">/** Embedded Type Information **/</span>
+<span class="p">{</span>
+  <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s2">&quot;myEntities&quot;</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">[</span><span class="s2">&quot;com.googlecode.objectify.Key&lt;com.thurloat.models.Entity&gt;&quot;</span><span class="p">,</span>
+      <span class="p">{</span>
+        <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="mi">2</span>
+      <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;com.googlecode.objectify.Key&lt;com.thurloat.models.Entity&gt;&quot;</span><span class="p">,</span>
+      <span class="p">{</span>
+        <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="mi">3</span>
+      <span class="p">}</span>
+    <span class="p">],</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+
+<span class="cm">/** All that should need to be posted **/</span>
+<span class="p">{</span>
+  <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s2">&quot;myEntities&quot;</span><span class="o">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<div class="section" id="solution">
+<h2>Solution</h2>
+<p>The solution that we stumbled across was perfect for our problem.</p>
+<p>First, create a simple custom deserializer. The part that clicked here and
+made this problem easy to solve was realizing that I could create an
+<tt class="docutils literal">ObjectMapper</tt> class inside the deserializer and work with the data in a
+way which is familiar to me. The ObjectMapper is used extensively throughout
+our test suite to read in API results and test their values using types
+rather than simply checking strings. In this case it was used to read the
+JsonParser value in as the basic type in which it is serialized
+a <tt class="docutils literal">List&lt;Integer&gt;</tt>, then create the Key objects out of them and return that.</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></div></td><td class="code"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">EntityKeyListDeserializer</span> <span class="kd">extends</span> <span class="n">JsonDeserializer</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Key</span><span class="o">&lt;</span><span class="n">Entity</span><span class="o">&gt;&gt;&gt;</span> <span class="o">{</span>
+  <span class="kd">static</span> <span class="kd">final</span> <span class="n">TypeReference</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Long</span><span class="o">&gt;&gt;</span> <span class="n">listType</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TypeReference</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Long</span><span class="o">&gt;&gt;()</span> <span class="o">{};</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Key</span><span class="o">&lt;</span><span class="n">Entity</span><span class="o">&gt;&gt;</span> <span class="n">deserialize</span><span class="o">(</span><span class="n">JsonParser</span> <span class="n">jp</span><span class="o">,</span> <span class="n">DeserializationContext</span> <span class="n">arg1</span><span class="o">)</span>
+      <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">JsonProcessingException</span> <span class="o">{</span>
+    <span class="n">ObjectMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="o">(</span><span class="n">ObjectMapper</span><span class="o">)</span> <span class="n">jp</span><span class="o">.</span><span class="na">getCodec</span><span class="o">();</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Long</span><span class="o">&gt;</span> <span class="n">simpleList</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="na">readValue</span><span class="o">(</span><span class="n">jp</span><span class="o">,</span> <span class="n">listType</span><span class="o">);</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Key</span><span class="o">&lt;</span><span class="n">Entity</span><span class="o">&gt;&gt;</span> <span class="n">l</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Key</span><span class="o">&lt;</span><span class="n">Entity</span><span class="o">&gt;&gt;();</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">simpleList</span><span class="o">.</span><span class="na">size</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+      <span class="n">l</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Key</span><span class="o">&lt;</span><span class="n">Entity</span><span class="o">&gt;(</span><span class="n">Entity</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">simpleList</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">));</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">l</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</td></tr></table><p>Then you simply add the <tt class="docutils literal">&#64;JsonDeserialize</tt> annotation to the model attribute
+which needs it and Jackson will go back to working flawlessly.</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">OtherEntity</span> <span class="o">{</span>
+    <span class="nd">@Id</span>
+    <span class="kd">private</span> <span class="n">Long</span> <span class="n">id</span><span class="o">;</span>
+
+    <span class="nd">@JsonDeserialize</span><span class="o">(</span><span class="n">using</span> <span class="o">=</span> <span class="n">EntityKeyListDeserializer</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Key</span><span class="o">&lt;</span><span class="n">Entity</span><span class="o">&gt;&gt;</span> <span class="n">myEntities</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+</td></tr></table><p>Boom goes the dynamite.</p>
+</div>
+
+        </section>
+        <footer>
+            
+            <a href="/category/programming/">programming</a>, 
+            
+            <a href="/category/jackson/">jackson</a>, 
+            
+            <a href="/category/json/">JSON</a>
+            
+        </footer>
+        <a href="http://twitter.com/share" 
+        class="twitter-share-button"
+        data-url="http://thurloat.com/2012/05/05/jackson-deserializing"
+        data-via="thurloat"
+        data-text="Jackson Deserializing Polymorphic JSON"
+        data-count="none">Tweet</a>&nbsp;
+        <div class="g-plusone" data-size="medium" data-href="http://thurloat.com/2012/05/05/jackson-deserializing"></div>
+        <script type="text/javascript">
+          (function() {
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+            po.src = 'https://apis.google.com/js/plusone.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+          })();
+        </script>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'thurloatblog';
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+    </article>
+
+    </div>
+    
+    <footer>
+        <p>
+            &copy; 2011 Adam Thurlow - All rights reserved.
+        </p> 
+    </footer>
+</body>
+</html>

@@ -2,16 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
   <loc>http://thurloat.com/</loc>
-  <lastmod>2012-01-22T16:01:43Z</lastmod>
+  <lastmod>2012-05-06T01:12:02Z</lastmod>
   <changefreq>daily</changefreq>
 </url>
 
 <url>
   <loc>http://thurloat.com/about</loc>
-  <lastmod>2012-01-22T16:01:43Z</lastmod>
+  <lastmod>2012-05-06T01:12:02Z</lastmod>
   <changefreq>daily</changefreq>
 </url>
 
+
+<url>
+  <loc>http://thurloat.com/2012/05/05/jackson-deserializing</loc>
+  <lastmod>2012-05-05T17:45:00Z</lastmod>
+  <changefreq>daily</changefreq>
+</url>
 
 <url>
   <loc>http://thurloat.com/2012/01/21/backbonejs-readable-modular-testable-views</loc>
