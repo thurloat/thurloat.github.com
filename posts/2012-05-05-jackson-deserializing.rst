@@ -8,7 +8,7 @@
 :tags: JSON, jackson, java
 
 Recently I've been spending time writing a REST API using a new stack.
-Java AppEngine using Jersey to build the API, and Jackson to 
+Java AppEngine + Objectify using Jersey to build the API, and Jackson to 
 handle (de)serialization into/outof JSON. Needless to say I was running 
 into **many** problems that just don't come up in the Python world.
 
