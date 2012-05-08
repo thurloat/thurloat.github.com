@@ -59,6 +59,7 @@ have to POST to the API, this was obiously a no-start.
     "myEntities": [2, 3]
   }
 
+
 Solution
 --------
 
@@ -81,8 +82,7 @@ a ``List<Integer>``, then create the Key objects out of them and return that.
     @Override
     public List<Key<Entity>> deserialize(JsonParser jp, DeserializationContext arg1)
         throws IOException, JsonProcessingException {
-      ObjectMapper mapper = (ObjectMapper) jp.getCodec();
-      List<Long> simpleList = mapper.readValue(jp, listType);
+      List<Long> simpleList = jp.readValue(listType);
       List<Key<Entity>> l = new ArrayList<Key<Entity>>();
       for (int i = 0; i < simpleList.size(); i++) {
         l.add(new Key<Entity>(Entity.class, simpleList.get(i));
