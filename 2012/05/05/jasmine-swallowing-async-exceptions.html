@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Jasmine Tests Swallowing Asynchronous Exceptions - Thurloat.com</title>
+    <link href='http://fonts.googleapis.com/css?family=Quattrocento&v2' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/media/style.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/media/pygments.css" type="text/css" media="screen" />
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-8047218-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+    <script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
+</head>
+<body>
+    <header>
+        <div class="avatar_holder">
+            <img src="http://0.gravatar.com/avatar/11748328e57fff12f212fb14df91cbbf?s=45" alt="me" />
+        </div>
+        <div class="site_title">
+            <h1>
+                <span class="z">Thurloat</span>
+                <span class="x">Adam Thurlow</span>
+            </h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/archives">Archives</a></li>
+                <li><a href="/about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div id="content">
+    
+    <article>
+        <header>
+            <h1>Jasmine Tests Swallowing Asynchronous Exceptions</h1>
+            <span class="date">May. 05, 2012</span> - Posted by Thurloat
+        </header>
+        <section>
+            <p>On a recent cross-continent programming expedition, I ran into an <strong>exceptionally</strong>
+frustrating bug while writing tests using the <a class="reference external" href="http://pivotal.github.com/jasmine/">Jasmine</a> unit testing framework.
+After coming up with a solution on my own I scoured the web for additional insight,
+and only found one other mention of this bug ( <em>and have since lost it</em> ). This other
+mention came up with similar solution to this problem as I propose.
+The most disheartening aspect is that this bug is not necessarily a bug within
+Jasmine, but can only be worked around by following a specific code pattern
+which I'll be describing later.</p>
+<p>This bug took ... a <em>while</em> to track down. Such a long while in fact that most of the
+time was spent detecting the bug in the first place. It manifested by causing
+tests to pass. I'm not sure if you are aware, but one of the first rules of
+good unit tests in my books is that they do <strong>not</strong> emit false positives. False
+positives in a test suite usually indicates that your tests don't have good branch
+coverage, or they do not assert the correct behaviour; not that many of your
+tests are simply written in a way which makes them pass no matter what kind of
+junk you put between the <tt class="docutils literal">{}</tt> in an async callback.</p>
+<div class="section" id="steps-to-reproduce">
+<h2>Steps To Reproduce</h2>
+<ol class="arabic simple">
+<li>Write some tests examining some asynchronous behaviour.</li>
+<li>Expect something reasonable.</li>
+<li>Write something that will throw an exception.</li>
+</ol>
+<p>Outcome: All tests pass. Believe that you write bug-free code.</p>
+<p>Desired Outcome: Test fails. Exception is logged.</p>
+<p>In the code samples below, I set up a simple Jasmine test suite and expect
+that <tt class="docutils literal">true</tt> should be <tt class="docutils literal">truthy</tt> in both Coffeescript and Javascript. Both tests
+demonstrate the <em>&quot;bug&quot;</em> in full effect.</p>
+<div class="section" id="coffeescript">
+<h3>coffeescript</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span class="nx">describe</span> <span class="s2">&quot;My Functionality&quot;</span><span class="p">,</span> <span class="o">-&gt;</span>
+    <span class="nx">it</span> <span class="s2">&quot;should behave as expected&quot;</span><span class="p">,</span> <span class="o">-&gt;</span>
+        <span class="nv">collection = </span><span class="k">new</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Collection</span><span class="p">()</span>
+        <span class="nx">collection</span><span class="p">.</span><span class="nx">fetch</span>
+            <span class="nv">success: </span><span class="o">-&gt;</span>
+                <span class="nx">expect</span><span class="p">(</span><span class="kc">true</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">()</span>
+                <span class="c1"># something ridiculous</span>
+                <span class="nx">do</span> <span class="nx">candy</span><span class="p">.</span><span class="nx">eat</span>
+</pre></div>
+</td></tr></table></div>
+<div class="section" id="javascript">
+<h3>javascript</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="highlight"><pre><span class="nx">describe</span><span class="p">(</span><span class="s2">&quot;My Functionality&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;should behave as expected&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">collection</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Collection</span><span class="p">();</span>
+    <span class="nx">collection</span><span class="p">.</span><span class="nx">fetch</span><span class="p">({</span>
+      <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="kc">true</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">();</span>
+        <span class="nx">candy</span><span class="p">.</span><span class="nx">eat</span><span class="p">();</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+</td></tr></table></div>
+<div class="section" id="output">
+<h3>Output</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre>Actual:
+
+    My Functionality: 1 of 1 expectations passed.
+    Passed : My Functionality : should behave as expected.
+
+Expected:
+
+    Tests should not have passed! There was a bloody exception!
+</pre></div>
+</td></tr></table><p>As you can see from the output block, my tests are obviously not behaving
+in a manner becoming of a good test. Here comes the &quot;answer&quot;...</p>
+</div>
+</div>
+<div class="section" id="the-answer-around">
+<h2>The Answer-around</h2>
+<p>The most elegant way in which I was finally able to work around these swallowed
+exceptions in the Jasmine tests was to use one of Jasmine's utility functions
+<tt class="docutils literal">runs()</tt>. A call to <tt class="docutils literal">runs()</tt> executes the callback as if it were a blocking
+operation. One of the handy features of the runs function is that it nicely brings
+along the scope of the test suite inside of the anonymous function you write
+inside of it. For more information on <tt class="docutils literal">runs()</tt> check the <a class="reference external" href="http://github.com/pivotal/jasmine/wiki/Asynchronous-specs">Asynchronous Specs</a>
+documentation for <a class="reference external" href="http://pivotal.github.com/jasmine/">Jasmine</a>.</p>
+<p>So the pattern is for <strong>any</strong> success / fail / callback that you define within a test,
+make sure to wrap that function declaration inside of a <tt class="docutils literal">runs()</tt> call. The
+following snippets are examples in both Coffeescript and Javascript again.</p>
+<div class="section" id="id1">
+<h3>coffeescript</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span class="nx">describe</span> <span class="s2">&quot;My Functionality&quot;</span><span class="p">,</span> <span class="o">-&gt;</span>
+    <span class="nx">it</span> <span class="s2">&quot;should behave as expected&quot;</span><span class="p">,</span> <span class="o">-&gt;</span>
+        <span class="nv">collection = </span><span class="k">new</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Collection</span><span class="p">()</span>
+        <span class="nx">collection</span><span class="p">.</span><span class="nx">fetch</span>
+            <span class="nv">success: </span><span class="o">-&gt;</span> <span class="nx">runs</span> <span class="o">-&gt;</span> <span class="c1"># &lt;-- the magic.</span>
+                <span class="nx">expect</span><span class="p">(</span><span class="kc">true</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">()</span>
+                <span class="c1"># something ridiculous</span>
+                <span class="nx">do</span> <span class="nx">candy</span><span class="p">.</span><span class="nx">eat</span>
+</pre></div>
+</td></tr></table></div>
+<div class="section" id="id2">
+<h3>javascript</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="highlight"><pre><span class="nx">describe</span><span class="p">(</span><span class="s2">&quot;My Functionality&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">it</span><span class="p">(</span><span class="s2">&quot;should behave as expected&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">collection</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Collection</span><span class="p">();</span>
+    <span class="nx">collection</span><span class="p">.</span><span class="nx">fetch</span><span class="p">({</span>
+      <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">runs</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+          <span class="nx">expect</span><span class="p">(</span><span class="kc">true</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">();</span>
+          <span class="nx">candy</span><span class="p">.</span><span class="nx">eat</span><span class="p">();</span>
+        <span class="p">});</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+</td></tr></table></div>
+<div class="section" id="id3">
+<h3>Output</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre>Actual:
+
+    My Functionality: 0 of 1 expectations passed.
+    Failed : My Functionality : should behave as expected
+        - ReferenceError: candy is not defined
+</pre></div>
+</td></tr></table><p><strong>Bing!</strong> - And there's the pattern. It is a little more verbose in plain
+javascript, but it still fulfils the main goal.</p>
+<p>Now we can all breathe a sigh of relief that our false positives are being
+caused by poor coverage, not bad tests.</p>
+</div>
+</div>
+<div class="section" id="amendment">
+<h2>Amendment</h2>
+<p>It is worth noting that while coming across this test pattern, a couple of
+different approaches were taken. An alternative ( yet ugly ) pattern worth
+mentioning is to wrap the whole function body in a <tt class="docutils literal">try {} catch {}</tt> block
+and fail an expectation. I don't recommend this, as it pollutes your test
+code with additional branches that need maintaining to do exception handling
+whereas the <tt class="docutils literal">runs()</tt> statement only needs to come before your declaration.</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span class="nx">collection</span><span class="p">.</span><span class="nx">fetch</span>
+    <span class="nv">success: </span><span class="o">-&gt;</span>
+        <span class="k">try</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="kc">true</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">()</span>
+            <span class="nx">do</span> <span class="nx">candy</span><span class="p">.</span><span class="nx">eat</span>
+        <span class="k">catch</span> <span class="nx">error</span>
+            <span class="c1"># force Jasmine to assert badly and print the exception</span>
+            <span class="c1"># as the failure message.</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="kc">false</span><span class="p">).</span><span class="nx">toBeTruthy</span> <span class="nx">error</span>
+</pre></div>
+</td></tr></table></div>
+
+        </section>
+        <footer>
+            
+            <a href="/category/programming/">programming</a>, 
+            
+            <a href="/category/javascript/">javascript</a>, 
+            
+            <a href="/category/testing/">testing</a>
+            
+        </footer>
+        <a href="http://twitter.com/share" 
+        class="twitter-share-button"
+        data-url="http://thurloat.com/2012/05/05/jasmine-swallowing-async-exceptions"
+        data-via="thurloat"
+        data-text="Jasmine Tests Swallowing Asynchronous Exceptions"
+        data-count="none">Tweet</a>&nbsp;
+        <div class="g-plusone" data-size="medium" data-href="http://thurloat.com/2012/05/05/jasmine-swallowing-async-exceptions"></div>
+        <script type="text/javascript">
+          (function() {
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+            po.src = 'https://apis.google.com/js/plusone.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+          })();
+        </script>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'thurloatblog';
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+    </article>
+
+    </div>
+    
+    <footer>
+        <p>
+            &copy; 2011 Adam Thurlow - All rights reserved.
+        </p> 
+    </footer>
+</body>
+</html>
