@@ -1,5 +1,5 @@
 :author: Thurloat
-:date: 2012-05-05 17:45:00
+:date: 2012-07-06 23:00:00
 :layout: post
 :slug: jasmine-swallowing-async-exceptions
 :status: publish
