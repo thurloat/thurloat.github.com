@@ -9,20 +9,20 @@
 
 Recently I've been spending time writing a REST API using a new stack.
 Java AppEngine + Objectify using Jersey to build the API, and Jackson to 
-handle (de)serialization into/outof JSON. Needless to say I was running 
+handle (de)serialization into/out of JSON. Needless to say I was running 
 into **many** problems that just don't come up in the Python world.
 
 There was one problem that our team recently ran into that I thought I'd 
 share, as it took a long time to find the correct solution and there was 
-a the lack of help online in this area.
+a lack of help online in this area.
 
 Problem
 -------
 
-Reading and writing polymorphic datatypes using Jackson. 
+Reading and writing polymorphic data types using Jackson. 
 For example a ``List<Key<Entity>>`` at runtime can only be recognized as
 ``List<?>`` due to Type Erasure with Generics so Jackson can really only
-try to searialize and deserialize that List as a list of POJOs. We already
+try to serialize and deserialize that List as a list of POJOs. We already
 have a serializer that writes out the Long value of a Key as ``"[1, 2, 3]"``.
 
 However Jackson has no idea how to turn ``"[1, 2, 3]"`` back into a List of 
@@ -32,7 +32,7 @@ doesn't know how to turn type List<Integer> into List<Key<Entity>*".
 There are other documented solutions to this problem that didn't fit.
 The most common was to embed type metadata into the JSON and then tell Jackson 
 about it using configuration. However after looking at the JSON users would 
-have to POST to the API, this was obiously a no-start.
+have to POST to the API, this was obviously a no-start.
 
 .. code-block:: javascript
 

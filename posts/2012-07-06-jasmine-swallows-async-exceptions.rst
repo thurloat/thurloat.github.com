@@ -104,7 +104,7 @@ So, the pattern is for **any** success / fail / callback that you define within 
 to make sure to wrap the function definition inside of a ``runs()`` call. The
 following snippets are examples in both Coffeescript and Javascript again.
 
-coffeescript
+Coffeescript
 ============
 
 .. code-block:: coffeescript
@@ -118,7 +118,7 @@ coffeescript
                     # something ridiculous
                     do candy.eat
 
-javascript
+Javascript
 ==========
 
 .. code-block:: javascript

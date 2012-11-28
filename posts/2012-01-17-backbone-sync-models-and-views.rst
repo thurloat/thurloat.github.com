@@ -72,7 +72,7 @@ Then create a View to display this new User class.
         @
         
 Now, you pass a User object into the view when you create it, and now the goal
-is to have the model update each time the form is changed as well as propogate
+is to have the model update each time the form is changed as well as propagate
 model changes back into the form when they happen. This is where things start
 to get a little ugly and WET (**!DRY**). 
 
@@ -129,15 +129,15 @@ implements naive ``refresh`` and ``toModel`` methods for the example.
         @
 
 There are many problems with the code above for keeping the form and model
-in sync with eachother. To name a few:
+in sync with each other. To name a few:
 
 - It's unclear which Model fields are bound to which form elements
 - Lots of repetitive code
-- Refactoring becomes a nightmare, jQuery seleectors all over the code
-- What if you don't want to propogate ALL changes on a model? only certain fields?
+- Refactoring becomes a nightmare, jQuery selectors all over the code
+- What if you don't want to propagate ALL changes on a model? only certain fields?
   the boiler plate for this starts growing very quickly.
 
-Not only does the code contain the afforementioned issues, but it doesn't 
+Not only does the code contain the aforementioned issues, but it doesn't 
 really follow the backbone paradigm of defining selectors for events
 during the View's declaration.
 

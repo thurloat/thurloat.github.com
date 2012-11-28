@@ -35,7 +35,7 @@ of the framework so it's the perfect candidate (*shaving a yak, and all that*).
 While I've seen this pattern implemented a few times, at `Los Techies`_ most
 notably, it has been missing a key piece of the puzzle. Either people are 
 binding an instance of **Backbone.Events** directly to the window, and operate
-using that, or manually pass an instance of it to each vew they create. I have 
+using that, or manually pass an instance of it to each view they create. I have 
 two main problems with these methods which I'll outline in my review of the 
 following code example.
 
@@ -76,7 +76,7 @@ best parts of Backbone is how they suggest you structure your View classes.
 To me it is immediately obvious that, in the above class declaration:
 
 - The View will render in a ``<div></div>``.
-- It respondes to a click event on the ``.close_button`` class.
+- It responds to a click event on the ``.close_button`` class.
 - It watches for changes on any form inputs, then calls ``formChanged``.
 
 There is a key piece of information is being tucked away in ``MyView``'s
@@ -88,7 +88,7 @@ will behave.
 The second problem I have with the above code is that you're required in your
 implementation to create your own instance of **Backbone.Events** and pass
 it to each view you want to create, anywhere in the application. This isn't
-the **worst** thing, however, what happens when your views have 2 dependancies?
+the **worst** thing, however, what happens when your views have 2 dependencies?
 3? 4? ...
 
 Enter F%#tories
@@ -136,14 +136,14 @@ and most serious problem a little later.
       ...
        
 In 10 lines of coffeescript, I've shown how you can have a simple factory that 
-is useful in a few key ways that are adventageous for structuring a large 
+is useful in a few key ways that are advantageous for structuring a large 
 Backbone.js application.
 
 1. It will automatically bind the eventBus (Observer) object to any class 
    we create.
 2. It has a registry that will bolt onto Backbone's ``@options`` for any View 
-   built using the factory for when your views become more complext and require
-   additional dependancies.
+   built using the factory for when your views become more complex and require
+   additional dependencies.
    
 The Final Countdown
 ===================
