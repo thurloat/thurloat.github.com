@@ -152,7 +152,7 @@ tools that compile the test runner and run them in `phantomjs`_ (my headless
 webkit of choice). If I were to greenfield a new project, this will definitely be a
 project to look at, but some of us have to make the best with we have.
 
-Without further adieu ...
+Without further ado ...
 
 The Codes
 =========
