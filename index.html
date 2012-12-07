@@ -2,7 +2,7 @@
 <html>
 <head>
     <title> - Thurloat.com</title>
-    <link href='http://fonts.googleapis.com/css?family=Quattrocento&v2' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="/media/style.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="/media/pygments.css" type="text/css" media="screen" />
     <script type="text/javascript">
@@ -22,49 +22,96 @@
 </head>
 <body>
     <header>
-        <div class="avatar_holder">
-            <img src="http://0.gravatar.com/avatar/11748328e57fff12f212fb14df91cbbf?s=45" alt="me" />
-        </div>
         <div class="site_title">
-            <h1>
-                <span class="z">Thurloat</span>
-                <span class="x">Adam Thurlow</span>
-            </h1>
+          <h1><a href="/">Thurloat.com</a><span><a href="/about">Adam Thurlow</a></span></h1>
         </div>
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/archives">Archives</a></li>
-                <li><a href="/about">About</a></li>
-            </ul>
-        </nav>
     </header>
     <div id="content">
     
-    
-        <article class="home">
-            <div class="cat_date">
-                Jul. 06, 2012
-                <ul class="hidden_categories">
-                    
-                        <li>
-                            programming
-                        </li>
-                    
-                        <li>
-                            javascript
-                        </li>
-                    
-                        <li>
-                            testing
-                        </li>
-                        
-                </ul>
-            </div>
-            <div class="post_body">
-                <h1><a href="/2012/07/06/jasmine-swallowing-async-exceptions">Jasmine Tests Swallowing Asynchronous Exceptions</a></h1>
-                <section>
-                    <p>On a recent cross-continent programming expedition, I ran into an <strong>exceptionally</strong>
+
+<article class="home">
+  <div class="post_body">
+    <h1><a href="/2012/12/05/jasmine-async">Jasmine Asynchronous Specs</a></h1>
+     <div class="cat_date">
+      <div class="hidden_categories">
+        
+        <span> <a href="/category/coffeescript/">Coffeescript</a></span>
+        
+        <span> <a href="/category/testing/">Testing</a></span>
+            
+      </div>
+      <div class="post_date">
+      Dec. 05, 2012
+      </div>
+    </div>
+   <section>
+      <p>I'll start out by saying that I'm a huge <a class="reference external" href="http://pivotal.github.com/jasmine/">Jasmine</a> fan. I have been
+working with it exclusively for testing during the last few months. However,
+it has become common knowledge that Jasmine's built-in methods for testing async
+code are pretty weak and make for either lots of boilerplate, or fragile tests.</p>
+<p>Let's go on a journey together from a small greenfield test suite through to
+a full(<em>er</em>) set of specs as the project grows. I will walk through how I came
+to implement a jasmine test extension for simplifying asynchronous specs
+which I believe is a more holistic approach than I've seen anywhere else.</p>
+<p>The few key differences you should note about the final solution are that it:</p>
+<ul class="simple">
+<li>Allows for fail-fast tests without breaking the <tt class="docutils literal">waitsFor</tt> callback when an
+exception is thrown,</li>
+<li>Provides a simple mechanism to wrap async methods so their exceptions are
+caught and reported correctly,</li>
+<li>Doesn't require any different syntax than a Jasminaut is used to (less
+refactoring).</li>
+</ul>
+<div class="section" id="affairs">
+<h2>Affairs</h2>
+<p>I wrote a <a class="reference external" href="/2012/07/06/jasmine-swallowing-async-exceptions">post</a> a few months ago which, at the time, dealt with my
+asynchronous woes enough to keep me going. To quickly re-cap check out the
+small snippet below.</p>
+<p><strong>runs-spec.coffee</strong></p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span class="nx">describe</span> <span class="s2">&quot;My Functionality&quot;</span><span class="p">,</span> <span class="o">-&gt;</span>
+
+  <span class="nx">it</span> <span class="s2">&quot;should behave as expected&quot;</span><span class="p">,</span> <span class="o">-&gt;</span>
+    <span class="nv">collection = </span><span class="k">new</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Collection</span><span class="p">()</span>
+    <span class="nx">collection</span><span class="p">.</span><span class="nx">fetch</span>
+      <span class="nv">success: </span><span class="o">-&gt;</span> <span class="nx">runs</span> <span class="o">-&gt;</span> <span class="c1"># &lt;-- the magic.</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="kc">true</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">()</span>
+
+        <span class="c1"># something ridiculous</span>
+        <span class="nx">do</span> <span class="nx">candy</span><span class="p">.</span><span class="nx">eat</span>
+</pre></div>
+</td></tr></table><p>As you can see, I am now executing the callback function ...</p></div>
+    </section>
+  </div>
+</article>
+
+<article class="home">
+  <div class="post_body">
+    <h1><a href="/2012/07/06/jasmine-swallowing-async-exceptions">Jasmine Tests Swallowing Asynchronous Exceptions</a></h1>
+     <div class="cat_date">
+      <div class="hidden_categories">
+        
+        <span> <a href="/category/javascript/">Javascript</a></span>
+        
+        <span> <a href="/category/coffeescript/">Coffeescript</a></span>
+        
+        <span> <a href="/category/testing/">Testing</a></span>
+            
+      </div>
+      <div class="post_date">
+      Jul. 06, 2012
+      </div>
+    </div>
+   <section>
+      <p>On a recent cross-continent programming expedition, I ran into an <strong>exceptionally</strong>
 frustrating bug while writing tests using the <a class="reference external" href="http://pivotal.github.com/jasmine/">Jasmine</a> unit testing framework.
 After coming up with a solution on my own, I scoured the web for additional insight
 and only found one other mention of this bug ( <em>and have since lost it</em> ).
@@ -72,67 +119,91 @@ This reference proposed a solution very similar to mine.
 The most disheartening aspect is that this bug is not necessarily a bug within
 Jasmine but can only be worked around by following a specific code pattern
 which I'll be describing later.</p>
-<p>This bug took ... a <em>while</em> to ...</p>
-                </section>
-            </div>
-        </article>
-    
-        <article class="home">
-            <div class="cat_date">
-                May. 05, 2012
-                <ul class="hidden_categories">
-                    
-                        <li>
-                            programming
-                        </li>
-                    
-                        <li>
-                            jackson
-                        </li>
-                    
-                        <li>
-                            JSON
-                        </li>
-                        
-                </ul>
-            </div>
-            <div class="post_body">
-                <h1><a href="/2012/05/05/jackson-deserializing">Jackson Deserializing Polymorphic JSON</a></h1>
-                <section>
-                    <p>Recently I've been spending time writing a REST API using a new stack.
+<p>This bug took ... a <em>while</em> to track down. Such a long while in fact that most of the
+time was spent detecting the bug in the first place. It manifested by causing
+tests to pass. I'm not sure if you are aware, but one of the first rules of
+good unit tests in my books is that they do <strong>not</strong> emit false positives. False
+positives in a test suite usually indicates that your tests don't have good branch
+coverage or they do not assert the correct behaviour - not that many of your
+tests are naively written in a way which makes them pass no matter what kind of
+junk you put between the <tt class="docutils literal">{}</tt> in an asynchronous callback.</p>
+<div class="section" id="steps-to-reproduce">
+<h2>Steps To Reproduce</h2>
+<ol class="arabic simple">
+<li>Write some tests examining some asynchronous behaviour.</li>
+<li>Expect something reasonable.</li>
+<li>Write something that will throw an exception.</li>
+</ol>
+<p>Outcome: All tests pass and you believe that you write bug-free code.</p>
+<p>Desired Outcome: Test fails and ...</p></div>
+    </section>
+  </div>
+</article>
+
+<article class="home">
+  <div class="post_body">
+    <h1><a href="/2012/05/05/jackson-deserializing">Jackson Deserializing Polymorphic JSON</a></h1>
+     <div class="cat_date">
+      <div class="hidden_categories">
+        
+        <span> <a href="/category/jackson/">Jackson</a></span>
+        
+        <span> <a href="/category/json/">JSON</a></span>
+            
+      </div>
+      <div class="post_date">
+      May. 05, 2012
+      </div>
+    </div>
+   <section>
+      <p>Recently I've been spending time writing a REST API using a new stack.
 Java AppEngine + Objectify using Jersey to build the API, and Jackson to
-handle (de)serialization into/outof JSON. Needless to say I was running
+handle (de)serialization into/out of JSON. Needless to say I was running
 into <strong>many</strong> problems that just don't come up in the Python world.</p>
 <p>There was one problem that our team recently ran into that I thought I'd
 share, as it took a long time to find the correct solution and there was
-a the lack of help online in this area.</p>
+a lack of help online in this area.</p>
 <div class="section" id="problem">
 <h2>Problem</h2>
-<p>Reading and writing polymorphic datatypes using Jackson.
-For example ...</p></div>
-                </section>
-            </div>
-        </article>
-    
-        <article class="home">
-            <div class="cat_date">
-                Jan. 21, 2012
-                <ul class="hidden_categories">
-                    
-                        <li>
-                            programming
-                        </li>
-                    
-                        <li>
-                            backbone
-                        </li>
-                        
-                </ul>
-            </div>
-            <div class="post_body">
-                <h1><a href="/2012/01/21/backbonejs-readable-modular-testable-views">Backbone.js - Modular, Readable and Testable Views</a></h1>
-                <section>
-                    <p>After more work with Backbone on projects at <a class="reference external" href="http://sheepdoginc.ca">Sheepdog</a>, we are starting
+<p>Reading and writing polymorphic data types using Jackson.
+For example a <tt class="docutils literal">List&lt;Key&lt;Entity&gt;&gt;</tt> at runtime can only be recognized as
+<tt class="docutils literal"><span class="pre">List&lt;?&gt;</span></tt> due to Type Erasure with Generics so Jackson can really only
+try to serialize and deserialize that List as a list of POJOs. We already
+have a serializer that writes out the Long value of a Key as <tt class="docutils literal">&quot;[1, 2, 3]&quot;</tt>.</p>
+<p>However Jackson has no idea how to turn <tt class="docutils literal">&quot;[1, 2, 3]&quot;</tt> back into a List of
+Entity Keys and complains with something along the lines of &quot;<em>Jackson
+doesn't know how to turn type List&lt;Integer&gt; into List&lt;Key&lt;Entity&gt;</em>&quot;.</p>
+<p>There are other documented solutions to this problem that didn't fit.
+The most common was to embed type metadata into the JSON and then tell Jackson
+about it using configuration. However after looking at the JSON users would
+have to POST to the API, this was obviously a no-start.</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6 ...</pre></div></td></tr></table></div>
+    </section>
+  </div>
+</article>
+
+<article class="home">
+  <div class="post_body">
+    <h1><a href="/2012/01/21/backbonejs-readable-modular-testable-views">Backbone.js - Modular, Readable and Testable Views</a></h1>
+     <div class="cat_date">
+      <div class="hidden_categories">
+        
+        <span> <a href="/category/coffeescript/">Coffeescript</a></span>
+        
+        <span> <a href="/category/backbonejs/">Backbone.js</a></span>
+            
+      </div>
+      <div class="post_date">
+      Jan. 21, 2012
+      </div>
+    </div>
+   <section>
+      <p>After more work with Backbone on projects at <a class="reference external" href="http://sheepdoginc.ca">Sheepdog</a>, we are starting
 to develop a solid foundation that will allow us to easily develop,
 <strong>test</strong>, and maintain our Backbone.js applications. Having these properties in
 our JS / CoffeeScript is very important, as we're striving toward better test
@@ -143,30 +214,40 @@ of two common design patterns found in MVP applications. The Observer Pattern,
 and the Factory Pattern.</p>
 <div class="section" id="i-observer">
 <h2>I, Observer</h2>
-<p>Obtaining much of ...</p></div>
-                </section>
-            </div>
-        </article>
-    
-        <article class="home">
-            <div class="cat_date">
-                Jan. 17, 2012
-                <ul class="hidden_categories">
-                    
-                        <li>
-                            programming
-                        </li>
-                    
-                        <li>
-                            backbone
-                        </li>
-                        
-                </ul>
-            </div>
-            <div class="post_body">
-                <h1><a href="/2012/01/17/backbone-sync-models-and-views">Backbone.js - Keeping a View&#39;s model in sync</a></h1>
-                <section>
-                    <p>I'm doing a lot of experimenting with Backbone.js for the team at
+<p>Obtaining much of my MVP knowledge from one of our products written in GWT
+(<a class="reference external" href="http://gtraxapp.com/">gTrax</a>) using the awesome GWT-Presenter and EventBus
+libraries, it's been ingrained into my being that all independant pieces of
+the application should  communicate exclusively over an agreed-upon API.
+Rather than touting the benefits of modular code, I'll assume that since you're
+still reading this you understand.</p>
+<p>EventBus helps consolidate communication while developing in java and GWT,
+and I didn't have to look far to find a flexible solution already available.
+Backbone already mixes in the <strong>Backbone.Events</strong> class into all core pieces
+of the framework so it's the perfect candidate (<em>shaving a yak, and all that</em>).
+While I've seen this pattern implemented a few times, at <a class="reference external" href="http://lostechies.com/derickbailey/2011/07/19/references-routing-and-the-event-aggregator-coordinating-views-in-backbone-js/">Los Techies</a> most
+notably, it has been missing a key piece of the puzzle. Either people are
+binding an instance of <strong>Backbone.Events</strong> directly to the window ...</p></div>
+    </section>
+  </div>
+</article>
+
+<article class="home">
+  <div class="post_body">
+    <h1><a href="/2012/01/17/backbone-sync-models-and-views">Backbone.js - Keeping a View&#39;s model in sync</a></h1>
+     <div class="cat_date">
+      <div class="hidden_categories">
+        
+        <span> <a href="/category/coffeescript/">coffeescript</a></span>
+        
+        <span> <a href="/category/backbonejs/">Backbone.js</a></span>
+            
+      </div>
+      <div class="post_date">
+      Jan. 17, 2012
+      </div>
+    </div>
+   <section>
+      <p>I'm doing a lot of experimenting with Backbone.js for the team at
 Sheepdog these days. We're working on compiling a front end stack to build
 our internal and client projects that require complex front end
 interactions.</p>
@@ -175,30 +256,81 @@ many form elements directly to a Backbone.Model instance. I wanted to implement
 this in the most declarative way possible, similar to the way a view is
 structured. The solution involved creating a subclass of Backbone.View called
 FormView.</p>
-<p>Before I start, I'd just like to ...</p>
-                </section>
-            </div>
-        </article>
-    
-        <article class="home">
-            <div class="cat_date">
-                Feb. 25, 2011
-                <ul class="hidden_categories">
-                    
-                        <li>
-                            Google
-                        </li>
-                    
-                        <li>
-                            programming
-                        </li>
-                        
-                </ul>
-            </div>
-            <div class="post_body">
-                <h1><a href="/2011/02/25/advanced-app-engine-bulk-downloading">Advanced App Engine Bulk Downloading</a></h1>
-                <section>
-                    <img alt="http://commondatastorage.googleapis.com/thurloat/appenginedump.png" class="align-center" src="http://commondatastorage.googleapis.com/thurloat/appenginedump.png" />
+<p>Before I start, I'd just like to show an example of the git diff stat from the
+commit where I changed one of our View implementations to use FormView. They
+say that you can calculate the value of your work by the lines of code that it
+shrinks while maintaining functionality.</p>
+<img alt="https://img.skitch.com/20120119-x8mb3hq586hm3kygxqgrki35j8.jpg" class="align-center" src="https://img.skitch.com/20120119-x8mb3hq586hm3kygxqgrki35j8.jpg" />
+<div class="section" id="moving-on">
+<h2>Moving On</h2>
+<p>To explain fieldMap, I'll go through a simple example of creating a simple Model
+and View to lay it all out. I'll start by creating a model for the User with
+some fields fullName, foo, and bar.</p>
+<p><strong>model.coffee</strong></p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">class</span> <span class="nx">User</span> <span class="k">extends</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Model</span>
+  <span class="nv">defaults:</span>
+    <span class="nv">fullName: </span><span class="s1">&#39;&#39;</span>
+    <span class="nv">foo: </span><span class="s1">&#39;&#39;</span>
+    <span class="nv">bar: </span><span class="s1">&#39;&#39;</span>
+</pre></div>
+</td></tr></table><p>Then create a View to display this new User class.</p>
+<p><strong>view.coffee</strong></p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">class</span> <span class="nx">UserForm</span> <span class="k">extends</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span>
+  <span class="nv">tagName: </span><span class="s1">&#39;div&#39;</span>
+
+  <span class="nv">events:</span>
+    <span class="s1">&#39;click #test_reset&#39;</span><span class="o">:</span> <span class="s1">&#39;resetModel&#39;</span>
+
+  <span class="nv">resetModel: </span><span class="o">-&gt;</span>
+    <span class="nx">@model</span><span class="p">.</span><span class="nx">set</span>
+      <span class="nv">foo: </span><span class="s1">&#39;bang ...</span></pre></div></td></tr></table></div>
+    </section>
+  </div>
+</article>
+
+<article class="home">
+  <div class="post_body">
+    <h1><a href="/2011/02/25/advanced-app-engine-bulk-downloading">Advanced App Engine Bulk Downloading</a></h1>
+     <div class="cat_date">
+      <div class="hidden_categories">
+        
+        <span> <a href="/category/google/">Google</a></span>
+        
+        <span> <a href="/category/app-engine/">App Engine</a></span>
+        
+        <span> <a href="/category/python/">Python</a></span>
+            
+      </div>
+      <div class="post_date">
+      Feb. 25, 2011
+      </div>
+    </div>
+   <section>
+      <img alt="http://commondatastorage.googleapis.com/thurloat/appenginedump.png" class="align-center" src="http://commondatastorage.googleapis.com/thurloat/appenginedump.png" />
 <p>The new Bulkloader data exporter is much easier and more automated than
 the nasty old
 way of exporting. As good as it is, there were a lot of additional
@@ -210,34 +342,53 @@ using the YAML file.</p>
 <div class="section" id="the-long-and-winding-road">
 <h2>The long and winding road</h2>
 <p>I'm going to go through the problems I faced, and how I was able to
-solve them ...</p></div>
-                </section>
-            </div>
-        </article>
-    
-        <article class="home">
-            <div class="cat_date">
-                Feb. 19, 2011
-                <ul class="hidden_categories">
-                    
-                        <li>
-                            Programming
-                        </li>
-                    
-                        <li>
-                            GitHub
-                        </li>
-                    
-                        <li>
-                            Google
-                        </li>
-                        
-                </ul>
-            </div>
-            <div class="post_body">
-                <h1><a href="/2011/02/19/google-closure-linter-textmate-bundle">Google Closure Linter TextMate Bundle</a></h1>
-                <section>
-                    <img alt="Google Closure TextMate Bundle" class="align-center" src="http://thurloat.com/wp-content/uploads/2011/02/googleclosuretmbundle.png" />
+solve them using primarily the YAML config file with the new Bulkloader.</p>
+<div class="section" id="csv-is-out-pipe-separated-is-in">
+<h3>CSV is out, Pipe separated is in</h3>
+<p>One of the requirements of the exported data was that it wasn't
+comma-separated. It needed to be delimited by a <em>pipe</em>, &quot;<strong>|</strong>&quot;,
+character. The options for exporting data via the Bulkloader are <em>CSV</em>,
+<em>simpletext</em> and <em>xml</em>. I don't see &quot;<em>PSV</em>&quot; as an option.</p>
+<p>Here's what I did to fix this:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">kind</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">model_name</span>
+  <span class="l-Scalar-Plain">connector</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">csv</span>
+  <span class="l-Scalar-Plain">connector_options</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">export_options</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">delimiter</span><span class="p-Indicator">:</span> <span class="s">&quot;|&quot;</span>
+</pre></div>
+</td></tr></table><p>I was able to re-use the Bulkloader CSV connector by passing through
+additional arguments by proxy to the Python CSV module. The outcome was
+a nice clean pipe separated data format. This was <em>much</em>, <em>much</em> better
+than the original thought: to try and use the Python module after the
+CSV connector generated the file to re-write the CSV as pipe separated.</p>
+<p>The two parameters that you can pass to ...</p></div></div>
+    </section>
+  </div>
+</article>
+
+<article class="home">
+  <div class="post_body">
+    <h1><a href="/2011/02/19/google-closure-linter-textmate-bundle">Google Closure Linter TextMate Bundle</a></h1>
+     <div class="cat_date">
+      <div class="hidden_categories">
+        
+        <span> <a href="/category/programming/">Programming</a></span>
+        
+        <span> <a href="/category/github/">GitHub</a></span>
+        
+        <span> <a href="/category/google/">Google</a></span>
+            
+      </div>
+      <div class="post_date">
+      Feb. 19, 2011
+      </div>
+    </div>
+   <section>
+      <img alt="Google Closure TextMate Bundle" class="align-center" src="http://thurloat.com/wp-content/uploads/2011/02/googleclosuretmbundle.png" />
 <p>I love the <a class="reference external" href="http://code.google.com/closure/utilities/">Google Closure</a>
 project. As a big fan of its compiler and the linter, I use both
 regularly at work and for my personal projects. However, it is not
@@ -249,34 +400,49 @@ like this:</p>
 <li>Make some changes to the JS file.</li>
 <li>Open the terminal, run <tt class="docutils literal">gsjlint source.js</tt></li>
 <li>Look over the results (<cite>ugly terminal output</cite>).</li>
-<li>Jump back to the Editor, and find ...</li></ol>
-                </section>
-            </div>
-        </article>
-    
-        <article class="home">
-            <div class="cat_date">
-                Jul. 05, 2010
-                <ul class="hidden_categories">
-                    
-                        <li>
-                            Programming
-                        </li>
-                    
-                        <li>
-                            Google
-                        </li>
-                    
-                        <li>
-                            Code Review
-                        </li>
-                        
-                </ul>
-            </div>
-            <div class="post_body">
-                <h1><a href="/2010/07/05/rietveld-rocks-tips-for-other-newbies">Rietveld Rocks. Tips for other newbies!</a></h1>
-                <section>
-                    <div class="section" id="the-potatoes">
+<li>Jump back to the Editor, and find where the problems were.</li>
+<li>go to 1.</li>
+</ol>
+<p>This tedium quickly became frustrating. I wanted a more automated
+approach to running the Closure Linter; so I hacked together a TextMate Bundle
+to make all of our lives a little easier. I was able to integrate the linter into
+my TextMate workflow without a hitch. Thus, here's my new workflow:</p>
+<ol class="arabic simple">
+<li>Make some changes to the JS file.</li>
+<li>Hit &quot;<tt class="docutils literal">Shift + Ctl + Opt + A</tt>&quot;, results appear in a TextMate Browser
+window, next to the code.</li>
+<li>Keep making changes, and using keyboard shortcut to update the
+linter window.</li>
+</ol>
+<p>Here's a screenshot of this new workflow in action:</p>
+<img alt="Closure Linter Workflow" class="align-center" src="http://thurloat.com/wp-content/uploads/2011/02/ClosureLinter-1024x672.jpg" style="width: 625px;" />
+<p><em>Pretty neat</em>! However, some of the changes that the Closure Linter wants
+you to make are monotonous. I don't want to waste time putting a space
+before my <tt class="docutils literal">=</tt> sign, or converting double quotes <tt class="docutils literal">&quot;</tt> to single quotes <tt class="docutils literal">'</tt>.
+Luckily, part of the Closure Linter utilities is a ...</p>
+    </section>
+  </div>
+</article>
+
+<article class="home">
+  <div class="post_body">
+    <h1><a href="/2010/07/05/rietveld-rocks-tips-for-other-newbies">Rietveld Rocks. Tips for other newbies!</a></h1>
+     <div class="cat_date">
+      <div class="hidden_categories">
+        
+        <span> <a href="/category/programming/">Programming</a></span>
+        
+        <span> <a href="/category/google/">Google</a></span>
+        
+        <span> <a href="/category/code-review/">Code Review</a></span>
+            
+      </div>
+      <div class="post_date">
+      Jul. 05, 2010
+      </div>
+    </div>
+   <section>
+      <div class="section" id="the-potatoes">
 <h2>The Potatoes</h2>
 <p>Peer code review has become one of my favorite feedback processes by
 far. At the SheepDog office, we're forming the habit of reviewing any
@@ -285,38 +451,49 @@ verified, it must get signed off by an engineer who did not write
 the code. This process was quickly becoming cumbersome when done manually.
 For example; A large feature would be created, then tested, and no one had the
 time to look it over because the review process was: check out the source code
-at the correct ...</p></div>
-                </section>
-            </div>
-        </article>
-    
-        <article class="home">
-            <div class="cat_date">
-                Jun. 10, 2010
-                <ul class="hidden_categories">
-                    
-                        <li>
-                            programming
-                        </li>
-                    
-                        <li>
-                            GitHub
-                        </li>
-                    
-                        <li>
-                            Google
-                        </li>
-                    
-                        <li>
-                            Personal
-                        </li>
-                        
-                </ul>
-            </div>
-            <div class="post_body">
-                <h1><a href="/2010/06/10/github-gists-rss-reader-gistrss">GitHub Gists + RSS Reader = GistRSS</a></h1>
-                <section>
-                    <p>I am pleased to announce <a class="reference external" href="http://gistrss.appspot.com/">GistRSS</a>
+at the correct location, comb through it, and provide manual feedback to
+the other developer -- had it not slipped your mind to review it in the
+first place.</p>
+<p>We installed the code review tool Rietveld on our production domain this week.
+Getting it installed on our domain was incredibly easy; however it's not the
+easiest option to find. <em>PROTIP</em>: Once you're in the Google Apps Domain Control
+Panel, click <tt class="docutils literal">Add Services</tt>, Then you'll see this little link at the bottom
+where you can install it..</p>
+<img alt="Domain Labs" src="http://commondatastorage.googleapis.com/thurloat/domainlabs.png" />
+<p>Once inside, you can install the application as you would any other to
+the domain. Of the many cool features, one of the things we quickly fell
+in love with was the ability to leave a review without touching the
+mouse. This made reviewing code much easier and seemingly familiar with
+vi-ish key bindings; for example:</p>
+<ul class="simple">
+<li><tt class="docutils literal">j</tt> next diff,</li>
+<li><tt class="docutils literal">k</tt> previous diff,</li>
+<li><tt class="docutils literal">n</tt> next line ...</li></ul></div>
+    </section>
+  </div>
+</article>
+
+<article class="home">
+  <div class="post_body">
+    <h1><a href="/2010/06/10/github-gists-rss-reader-gistrss">GitHub Gists + RSS Reader = GistRSS</a></h1>
+     <div class="cat_date">
+      <div class="hidden_categories">
+        
+        <span> <a href="/category/programming/">programming</a></span>
+        
+        <span> <a href="/category/github/">GitHub</a></span>
+        
+        <span> <a href="/category/google/">Google</a></span>
+        
+        <span> <a href="/category/personal/">Personal</a></span>
+            
+      </div>
+      <div class="post_date">
+      Jun. 10, 2010
+      </div>
+    </div>
+   <section>
+      <p>I am pleased to announce <a class="reference external" href="http://gistrss.appspot.com/">GistRSS</a>
 (a.k.a &quot;Pretty GitHub Gist RSS Feed App&quot;) to the world. The idea for this
 application came about after a frustrating conversation with a friend of mine.
 The problem that we exposed was that GitHub currently has mediocre
@@ -326,30 +503,53 @@ Reader fully syntax highlighed.</p>
 <div class="section" id="the-history">
 <h2>The History</h2>
 <p>After scouring the internet for some great tech RSS feeds, and bugging
-my friends for help, Erik Kastner came to the rescue with ...</p></div>
-                </section>
-            </div>
-        </article>
-    
-        <article class="home">
-            <div class="cat_date">
-                Jun. 07, 2010
-                <ul class="hidden_categories">
-                    
-                        <li>
-                            Programming
-                        </li>
-                    
-                        <li>
-                            Google App Engine
-                        </li>
-                        
-                </ul>
-            </div>
-            <div class="post_body">
-                <h1><a href="/2010/06/07/google-storage-and-app-engine">Google Storage for Developers on App Engine Python</a></h1>
-                <section>
-                    <p>I've been using <a class="reference external" href="http://code.google.com/apis/storage/">Google Storage</a>
+my friends for help, Erik Kastner came to the rescue with an idea to get
+fresh content into my RSS Reader.</p>
+<div class="section" id="the-transcript">
+<h3>The Transcript</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre>Erik: I have a programming section but don&#39;t really have much in there
+Erik: I also follow defunkt&#39;s gists ;) http://gist.github.com/defunkt
+Me: i never thought of following gists, thats a neat idea
+Me: publish a new gist, so i can see what reader does when you post a new one
+Erik: it&#39;s not very great :/
+Me: sounds like a cool project, github gist pretty rss maker
+Erik: that would be fantastic
+Me: \*adds to to-do list\*
+Erik: ttyl :)
+</pre></div>
+</td></tr></table><p>A few hours later, I had a working prototype. Since then I've added some
+caching and syntax highlighting to the raw Gist content. I'm
+pretty excited to have people using GistRSS and it's become something
+that I use every day. There's ...</p></div></div>
+    </section>
+  </div>
+</article>
+
+<article class="home">
+  <div class="post_body">
+    <h1><a href="/2010/06/07/google-storage-and-app-engine">Google Storage for Developers on App Engine Python</a></h1>
+     <div class="cat_date">
+      <div class="hidden_categories">
+        
+        <span> <a href="/category/programming/">Programming</a></span>
+        
+        <span> <a href="/category/google-app-engine/">Google App Engine</a></span>
+            
+      </div>
+      <div class="post_date">
+      Jun. 07, 2010
+      </div>
+    </div>
+   <section>
+      <p>I've been using <a class="reference external" href="http://code.google.com/apis/storage/">Google Storage</a>
 since I/O 2010, and I'm impressed with it so far. At <a class="reference external" href="http://sheepdoginc.ca">work</a>,
 we've converted some of our application resources from using S3 as a CDN to
 Google Storage this past week.</p>
@@ -360,26 +560,53 @@ short tutorial.</p>
 <div class="section" id="configuring-google-storage-for-app-engine">
 <h2>Configuring Google Storage for App Engine</h2>
 <p>This problem has come up a couple of times in the Google Storage for Developers
-group. After ...</p></div>
-                </section>
-            </div>
-        </article>
-    
-        <article class="home">
-            <div class="cat_date">
-                Jan. 02, 2010
-                <ul class="hidden_categories">
-                    
-                        <li>
-                            Photography
-                        </li>
-                        
-                </ul>
-            </div>
-            <div class="post_body">
-                <h1><a href="/2010/01/02/new-flash">Experimenting with a new Flash</a></h1>
-                <section>
-                    <p>I've been a little behind on my photography posts, but I have not been
+group. After looking at the
+<a class="reference external" href="http://code.google.com/apis/storage/docs/gspythonlibrary.html">Python Library Docs for GS</a>,
+the biggest hurdle looks like getting the boto library properly configured.
+Once boto is set up, you should be able to run all of the sample code provided by
+Google. <em>Lets get you there</em>.</p>
+<div class="section" id="the-problem">
+<h3>The Problem</h3>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># Bring in the boto library</span>
+<span class="kn">import</span> <span class="nn">boto</span>
+
+<span class="c"># Load the configuration variables from your .boto file</span>
+<span class="n">config</span> <span class="o">=</span> <span class="n">boto</span><span class="o">.</span><span class="n">config</span>
+
+<span class="sd">&quot;&quot;&quot; FAIL. &quot;&quot;&quot;</span>
+</pre></div>
+</td></tr></table><p>As you can see by my fail comment, App Engine has no way to access your
+<tt class="docutils literal"><span class="pre">~/.boto</span></tt> file where your Secret Key is located. We can solve this by
+diving into boto.config. When the boto configuration is initialized, It
+checks for the initial file and tries to parse it and load it into
+memory by using <tt class="docutils literal">add_section(section_name)</tt> and
+<tt class="docutils literal">set(section_name,key,value)</tt>. Knowing this, you're able to call
+those functions yourself after loading the boto lib and ...</p></div></div>
+    </section>
+  </div>
+</article>
+
+<article class="home">
+  <div class="post_body">
+    <h1><a href="/2010/01/02/new-flash">Experimenting with a new Flash</a></h1>
+     <div class="cat_date">
+      <div class="hidden_categories">
+        
+        <span> <a href="/category/photography/">Photography</a></span>
+            
+      </div>
+      <div class="post_date">
+      Jan. 02, 2010
+      </div>
+    </div>
+   <section>
+      <p>I've been a little behind on my photography posts, but I have not been
 behind on expanding my horizons and taking all kinds of crazy pictures;
 most of which will not end up around here. However, for Christmas Dad
 got me a flash for our camera. He miraculously did this through leaving
@@ -388,26 +615,39 @@ time trying to get it working the right way with the much newer Canon
 camera.</p>
 <p>Just a warning to digital camera owners</p>
 <blockquote>
-<p>&quot;Careful with old flash vs new camera voltages ...</p></blockquote>
-                </section>
-            </div>
-        </article>
-    
-        <article class="home">
-            <div class="cat_date">
-                Dec. 12, 2009
-                <ul class="hidden_categories">
-                    
-                        <li>
-                            Uncategorized
-                        </li>
-                        
-                </ul>
-            </div>
-            <div class="post_body">
-                <h1><a href="/2009/12/12/swat-team-in-my-building">SWAT Team in my building.</a></h1>
-                <section>
-                    <p>All of the Police activity around my apartment building is winding down,
+<p>&quot;Careful with old flash vs new camera voltages. They could blow the hot
+seat off your camera if you're not. So do your research in advance to
+make sure that it's safe with your camera.&quot;</p>
+<p class="attribution">&mdash;Mr. Ian Munroe</p>
+</blockquote>
+<p>So after about 5 days of toying, learning that the auto settings on the
+old flash won't communicate with newer cameras, and trying desperately
+to search online for the manual, I decided to take my own way out and
+through caution to the wind. I spent a while toying with the shutter
+speed, aperture and ISO to try and stop the insane hot spots the flash
+was giving me. I ended up using something along the lines of 100ISO,
+1/500, F16. This worked fine for the direct shots, but I'm finding the
+flash is more useful when I point it somewhere else**....** I really
+enjoy finding new ways to shoot the same shot, give it ...</p>
+    </section>
+  </div>
+</article>
+
+<article class="home">
+  <div class="post_body">
+    <h1><a href="/2009/12/12/swat-team-in-my-building">SWAT Team in my building.</a></h1>
+     <div class="cat_date">
+      <div class="hidden_categories">
+        
+        <span> <a href="/category/uncategorized/">Uncategorized</a></span>
+            
+      </div>
+      <div class="post_date">
+      Dec. 12, 2009
+      </div>
+    </div>
+   <section>
+      <p>All of the Police activity around my apartment building is winding down,
 and Police report was finally submitted to halifax.ca, but they don't
 have permalinks for their reports so I thought I might just paste it
 below for future reference.</p>
@@ -418,30 +658,40 @@ below for future reference.</p>
 woman face charges after a drug search last night in Fairview by the
 HRP/RCMP Integrated Drug Unit assisted by the Quick Response Unit. A
 search of a residence in the 0-100 block of Dawn Street resulted in
-the seizure of a quantity of ...</blockquote></div>
-                </section>
-            </div>
-        </article>
-    
-        <article class="home">
-            <div class="cat_date">
-                Nov. 09, 2009
-                <ul class="hidden_categories">
-                    
-                        <li>
-                            Personal
-                        </li>
-                    
-                        <li>
-                            Photography
-                        </li>
-                        
-                </ul>
-            </div>
-            <div class="post_body">
-                <h1><a href="/2009/11/09/photography-the-tilt-shift-effect">Photography &amp;amp; The Tilt-Shift Effect</a></h1>
-                <section>
-                    <p>On a regular basis I find myself looking at something and thinking
+the seizure of a quantity of marijuana, cocaine, hash and other drug
+paraphernalia. A handgun magazine containing bullets was also seized.
+Five people were arrested at the scene without incident. Stephen
+Andrew Coleman, 21, of Dartmouth, is charged with drug trafficking and
+weapons related offences. He was also wanted on a parole warrant. Shea
+Alexander Durnford, 21, of Halifax, is charged with drug trafficking
+and also had an outstanding parole warrant. Ryan William Ross, 20, of
+Dartmouth, Ashley Rose MacNeil, 23, and Eric Thomas Whickens, 53, both
+of Halifax face charges of drug trafficking. Coleman, Durnford, Ross
+and MacNeil were all held for court today while Whickens was released
+but also scheduled to appear in court today.</blockquote>
+</div>
+
+    </section>
+  </div>
+</article>
+
+<article class="home">
+  <div class="post_body">
+    <h1><a href="/2009/11/09/photography-the-tilt-shift-effect">Photography &amp;amp; The Tilt-Shift Effect</a></h1>
+     <div class="cat_date">
+      <div class="hidden_categories">
+        
+        <span> <a href="/category/personal/">Personal</a></span>
+        
+        <span> <a href="/category/photography/">Photography</a></span>
+            
+      </div>
+      <div class="post_date">
+      Nov. 09, 2009
+      </div>
+    </div>
+   <section>
+      <p>On a regular basis I find myself looking at something and thinking
 &quot;damnit, I wish i could keep this&quot;... often times what I'm seeing in my
 head isn't really what would be captured on film, my imagination is
 often much less literal. That has been one of Photography's biggest
@@ -449,30 +699,41 @@ turn-offs for me in the past and hopefully this is where capturing and
 editing skills from a few of my friends will keep me motivated!</p>
 <p>In my Photography &amp; Lightroom corner, I have
 <a class="reference external" href="http://blog.ianmunroe.com">Ian Munroe</a>. Ian is doing a lot of over time
-getting my technical photography skills up ...</p>
-                </section>
-            </div>
-        </article>
-    
-        <article class="home">
-            <div class="cat_date">
-                Sep. 22, 2009
-                <ul class="hidden_categories">
-                    
-                        <li>
-                            Programming
-                        </li>
-                    
-                        <li>
-                            Tech News
-                        </li>
-                        
-                </ul>
-            </div>
-            <div class="post_body">
-                <h1><a href="/2009/09/22/google-app-engine-case-study">Google App Engine Case Study!</a></h1>
-                <section>
-                    <p>Earlier this week I was presented with the opportunity to write a blog
+getting my technical photography skills up to par. Anything from
+helping to fix my over-zealous white balance settings, to being my
+personal Wikipedia for technical knowledge, he's been right there.
+He's also helping to keep me inspired with constant feedback on what
+I've placed in his DropBox, and donating tips (hard learned, I'm
+sure.) on using Lightroom to put some finishing touches on my photos.
+In my Photoshop &amp; Editing corner, is
+<a class="reference external" href="http://www.alltimelowe.com/">Chris Lowe</a>. I've been working with Chris at
+<a class="reference external" href="http://norex.ca">Norex</a> for 6 months or so now, and he's been helping
+me out a lot with any Photoshop and design related questions I might
+have. I'm especially keen on learning editing techniques that will
+help me try and transfer my vision into something solid.</p>
+<p>With all this help, I'm sure that I'll be able to do some transferring
+of <em>vision</em>; That's what I like to call it ...</p>
+    </section>
+  </div>
+</article>
+
+<article class="home">
+  <div class="post_body">
+    <h1><a href="/2009/09/22/google-app-engine-case-study">Google App Engine Case Study!</a></h1>
+     <div class="cat_date">
+      <div class="hidden_categories">
+        
+        <span> <a href="/category/programming/">Programming</a></span>
+        
+        <span> <a href="/category/tech-news/">Tech News</a></span>
+            
+      </div>
+      <div class="post_date">
+      Sep. 22, 2009
+      </div>
+    </div>
+   <section>
+      <p>Earlier this week I was presented with the opportunity to write a blog
 post / case study for the Google App Engine Blog about how I leveraged
 App Engine while developing the Canoe '09 results application. How could
 I refuse such an honor? Well, I couldn't. So after some careful edits
@@ -482,30 +743,51 @@ Stability that we saw during the course of the event. True Story!</p>
 <div class="section" id="preview">
 <h2>Preview</h2>
 <blockquote>
-<p>... we saw over 1,000,000 page views from 93 ...</p></blockquote></div>
-                </section>
-            </div>
-        </article>
-    
-        <article class="home">
-            <div class="cat_date">
-                Aug. 29, 2009
-                <ul class="hidden_categories">
-                    
-                        <li>
-                            iPhone
-                        </li>
-                    
-                        <li>
-                            Personal
-                        </li>
-                        
-                </ul>
-            </div>
-            <div class="post_body">
-                <h1><a href="/2009/08/29/iphone-tethering">iPhone Tethering</a></h1>
-                <section>
-                    <p>This is my iPhone tethering story. With the cable down and no where else
+<p>... we saw over 1,000,000 page views from 93 countries around the
+world, and experienced incredible stability and scalability from
+Google App Engine even when we were spiking 350 requests per second
+during the finals. It was a big win for Norex, and App Engine has
+proven itself to be a serious contender for developing scalable web
+applications. Thanks so much to the Google App Engine team for
+providing such an outstanding product!</p>
+<p><a class="reference external" href="http://googleappengine.blogspot.com/2009/09/agile-paddling-with-app-engine-lessons.html">link</a></p>
+</blockquote>
+</div>
+<div class="section" id="director-s-cut">
+<h2>Director's Cut</h2>
+<p>One thing I think may have been missing from the case study is the
+notion of how great of a team we had working on the application. As much
+as I did the bulk of the programming and behind the scenes work, It
+wouldn't have gone anywhere without the:</p>
+<ul class="simple">
+<li>Idea &amp; Motivation (Julia Rivard)</li>
+<li>Management who believed in the project (Brandon Kolybaba)</li>
+<li>Development Help (David Wolfe &amp; Chris Troup)</li>
+<li>Thorough Testing (Anas Trabulsi)</li>
+<li>Human Power (Mark Jamieson)</li>
+<li>Designer (Justin Bellefontaine)</li>
+<li>My Fiancee (Jessica ...</li></ul></div>
+    </section>
+  </div>
+</article>
+
+<article class="home">
+  <div class="post_body">
+    <h1><a href="/2009/08/29/iphone-tethering">iPhone Tethering</a></h1>
+     <div class="cat_date">
+      <div class="hidden_categories">
+        
+        <span> <a href="/category/iphone/">iPhone</a></span>
+        
+        <span> <a href="/category/personal/">Personal</a></span>
+            
+      </div>
+      <div class="post_date">
+      Aug. 29, 2009
+      </div>
+    </div>
+   <section>
+      <p>This is my iPhone tethering story. With the cable down and no where else
 to turn I looked to my trusty swiss-army knife of utilities: My
 iPhone... did it pass or fail? Well, before I tell my Saturday evening
 Internet story, I'll preface with the fact that I'm upset that Rogers
@@ -514,34 +796,42 @@ Seriously, what's up with that? They can't be worried about me going
 over my data limit, as that would just make them more money!</p>
 <div class="section" id="the-story">
 <h2>The Story</h2>
-<p>The cable seemed to be out in the ...</p></div>
-                </section>
-            </div>
-        </article>
-    
-        <article class="home">
-            <div class="cat_date">
-                Jul. 13, 2009
-                <ul class="hidden_categories">
-                    
-                        <li>
-                            Painting
-                        </li>
-                    
-                        <li>
-                            Personal
-                        </li>
-                    
-                        <li>
-                            Programming
-                        </li>
-                        
-                </ul>
-            </div>
-            <div class="post_body">
-                <h1><a href="/2009/07/13/goals-in-review">Goals In Review</a></h1>
-                <section>
-                    <p>It's about that time that I come out and see how my planned goals are
+<p>The cable seemed to be out in the apartment this evening, so I decided
+what better time than now to get tethering work on my phone. This was
+not a huge feat of wizardry, it is quite well documented throughout
+the web. After that went smoothly, I just plugged it in. I'm writing
+this post on my new fan-dangled tethering device, and the connection is
+wonderfully persistent (so far). I'll be Frank, Frank is surprised how
+easily and wonderfully easy (<em>did he mention that it was easy?</em>) it was
+to get running. One thing Frank noticed is that iTunes appears to be
+taking <em>~%12-18 CPU</em> to keep the connection going, which he figured was
+just because iTunes was pulling double duty as an emergency Internet
+connection, and frankly, Frank was okay with that. Frank also enjoyed the
+browsing speed. He immediately noticed that pages were a lot snappier on
+his laptop as opposed to his phone ...</p></div>
+    </section>
+  </div>
+</article>
+
+<article class="home">
+  <div class="post_body">
+    <h1><a href="/2009/07/13/goals-in-review">Goals In Review</a></h1>
+     <div class="cat_date">
+      <div class="hidden_categories">
+        
+        <span> <a href="/category/painting/">Painting</a></span>
+        
+        <span> <a href="/category/personal/">Personal</a></span>
+        
+        <span> <a href="/category/programming/">Programming</a></span>
+            
+      </div>
+      <div class="post_date">
+      Jul. 13, 2009
+      </div>
+    </div>
+   <section>
+      <p>It's about that time that I come out and see how my planned goals are
 coming. I hate making excuses for not doing things, and it hurts me to
 do so. So here's a long list of excuses.</p>
 <div class="section" id="results">
@@ -550,26 +840,44 @@ do so. So here's a long list of excuses.</p>
 with chemotherapy on July 3rd, 2010. Sparing all of the emotional outcry,
 it's thrown a wrench into my plans and put me out of commission for a
 week or two. I won't say that I haven't made ANY progress, as a couple
-goals are ...</p></div>
-                </section>
-            </div>
-        </article>
-    
-        <article class="home">
-            <div class="cat_date">
-                Jun. 28, 2009
-                <ul class="hidden_categories">
-                    
-                        <li>
-                            Personal
-                        </li>
-                        
-                </ul>
-            </div>
-            <div class="post_body">
-                <h1><a href="/2009/06/28/the-greatest-man">The Greatest Man Who Ever Lived</a></h1>
-                <section>
-                    <p>I took a day off from going to the hospital and visiting my Dad. As much
+goals are in the double digit completion range. Here's the breakdown.</p>
+<div class="section" id="contribute-something-good-to-an-open-source-project">
+<h3>Contribute something good to an Open Source project</h3>
+<p>Verdict : <strong>0%</strong>. Sadly I haven't had any time to work on personal projects
+/ scour github for fun code to do stuff with.</p>
+</div>
+<div class="section" id="follow-up-with-at-least-1-of-the-micro-startup-idea">
+<h3>Follow up with at least 1 of the micro-startup idea</h3>
+<p>Verdict : <strong>15%</strong>. I've actually had a few minutes to think about this, so I
+determined that any decision is a good one. So I started investigating
+the isdanecookinthismovie.com idea. Haven't gone any further than doing
+some proof of concept iMDB apps, but the ball IS rolling.</p>
+</div>
+<div class="section" id="break-the-100-twitter-followers-barrier-real-125">
+<h3>Break the 100 Twitter Followers barrier (real 125)</h3>
+<p>Verdict : <strong>~75%</strong>. At the time of writing, my twitter counter reads 119
+followers. I'm surprised at this growth, as I've really been
+slacking lately in good tweets / anything not involving my father or his
+funeral. It's amazing how supportive ...</p></div></div>
+    </section>
+  </div>
+</article>
+
+<article class="home">
+  <div class="post_body">
+    <h1><a href="/2009/06/28/the-greatest-man">The Greatest Man Who Ever Lived</a></h1>
+     <div class="cat_date">
+      <div class="hidden_categories">
+        
+        <span> <a href="/category/personal/">Personal</a></span>
+            
+      </div>
+      <div class="post_date">
+      Jun. 28, 2009
+      </div>
+    </div>
+   <section>
+      <p>I took a day off from going to the hospital and visiting my Dad. As much
 as we love to be there with him, we there are other people's needs that
 need met. While working today I was slowly writing down my thoughts
 about the current events and it turned into a letter. I think that the
@@ -577,60 +885,94 @@ best way for me to keep on top is to share how I'm feeling, and I'm
 feeling like hell... So as you might imagine, this is very emotional and
 probably sounds like a bunch of rambling, but either way.</p>
 <div class="section" id="a-letter-to-my-father">
-<h2>A ...</h2></div>
-                </section>
-            </div>
-        </article>
-    
-        <article class="home">
-            <div class="cat_date">
-                Jun. 26, 2009
-                <ul class="hidden_categories">
-                    
-                        <li>
-                            painting
-                        </li>
-                    
-                        <li>
-                            Personal
-                        </li>
-                    
-                        <li>
-                            programming
-                        </li>
-                        
-                </ul>
-            </div>
-            <div class="post_body">
-                <h1><a href="/2009/06/26/its-time-for-a-change">It&#39;s Time for a Change!</a></h1>
-                <section>
-                    <p>I had a good chat with Jessica the other day about my work load, the
+<h2>A Letter to my Father</h2>
+<blockquote>
+<p>Hey Dad,</p>
+<p>I love you. I know we don't talk about mushy things much, but
+there are a lot of things I'd like to tell you. You're an amazing
+inspiration to me, you've taught me so much about living life. I have
+so many memories of us having a good time.</p>
+<p>Jumping off of the roof in Ottawa into your arms, you taught me to
+trust.</p>
+<p>Making those cassette tapes with scary noises around halloween, you
+taught me to laugh.</p>
+<p>Being with mum and always doing the most thoughtful and wonderful
+things for her, you taught me to love.</p>
+<p>Preserving through your entire life of obstacles, you've taught me to
+be so strong.</p>
+<p>You've introduced me to all of my hobbies and loves of life. When I
+was just a kid you would bring me to the base and let ...</p></blockquote></div>
+    </section>
+  </div>
+</article>
+
+<article class="home">
+  <div class="post_body">
+    <h1><a href="/2009/06/26/its-time-for-a-change">It&#39;s Time for a Change!</a></h1>
+     <div class="cat_date">
+      <div class="hidden_categories">
+        
+        <span> <a href="/category/painting/">painting</a></span>
+        
+        <span> <a href="/category/personal/">Personal</a></span>
+        
+        <span> <a href="/category/programming/">programming</a></span>
+            
+      </div>
+      <div class="post_date">
+      Jun. 26, 2009
+      </div>
+    </div>
+   <section>
+      <p>I had a good chat with Jessica the other day about my work load, the
 things I say I will do, things promise I will do, priorities, and life
 decisions. She always gets me into a thought provoking mood. It turns out
 that I have made it a habit for myself to tell everyone <strong>YES</strong>! to
 whatever they're asking ... then attempt to cram it into my schedule.
 It's been pointed out to me that if I somehow don't get these things fit
 into my schedule... I appear un-reliable. eek. So there are 2 action
-items that I ...</p>
-                </section>
-            </div>
-        </article>
-    
-        <article class="home">
-            <div class="cat_date">
-                Jun. 22, 2009
-                <ul class="hidden_categories">
-                    
-                        <li>
-                            Comedy
-                        </li>
-                        
-                </ul>
-            </div>
-            <div class="post_body">
-                <h1><a href="/2009/06/22/the-picard-loop">The Picard Loop</a></h1>
-                <section>
-                    <p>So, here I was (you are here). Sitting on the couch, leisurely watching
+items that I've decided I <strong>NEED</strong> to take. I need to start telling
+people that I'm busy, and I need to come up with some clear goals that I
+am going to work on. So I've decided that in order to build
+motivation I need a list! I've always been inspired by
+<a class="reference external" href="http://metaatem.net/">Erik Kastner's Blog</a> posts about his goals and I think
+that writing them down and making it permanent will help make it happen.
+I have a reputation to uphold, you know!</p>
+<div class="section" id="this-month-s-goals">
+<h2>This Month's Goals</h2>
+<ol class="arabic simple">
+<li>Write this post.</li>
+<li>Contribute something good to an Open Source project.</li>
+<li>Follow up with at least 1 idea.</li>
+<li>Break 100 twitter followers.</li>
+<li>Work on our Wedding &amp; RSVP web page.</li>
+<li>Finish 2 paintings.</li>
+<li>Finish my mother's website.</li>
+<li>Lose 15 pounds.</li>
+</ol>
+<div class="section" id="write-this-post">
+<h3>Write this Post!</h3>
+<p>...and more more after this</p>
+<p>I've had this post stored in a text file on my computer ...</p></div></div>
+    </section>
+  </div>
+</article>
+
+<article class="home">
+  <div class="post_body">
+    <h1><a href="/2009/06/22/the-picard-loop">The Picard Loop</a></h1>
+     <div class="cat_date">
+      <div class="hidden_categories">
+        
+        <span> <a href="/category/comedy/">Comedy</a></span>
+            
+      </div>
+      <div class="post_date">
+      Jun. 22, 2009
+      </div>
+    </div>
+   <section>
+      <p>So, here I was (you are here). Sitting on the couch, leisurely watching
 “John and Kate plus 8”. When I looked over at Jessica’s Psychology Quiz.
 This text is quoted straight from an University Psych textbook... seriously.</p>
 <blockquote>
@@ -639,26 +981,43 @@ Warp 4 his shuttlecraft, he can rendezvous with the Starship
 Enterprise in 4. 2 hours. However, in order to reach the ship so
 quickly, he would have to travel through the Neutral Zone, and his
 presence would undoubtedly be noticed by Romulan warships, which would
-attack and destroy his ...</p></blockquote>
-                </section>
-            </div>
-        </article>
-    
-        <article class="home">
-            <div class="cat_date">
-                Jun. 05, 2009
-                <ul class="hidden_categories">
-                    
-                        <li>
-                            Updates
-                        </li>
-                        
-                </ul>
-            </div>
-            <div class="post_body">
-                <h1><a href="/2009/06/05/google-chrome-for-mac">Google Chrome for Mac!</a></h1>
-                <section>
-                    <p>I just got my mitts on Google Chrome for Mac. The JS speed is
+attack and destroy his craft. Thus, Picard realizes that he will have
+to take another route to the ship and thus devises what comes to be
+known as the “Picard loop” to get around the neutral zone. The Captain
+has applied ____.</p>
+<blockquote>
+<ol class="upperalpha simple">
+<li>crystallized intelligence ability</li>
+<li>an algorithm</li>
+<li>deductive reasoning skill</li>
+<li>means-ends analysis</li>
+</ol>
+</blockquote>
+</blockquote>
+<p>My question is:</p>
+<div class="section" id="why-is-picard-on-deep-space-nine">
+<h2>Why is picard on Deep Space Nine?</h2>
+</div>
+
+    </section>
+  </div>
+</article>
+
+<article class="home">
+  <div class="post_body">
+    <h1><a href="/2009/06/05/google-chrome-for-mac">Google Chrome for Mac!</a></h1>
+     <div class="cat_date">
+      <div class="hidden_categories">
+        
+        <span> <a href="/category/updates/">Updates</a></span>
+            
+      </div>
+      <div class="post_date">
+      Jun. 05, 2009
+      </div>
+    </div>
+   <section>
+      <p>I just got my mitts on Google Chrome for Mac. The JS speed is
 incredible.</p>
 <div class="floatleft container">
 <img alt="http://img.skitch.com/20090605-gwj26p3tbqtwfak4f9u1t6kwna.png" src="http://img.skitch.com/20090605-gwj26p3tbqtwfak4f9u1t6kwna.png" />
@@ -670,11 +1029,16 @@ because it doesn’t ever bog down on the heavy JS activity with Chunk
 revisions. It just seems to be more snappy in general compared to FF
 3.01, where, on many occasions FF will freeze for 1/4 of a second when
 it’s processing JS or finishing a page load. It creates a frustration
-inside of me so deep ...</p>
-                </section>
-            </div>
-        </article>
-    
+inside of me so deep and burning ...</p>
+<p>Seriously. It’s only quarter of a second, but if I had all of those
+quarter seconds back, I’d for sure have at least a minute on my hands.</p>
+<p>P.S. i just noticed that half of the toolbar for making tumblr posts has
+disappeared in chrome.. weird.</p>
+
+    </section>
+  </div>
+</article>
+
 
     </div>
     

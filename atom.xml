@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Adam Thurlow - Awesome.</title><link href="thurloat.com/atom.xml" rel="self"/><link href="thurloat.com"/><updated>2012-07-23T02:38:13Z</updated><id>thurloat.com</id><entry><title>Jasmine Tests Swallowing Asynchronous Exceptions</title><author><name>Adam Thurlow</name></author><link href="thurloat.com/2012/07/06/jasmine-swallowing-async-exceptions"/><updated>2012-07-06T23:00:00Z</updated><published>2012-07-06T23:00:00Z</published><id>thurloat.com/2012/07/06/jasmine-swallowing-async-exceptions</id><content type="html">
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Adam Thurlow - Awesome.</title><link href="thurloat.com/atom.xml" rel="self"/><link href="thurloat.com"/><updated>2012-12-07T14:22:16Z</updated><id>thurloat.com</id><entry><title>Jasmine Asynchronous Specs</title><author><name>Adam Thurlow</name></author><link href="thurloat.com/2012/12/05/jasmine-async"/><updated>2012-12-05T19:30:00Z</updated><published>2012-12-05T19:30:00Z</published><id>thurloat.com/2012/12/05/jasmine-async</id><content type="html">
+            
+                &lt;p&gt;I&#39;ll start out by saying that I&#39;m a huge &lt;a class=&quot;reference external&quot; href=&quot;http://pivotal.github.com/jasmine/&quot;&gt;Jasmine&lt;/a&gt; fan. I have been
+working with it exclusively for testing during the last few months. However,
+it has ...&lt;/p&gt;
+            
+            </content></entry><entry><title>Jasmine Tests Swallowing Asynchronous Exceptions</title><author><name>Adam Thurlow</name></author><link href="thurloat.com/2012/07/06/jasmine-swallowing-async-exceptions"/><updated>2012-07-06T23:00:00Z</updated><published>2012-07-06T23:00:00Z</published><id>thurloat.com/2012/07/06/jasmine-swallowing-async-exceptions</id><content type="html">
             
                 &lt;p&gt;On a recent cross-continent programming expedition, I ran into an &lt;strong&gt;exceptionally&lt;/strong&gt;
 frustrating bug while writing tests using the &lt;a class=&quot;reference external&quot; href=&quot;http://pivotal.github.com/jasmine/&quot;&gt;Jasmine&lt;/a&gt; unit testing framework.

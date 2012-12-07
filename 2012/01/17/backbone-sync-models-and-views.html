@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Backbone.js - Keeping a View&#39;s model in sync - Thurloat.com</title>
-    <link href='http://fonts.googleapis.com/css?family=Quattrocento&v2' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="/media/style.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="/media/pygments.css" type="text/css" media="screen" />
     <script type="text/javascript">
@@ -22,32 +22,21 @@
 </head>
 <body>
     <header>
-        <div class="avatar_holder">
-            <img src="http://0.gravatar.com/avatar/11748328e57fff12f212fb14df91cbbf?s=45" alt="me" />
-        </div>
         <div class="site_title">
-            <h1>
-                <span class="z">Thurloat</span>
-                <span class="x">Adam Thurlow</span>
-            </h1>
+          <h1><a href="/">Thurloat.com</a><span><a href="/about">Adam Thurlow</a></span></h1>
         </div>
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/archives">Archives</a></li>
-                <li><a href="/about">About</a></li>
-            </ul>
-        </nav>
     </header>
     <div id="content">
     
-    <article>
-        <header>
-            <h1>Backbone.js - Keeping a View&#39;s model in sync</h1>
-            <span class="date">Jan. 17, 2012</span> - Posted by Thurloat
-        </header>
-        <section>
-            <p>I'm doing a lot of experimenting with Backbone.js for the team at
+<article>
+  <header>
+    <h1>Backbone.js - Keeping a View&#39;s model in sync</h1>
+    <div class="subheader">
+      <span class="date">Jan. 17, 2012</span> - Posted by Thurloat
+    </div>
+  </header>
+  <section>
+    <p>I'm doing a lot of experimenting with Backbone.js for the team at
 Sheepdog these days. We're working on compiling a front end stack to build
 our internal and client projects that require complex front end
 interactions.</p>
@@ -122,7 +111,7 @@ some fields fullName, foo, and bar.</p>
     <span class="err">@</span>
 </pre></div>
 </td></tr></table><p>Now, you pass a User object into the view when you create it, and now the goal
-is to have the model update each time the form is changed as well as propogate
+is to have the model update each time the form is changed as well as propagate
 model changes back into the form when they happen. This is where things start
 to get a little ugly and WET (<strong>!DRY</strong>).</p>
 <p>You'll have to add a refresh method to your View, and bind it with
@@ -211,15 +200,15 @@ implements naive <tt class="docutils literal">refresh</tt> and <tt class="docuti
     <span class="err">@</span>
 </pre></div>
 </td></tr></table><p>There are many problems with the code above for keeping the form and model
-in sync with eachother. To name a few:</p>
+in sync with each other. To name a few:</p>
 <ul class="simple">
 <li>It's unclear which Model fields are bound to which form elements</li>
 <li>Lots of repetitive code</li>
-<li>Refactoring becomes a nightmare, jQuery seleectors all over the code</li>
-<li>What if you don't want to propogate ALL changes on a model? only certain fields?
+<li>Refactoring becomes a nightmare, jQuery selectors all over the code</li>
+<li>What if you don't want to propagate ALL changes on a model? only certain fields?
 the boiler plate for this starts growing very quickly.</li>
 </ul>
-<p>Not only does the code contain the afforementioned issues, but it doesn't
+<p>Not only does the code contain the aforementioned issues, but it doesn't
 really follow the backbone paradigm of defining selectors for events
 during the View's declaration.</p>
 </div>
@@ -412,39 +401,43 @@ on the class with a similar example, but more condensed. I'd be happy to answer
 any questions in comments if you have them.</p>
 </div>
 
-        </section>
-        <footer>
-            
-            <a href="/category/programming/">programming</a>, 
-            
-            <a href="/category/backbone/">backbone</a>
-            
-        </footer>
-        <a href="http://twitter.com/share" 
+  </section>
+  <footer>
+    <div class="sharing">
+      <a href="http://twitter.com/share" 
         class="twitter-share-button"
         data-url="http://thurloat.com/2012/01/17/backbone-sync-models-and-views"
         data-via="thurloat"
         data-text="Backbone.js - Keeping a View&#39;s model in sync"
         data-count="none">Tweet</a>&nbsp;
-        <div class="g-plusone" data-size="medium" data-href="http://thurloat.com/2012/01/17/backbone-sync-models-and-views"></div>
-        <script type="text/javascript">
-          (function() {
-            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-            po.src = 'https://apis.google.com/js/plusone.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-          })();
-        </script>
-        <div id="disqus_thread"></div>
-        <script type="text/javascript">
-            var disqus_shortname = 'thurloatblog';
-            /* * * DON'T EDIT BELOW THIS LINE * * */
-            (function() {
-                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-            })();
-        </script>
-    </article>
+      <div class="g-plusone" data-size="medium" data-href="http://thurloat.com/2012/01/17/backbone-sync-models-and-views"></div>
+      <script type="text/javascript">
+(function() {
+  var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+  po.src = 'https://apis.google.com/js/plusone.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+})();
+      </script>
+    </div>
+    <div class="foot_cats">
+      
+      <a href="/category/coffeescript/">coffeescript</a>, 
+      
+      <a href="/category/backbonejs/">Backbone.js</a>
+      
+    </div>
+  </footer>
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+var disqus_shortname = 'thurloatblog';
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+  dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+  </script>
+</article>
 
     </div>
     

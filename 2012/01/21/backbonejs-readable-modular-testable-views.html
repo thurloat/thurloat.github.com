@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Backbone.js - Modular, Readable and Testable Views - Thurloat.com</title>
-    <link href='http://fonts.googleapis.com/css?family=Quattrocento&v2' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="/media/style.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="/media/pygments.css" type="text/css" media="screen" />
     <script type="text/javascript">
@@ -22,32 +22,21 @@
 </head>
 <body>
     <header>
-        <div class="avatar_holder">
-            <img src="http://0.gravatar.com/avatar/11748328e57fff12f212fb14df91cbbf?s=45" alt="me" />
-        </div>
         <div class="site_title">
-            <h1>
-                <span class="z">Thurloat</span>
-                <span class="x">Adam Thurlow</span>
-            </h1>
+          <h1><a href="/">Thurloat.com</a><span><a href="/about">Adam Thurlow</a></span></h1>
         </div>
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/archives">Archives</a></li>
-                <li><a href="/about">About</a></li>
-            </ul>
-        </nav>
     </header>
     <div id="content">
     
-    <article>
-        <header>
-            <h1>Backbone.js - Modular, Readable and Testable Views</h1>
-            <span class="date">Jan. 21, 2012</span> - Posted by Thurloat
-        </header>
-        <section>
-            <p>After more work with Backbone on projects at <a class="reference external" href="http://sheepdoginc.ca">Sheepdog</a>, we are starting
+<article>
+  <header>
+    <h1>Backbone.js - Modular, Readable and Testable Views</h1>
+    <div class="subheader">
+      <span class="date">Jan. 21, 2012</span> - Posted by Thurloat
+    </div>
+  </header>
+  <section>
+    <p>After more work with Backbone on projects at <a class="reference external" href="http://sheepdoginc.ca">Sheepdog</a>, we are starting
 to develop a solid foundation that will allow us to easily develop,
 <strong>test</strong>, and maintain our Backbone.js applications. Having these properties in
 our JS / CoffeeScript is very important, as we're striving toward better test
@@ -71,7 +60,7 @@ of the framework so it's the perfect candidate (<em>shaving a yak, and all that<
 While I've seen this pattern implemented a few times, at <a class="reference external" href="http://lostechies.com/derickbailey/2011/07/19/references-routing-and-the-event-aggregator-coordinating-views-in-backbone-js/">Los Techies</a> most
 notably, it has been missing a key piece of the puzzle. Either people are
 binding an instance of <strong>Backbone.Events</strong> directly to the window, and operate
-using that, or manually pass an instance of it to each vew they create. I have
+using that, or manually pass an instance of it to each view they create. I have
 two main problems with these methods which I'll outline in my review of the
 following code example.</p>
 <p><strong>problem.coffee</strong></p>
@@ -133,7 +122,7 @@ best parts of Backbone is how they suggest you structure your View classes.
 To me it is immediately obvious that, in the above class declaration:</p>
 <ul class="simple">
 <li>The View will render in a <tt class="docutils literal"><span class="pre">&lt;div&gt;&lt;/div&gt;</span></tt>.</li>
-<li>It respondes to a click event on the <tt class="docutils literal">.close_button</tt> class.</li>
+<li>It responds to a click event on the <tt class="docutils literal">.close_button</tt> class.</li>
 <li>It watches for changes on any form inputs, then calls <tt class="docutils literal">formChanged</tt>.</li>
 </ul>
 <p>There is a key piece of information is being tucked away in <tt class="docutils literal">MyView</tt>'s
@@ -144,7 +133,7 @@ will behave.</p>
 <p>The second problem I have with the above code is that you're required in your
 implementation to create your own instance of <strong>Backbone.Events</strong> and pass
 it to each view you want to create, anywhere in the application. This isn't
-the <strong>worst</strong> thing, however, what happens when your views have 2 dependancies?
+the <strong>worst</strong> thing, however, what happens when your views have 2 dependencies?
 3? 4? ...</p>
 </div>
 <div class="section" id="enter-f-tories">
@@ -204,14 +193,14 @@ and most serious problem a little later.</p>
   <span class="p">...</span>
 </pre></div>
 </td></tr></table><p>In 10 lines of coffeescript, I've shown how you can have a simple factory that
-is useful in a few key ways that are adventageous for structuring a large
+is useful in a few key ways that are advantageous for structuring a large
 Backbone.js application.</p>
 <ol class="arabic simple">
 <li>It will automatically bind the eventBus (Observer) object to any class
 we create.</li>
 <li>It has a registry that will bolt onto Backbone's <tt class="docutils literal">&#64;options</tt> for any View
-built using the factory for when your views become more complext and require
-additional dependancies.</li>
+built using the factory for when your views become more complex and require
+additional dependencies.</li>
 </ol>
 </div>
 <div class="section" id="the-final-countdown">
@@ -357,39 +346,43 @@ on keeping a View's model in sync
 </div>
 </div>
 
-        </section>
-        <footer>
-            
-            <a href="/category/programming/">programming</a>, 
-            
-            <a href="/category/backbone/">backbone</a>
-            
-        </footer>
-        <a href="http://twitter.com/share" 
+  </section>
+  <footer>
+    <div class="sharing">
+      <a href="http://twitter.com/share" 
         class="twitter-share-button"
         data-url="http://thurloat.com/2012/01/21/backbonejs-readable-modular-testable-views"
         data-via="thurloat"
         data-text="Backbone.js - Modular, Readable and Testable Views"
         data-count="none">Tweet</a>&nbsp;
-        <div class="g-plusone" data-size="medium" data-href="http://thurloat.com/2012/01/21/backbonejs-readable-modular-testable-views"></div>
-        <script type="text/javascript">
-          (function() {
-            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-            po.src = 'https://apis.google.com/js/plusone.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-          })();
-        </script>
-        <div id="disqus_thread"></div>
-        <script type="text/javascript">
-            var disqus_shortname = 'thurloatblog';
-            /* * * DON'T EDIT BELOW THIS LINE * * */
-            (function() {
-                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-            })();
-        </script>
-    </article>
+      <div class="g-plusone" data-size="medium" data-href="http://thurloat.com/2012/01/21/backbonejs-readable-modular-testable-views"></div>
+      <script type="text/javascript">
+(function() {
+  var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+  po.src = 'https://apis.google.com/js/plusone.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+})();
+      </script>
+    </div>
+    <div class="foot_cats">
+      
+      <a href="/category/coffeescript/">Coffeescript</a>, 
+      
+      <a href="/category/backbonejs/">Backbone.js</a>
+      
+    </div>
+  </footer>
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+var disqus_shortname = 'thurloatblog';
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+  dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+  </script>
+</article>
 
     </div>
     

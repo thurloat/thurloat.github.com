@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Jasmine Tests Swallowing Asynchronous Exceptions - Thurloat.com</title>
-    <link href='http://fonts.googleapis.com/css?family=Quattrocento&v2' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="/media/style.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="/media/pygments.css" type="text/css" media="screen" />
     <script type="text/javascript">
@@ -22,32 +22,21 @@
 </head>
 <body>
     <header>
-        <div class="avatar_holder">
-            <img src="http://0.gravatar.com/avatar/11748328e57fff12f212fb14df91cbbf?s=45" alt="me" />
-        </div>
         <div class="site_title">
-            <h1>
-                <span class="z">Thurloat</span>
-                <span class="x">Adam Thurlow</span>
-            </h1>
+          <h1><a href="/">Thurloat.com</a><span><a href="/about">Adam Thurlow</a></span></h1>
         </div>
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/archives">Archives</a></li>
-                <li><a href="/about">About</a></li>
-            </ul>
-        </nav>
     </header>
     <div id="content">
     
-    <article>
-        <header>
-            <h1>Jasmine Tests Swallowing Asynchronous Exceptions</h1>
-            <span class="date">Jul. 06, 2012</span> - Posted by Thurloat
-        </header>
-        <section>
-            <p>On a recent cross-continent programming expedition, I ran into an <strong>exceptionally</strong>
+<article>
+  <header>
+    <h1>Jasmine Tests Swallowing Asynchronous Exceptions</h1>
+    <div class="subheader">
+      <span class="date">Jul. 06, 2012</span> - Posted by Thurloat
+    </div>
+  </header>
+  <section>
+    <p>On a recent cross-continent programming expedition, I ran into an <strong>exceptionally</strong>
 frustrating bug while writing tests using the <a class="reference external" href="http://pivotal.github.com/jasmine/">Jasmine</a> unit testing framework.
 After coming up with a solution on my own, I scoured the web for additional insight
 and only found one other mention of this bug ( <em>and have since lost it</em> ).
@@ -154,7 +143,7 @@ documentation for <a class="reference external" href="http://pivotal.github.com/
 to make sure to wrap the function definition inside of a <tt class="docutils literal">runs()</tt> call. The
 following snippets are examples in both Coffeescript and Javascript again.</p>
 <div class="section" id="id1">
-<h3>coffeescript</h3>
+<h3>Coffeescript</h3>
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
@@ -173,7 +162,7 @@ following snippets are examples in both Coffeescript and Javascript again.</p>
 </pre></div>
 </td></tr></table></div>
 <div class="section" id="id2">
-<h3>javascript</h3>
+<h3>Javascript</h3>
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -247,41 +236,45 @@ whereas the <tt class="docutils literal">runs()</tt> statement only needs to com
 </pre></div>
 </td></tr></table></div>
 
-        </section>
-        <footer>
-            
-            <a href="/category/programming/">programming</a>, 
-            
-            <a href="/category/javascript/">javascript</a>, 
-            
-            <a href="/category/testing/">testing</a>
-            
-        </footer>
-        <a href="http://twitter.com/share" 
+  </section>
+  <footer>
+    <div class="sharing">
+      <a href="http://twitter.com/share" 
         class="twitter-share-button"
         data-url="http://thurloat.com/2012/07/06/jasmine-swallowing-async-exceptions"
         data-via="thurloat"
         data-text="Jasmine Tests Swallowing Asynchronous Exceptions"
         data-count="none">Tweet</a>&nbsp;
-        <div class="g-plusone" data-size="medium" data-href="http://thurloat.com/2012/07/06/jasmine-swallowing-async-exceptions"></div>
-        <script type="text/javascript">
-          (function() {
-            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-            po.src = 'https://apis.google.com/js/plusone.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-          })();
-        </script>
-        <div id="disqus_thread"></div>
-        <script type="text/javascript">
-            var disqus_shortname = 'thurloatblog';
-            /* * * DON'T EDIT BELOW THIS LINE * * */
-            (function() {
-                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-            })();
-        </script>
-    </article>
+      <div class="g-plusone" data-size="medium" data-href="http://thurloat.com/2012/07/06/jasmine-swallowing-async-exceptions"></div>
+      <script type="text/javascript">
+(function() {
+  var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+  po.src = 'https://apis.google.com/js/plusone.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+})();
+      </script>
+    </div>
+    <div class="foot_cats">
+      
+      <a href="/category/javascript/">Javascript</a>, 
+      
+      <a href="/category/coffeescript/">Coffeescript</a>, 
+      
+      <a href="/category/testing/">Testing</a>
+      
+    </div>
+  </footer>
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+var disqus_shortname = 'thurloatblog';
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+  dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+  </script>
+</article>
 
     </div>
     
