@@ -1,24 +1,24 @@
 {% extends "base.html" %}
 
 {% block main %}
-    {% for post in posts %}
-        <article class="home">
-            <div class="cat_date">
-                {{ post.date }}
-                <ul class="hidden_categories">
-                    {% for c in post.categories %}
-                        <li>
-                            {{ c.name }}
-                        </li>
-                    {% endfor %}    
-                </ul>
-            </div>
-            <div class="post_body">
-                <h1><a href="/{{ post.url }}">{{ post.config.title }}</a></h1>
-                <section>
-                    {{ post.contents|truncatewords_html:100|safe }}
-                </section>
-            </div>
-        </article>
-    {% endfor %}
+{% for post in posts %}
+<article class="home">
+  <div class="post_body">
+    <h1><a href="/{{ post.url }}">{{ post.config.title }}</a></h1>
+     <div class="cat_date">
+      <div class="hidden_categories">
+        {% for c in post.categories %}
+        <span> <a href="/category/{{ c.slug }}/">{{ c.name }}</a></span>
+        {% endfor %}    
+      </div>
+      <div class="post_date">
+      {{ post.date }}
+      </div>
+    </div>
+   <section>
+      {{ post.contents|truncatewords_html:250|safe }}
+    </section>
+  </div>
+</article>
+{% endfor %}
 {% endblock %}

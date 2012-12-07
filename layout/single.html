@@ -3,42 +3,48 @@
 {% block title %}{{ post.config.title }}{% endblock %}
 
 {% block main %}
-    <article>
-        <header>
-            <h1>{{ post.config.title }}</h1>
-            <span class="date">{{ post.date }}</span> - Posted by {{ post.author }}
-        </header>
-        <section>
-            {{ post.contents|safe }}
-        </section>
-        <footer>
-            {% for c in post.categories %}
-            <a href="/category/{{ c.slug }}/">{{ c.name }}</a>{% if not forloop.last %}, {% endif %}
-            {% endfor %}
-        </footer>
-        <a href="http://twitter.com/share" 
+<article>
+  <header>
+    <h1>{{ post.config.title }}</h1>
+    <div class="subheader">
+      <span class="date">{{ post.date }}</span> - Posted by {{ post.author }}
+    </div>
+  </header>
+  <section>
+    {{ post.contents|safe }}
+  </section>
+  <footer>
+    <div class="sharing">
+      <a href="http://twitter.com/share" 
         class="twitter-share-button"
         data-url="http://{{ url }}/{{ post.url }}"
         data-via="thurloat"
         data-text="{{ post.config.title }}"
         data-count="none">Tweet</a>&nbsp;
-        <div class="g-plusone" data-size="medium" data-href="http://{{ url }}/{{ post.url }}"></div>
-        <script type="text/javascript">
-          (function() {
-            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-            po.src = 'https://apis.google.com/js/plusone.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-          })();
-        </script>
-        <div id="disqus_thread"></div>
-        <script type="text/javascript">
-            var disqus_shortname = 'thurloatblog';
-            /* * * DON'T EDIT BELOW THIS LINE * * */
-            (function() {
-                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-            })();
-        </script>
-    </article>
+      <div class="g-plusone" data-size="medium" data-href="http://{{ url }}/{{ post.url }}"></div>
+      <script type="text/javascript">
+(function() {
+  var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+  po.src = 'https://apis.google.com/js/plusone.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+})();
+      </script>
+    </div>
+    <div class="foot_cats">
+      {% for c in post.categories %}
+      <a href="/category/{{ c.slug }}/">{{ c.name }}</a>{% if not forloop.last %}, {% endif %}
+      {% endfor %}
+    </div>
+  </footer>
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+var disqus_shortname = 'thurloatblog';
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+  dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+  </script>
+</article>
 {% endblock %}
