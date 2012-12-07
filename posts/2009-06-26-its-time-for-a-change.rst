@@ -4,7 +4,7 @@
 :slug: its-time-for-a-change
 :status: publish
 :title: It's Time for a Change!
-:categories: painting, Personal, programming
+:categories: painting, Personal, Programming
 :tags: change, goals, programming, website
 
 I had a good chat with Jessica the other day about my work load, the

@@ -4,7 +4,7 @@
 :slug: google-chrome-for-mac
 :status: publish
 :title: Google Chrome for Mac!
-:categories: Updates
+:categories: Personal 
 
 I just got my mitts on Google Chrome for Mac. The JS speed is
 incredible.

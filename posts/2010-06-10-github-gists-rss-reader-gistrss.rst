@@ -4,7 +4,7 @@
 :slug: github-gists-rss-reader-gistrss
 :status: publish
 :title: GitHub Gists + RSS Reader = GistRSS
-:categories: programming, GitHub, Google, Personal
+:categories: Programming, GitHub, Google, Personal
 :tags: Adam Thurlow, appengine, development, GitHub, programming, python
 
 I am pleased to announce `GistRSS <http://gistrss.appspot.com/>`_

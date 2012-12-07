@@ -4,7 +4,7 @@
 :slug: google-storage-and-app-engine
 :status: publish
 :title: Google Storage for Developers on App Engine Python
-:categories: Programming, Google App Engine
+:categories: Programming, Google, App Engine
 :tags: appengine, development, Google Storage, python
 
 
