@@ -4,7 +4,7 @@
 :slug: backbonejs-readable-modular-testable-views
 :status: publish
 :title: Backbone.js - Modular, Readable and Testable Views
-:categories: programming, backbone
+:categories: Coffeescript, Backbone.js
 :tags: coffeescript, backbone, development, javascript
 
 After more work with Backbone on projects at `Sheepdog`_, we are starting

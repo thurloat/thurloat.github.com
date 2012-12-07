@@ -4,7 +4,7 @@
 :slug: jackson-deserializing 
 :status: publish
 :title: Jackson Deserializing Polymorphic JSON
-:categories: programming, jackson, JSON
+:categories: Jackson, JSON
 :tags: JSON, jackson, java
 
 Recently I've been spending time writing a REST API using a new stack.

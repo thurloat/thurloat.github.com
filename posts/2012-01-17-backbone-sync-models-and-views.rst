@@ -4,7 +4,7 @@
 :slug: backbone-sync-models-and-views
 :status: publish
 :title: Backbone.js - Keeping a View's model in sync
-:categories: programming, backbone
+:categories: coffeescript, Backbone.js
 :tags: coffeescript, backbone, development, javascript
 
 I'm doing a lot of experimenting with Backbone.js for the team at

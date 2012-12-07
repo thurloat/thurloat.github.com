@@ -4,7 +4,7 @@
 :slug: jasmine-swallowing-async-exceptions
 :status: publish
 :title: Jasmine Tests Swallowing Asynchronous Exceptions
-:categories: programming, javascript, testing
+:categories: Javascript, Coffeescript, Testing
 :tags: javascript, jasmine, testing
 
 On a recent cross-continent programming expedition, I ran into an **exceptionally**

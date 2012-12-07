@@ -4,7 +4,7 @@
 :slug: advanced-app-engine-bulk-downloading
 :status: publish
 :title: Advanced App Engine Bulk Downloading
-:categories: Google, programming
+:categories: Google, App Engine, Python 
 :tags: appengine, bulkloader, development, python
 
 .. image:: http://commondatastorage.googleapis.com/thurloat/appenginedump.png
