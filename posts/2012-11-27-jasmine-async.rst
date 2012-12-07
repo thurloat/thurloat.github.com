@@ -50,7 +50,7 @@ small snippet below.
 
   
 As you can see, I am now executing the callback function as part of a jasmine
-``runs()`` bloc. This causes the test to run the callback within the
+``runs()`` block. This causes the test to run the callback within the
 scope of the jasmine environment, thus being able to report on the failed
 specs. This solution worked for me for a while until I needed to write some
 integration tests for a complex data controller. This process allowed me to find
