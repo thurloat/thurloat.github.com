@@ -23,7 +23,7 @@ commit where I changed one of our View implementations to use FormView. They
 say that you can calculate the value of your work by the lines of code that it
 shrinks while maintaining functionality.
 
-.. image:: https://img.skitch.com/20120119-x8mb3hq586hm3kygxqgrki35j8.jpg
+.. image:: http://f.cl.ly/items/0Q3j0y1l1L2t0E1P3b0N/ImplementingFieldMap.png 
     :align: center
 
 Moving On

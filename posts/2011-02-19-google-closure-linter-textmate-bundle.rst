@@ -7,7 +7,7 @@
 :categories: Programming, GitHub, Google
 :tags: development, programming, TextMate
 
-.. image:: http://thurloat.com/wp-content/uploads/2011/02/googleclosuretmbundle.png
+.. image:: http://f.cl.ly/items/0H2y3B0J1f0i2Z373r1o/googleclosuretmbundle.png 
     :align: center
     :alt: Google Closure TextMate Bundle
 
@@ -38,7 +38,7 @@ my TextMate workflow without a hitch. Thus, here's my new workflow:
 
 Here's a screenshot of this new workflow in action:
 
-.. image:: http://thurloat.com/wp-content/uploads/2011/02/ClosureLinter-1024x672.jpg
+.. image:: http://f.cl.ly/items/2R0f1v0t013Q3d2z1m1n/ClosureLinter.jpg 
     :align: center
     :alt: Closure Linter Workflow
     :width: 625px
@@ -52,7 +52,7 @@ corrections for you. I've included this in the Bundle with the shortcut
 "``Shift + Ctl + Opt + Z``". This will run the style fixer over your
 current file and display what it fixed in a tooltip.
 
-.. image:: http://thurloat.com/wp-content/uploads/2011/02/Google-Closure-Style-Fixer-1024x409.jpg
+.. image:: http://f.cl.ly/items/1D151T0P440A0G2f3L2s/Google-Closure-Style-Fixer.jpg 
     :align: center
     :alt: Google Closure Style Fixer
     :width: 625px
