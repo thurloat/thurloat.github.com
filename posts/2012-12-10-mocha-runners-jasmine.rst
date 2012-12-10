@@ -19,6 +19,8 @@ new API methods.
     :align: center
     :alt: Jasmine Nyancat Runner
 
+I also made a quick `video`_ of a failing test suite, and a sad Nyancat.
+
 The general approach is to have your test runner within the headless browser
 make a call out to phantom with ``window.callPhantom`` and use it as a sort of
 message bus to report progress within the test reporter. And within your
@@ -191,3 +193,4 @@ Good Luck!
 .. _`PhantomJS`: http://phantomjs.org/ 
 .. _`nyan reporter`: http://visionmedia.github.com/mocha/#nyan-reporter
 .. _`Mocha reporters`: http://visionmedia.github.com/mocha/#reporters
+.. _`video`: http://cl.ly/LGOo 
