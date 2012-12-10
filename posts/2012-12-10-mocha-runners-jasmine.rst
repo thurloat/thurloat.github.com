@@ -4,7 +4,7 @@
 :slug: mocha-phantom-js-jasmine-reporting
 :status: publish 
 :title: Mocha Style Reporters in Jasmine 
-:categories: Javascript, Testing, Phantom.js
+:categories: Javascript, Testing, Phantom.js, Jasmine
 :tags: javascript, testing
 
 Everyone and their *cat* knows that the test reporters in `Mocha`_ are much 
@@ -22,7 +22,7 @@ new API methods.
 The general approach is to have your test runner within the headless browser
 make a call out to phantom with ``window.callPhantom`` and use it as a sort of
 message bus to report progress within the test reporter. And within your
-Phantom executed JavaScript, hook onto ``page.onCallback`` and pass some parameterized
+Phantom executed Javascript, hook onto ``page.onCallback`` and pass some parameterized
 objects around to notify Phantom of the child page's state.
 
 Jasmine Reporter
@@ -67,14 +67,14 @@ This ``NewConsoleReporter`` object is structured to plug directly into Jasmine
 using it's default reporter interface. You can create it the same way that you
 would a normal ``HtmlReporter`` or ``JasmineXmlReporter`` with the Jasmine
 environment. If you open the page in a browser, you're not going to see
-anything at all, so let's move onto the Phantom implementation.
+anything at all... so let's move onto the Phantom implementation.
 
 Phantom Runner
 --------------
 
-The phantom code is pretty simple as well once you distill out most of the 
-``console.log`` hacks that I had to do in order to draw the cat, but a basic 
-Phantom script that builds off the Jasmine reporter above would look something 
+The phantom code is pretty simple since I have distilled out most of the 
+``console.log`` hacks which I had to do to animate the cat. Writing a basic 
+Phantomjs script that builds off the Jasmine reporter above would look something 
 like the following.
 
 **nyancat-jasmine-phantom.js**
@@ -154,14 +154,14 @@ like the following.
 
 Above you can see the ``page.onCallback`` event that gets fired when the child
 page calls out with ``window.callPhantom`` and how it can be leveraged to make
-more advanced (and realtime) test runners than what has been available with
+more advanced (and realtime) test runners than what is currently available in 
 projects like `phantomjs-jasminexml`_.
 
 I sincerely hope that some motivated folks get on this bandwagon and create
 some nice looking console test runners for Jasmine and Phantomjs. I am working on
-cleaning up my Nyancat runner that I created as a more detailed starting point,
-and if you need some motivation have a look at the `Mocha reporters`_ section 
-of their documentation.
+cleaning up the Nyancat runner that I created as a more detailed starting point
+and if you need some motivation -- have a look at the `Mocha reporters`_ section 
+of the documentation.
 
 Good Luck!
 
