@@ -1,10 +1,10 @@
 :author: Thurloat
-:date: 2012-11-10 17:30:00
+:date: 2012-12-10 17:30:00
 :layout: post
 :slug: mocha-phantomjs-jasmine-reporting
 :status: publish 
 :title: Mocha Style Reporters in PhantomJS with Jasmine
-:categories: Javascript, Testing, PhantomJS, Jasmine
+:categories: Javascript, Testing, PhantomJS
 :tags: javascript, testing
 
 Everyone and their *cat* knows that the test reporters in `Mocha`_ are much 
