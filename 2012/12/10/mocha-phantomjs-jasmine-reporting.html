@@ -45,6 +45,7 @@ runners to catch up. I got tired of watching a slew of bland and illegible
 implemented the infamous <a class="reference external" href="http://visionmedia.github.com/mocha/#nyan-reporter">nyan reporter</a> that comes built into Mocha using the
 new API methods.</p>
 <img alt="Jasmine Nyancat Runner" class="align-center" src="http://f.cl.ly/items/1C1r2K1I35361a1j300o/Screen%20Shot%202012-11-30%20at%2012.08.59%20PM.png" />
+<p>I also made a quick <a class="reference external" href="http://cl.ly/LGOo">video</a> of a failing test suite, and a sad Nyancat.</p>
 <p>The general approach is to have your test runner within the headless browser
 make a call out to phantom with <tt class="docutils literal">window.callPhantom</tt> and use it as a sort of
 message bus to report progress within the test reporter. And within your
