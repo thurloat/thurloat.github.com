@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Adam Thurlow - Awesome.</title><link href="thurloat.com/atom.xml" rel="self"/><link href="thurloat.com"/><updated>2012-12-09T03:43:55Z</updated><id>thurloat.com</id><entry><title>Jasmine Asynchronous Specs</title><author><name>Adam Thurlow</name></author><link href="thurloat.com/2012/12/05/jasmine-async"/><updated>2012-12-05T19:30:00Z</updated><published>2012-12-05T19:30:00Z</published><id>thurloat.com/2012/12/05/jasmine-async</id><content type="html">
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Adam Thurlow - Awesome.</title><link href="thurloat.com/atom.xml" rel="self"/><link href="thurloat.com"/><updated>2012-12-10T20:49:57Z</updated><id>thurloat.com</id><entry><title>Mocha Style Reporters in PhantomJS with Jasmine</title><author><name>Adam Thurlow</name></author><link href="thurloat.com/2012/12/10/mocha-phantomjs-jasmine-reporting"/><updated>2012-12-10T17:30:00Z</updated><published>2012-12-10T17:30:00Z</published><id>thurloat.com/2012/12/10/mocha-phantomjs-jasmine-reporting</id><content type="html">
+            
+                &lt;p&gt;Everyone and their &lt;em&gt;cat&lt;/em&gt; knows that the test reporters in &lt;a class=&quot;reference external&quot; href=&quot;http://visionmedia.github.com/mocha/&quot;&gt;Mocha&lt;/a&gt; are much
+more nicely put together than those in &lt;a class=&quot;reference external&quot; href=&quot;http://pivotal.github.com/jasmine/&quot;&gt;Jasmine&lt;/a&gt;. However, in the latest
+version of &lt;a class=&quot;reference external&quot; href=&quot;http://phantomjs.org/&quot;&gt;PhantomJS&lt;/a&gt; (1.7 ...&lt;/p&gt;
+            
+            </content></entry><entry><title>Jasmine Asynchronous Specs</title><author><name>Adam Thurlow</name></author><link href="thurloat.com/2012/12/05/jasmine-async"/><updated>2012-12-05T19:30:00Z</updated><published>2012-12-05T19:30:00Z</published><id>thurloat.com/2012/12/05/jasmine-async</id><content type="html">
             
                 &lt;p&gt;I&#39;ll start out by saying that I&#39;m a huge &lt;a class=&quot;reference external&quot; href=&quot;http://pivotal.github.com/jasmine/&quot;&gt;Jasmine&lt;/a&gt; fan. I have been
 working with it exclusively for testing during the last few months. However,

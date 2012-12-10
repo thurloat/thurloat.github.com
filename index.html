@@ -32,6 +32,87 @@
 
 <article class="home">
   <div class="post_body">
+    <h1><a href="/2012/12/10/mocha-phantomjs-jasmine-reporting">Mocha Style Reporters in PhantomJS with Jasmine</a></h1>
+     <div class="cat_date">
+      <div class="hidden_categories">
+        
+        <span> <a href="/category/javascript/">Javascript</a></span>
+        
+        <span> <a href="/category/testing/">Testing</a></span>
+        
+        <span> <a href="/category/phantomjs/">PhantomJS</a></span>
+            
+      </div>
+      <div class="post_date">
+      Dec. 10, 2012
+      </div>
+    </div>
+   <section>
+      <p>Everyone and their <em>cat</em> knows that the test reporters in <a class="reference external" href="http://visionmedia.github.com/mocha/">Mocha</a> are much
+more nicely put together than those in <a class="reference external" href="http://pivotal.github.com/jasmine/">Jasmine</a>. However, in the latest
+version of <a class="reference external" href="http://phantomjs.org/">PhantomJS</a> (1.7) there is a new <a class="reference external" href="https://github.com/ariya/phantomjs/wiki/API-Reference">API</a> that allows Jasmine console
+runners to catch up. I got tired of watching a slew of bland and illegible
+<tt class="docutils literal">console.log</tt> messages after every code change, so I went ahead and
+implemented the infamous <a class="reference external" href="http://visionmedia.github.com/mocha/#nyan-reporter">nyan reporter</a> that comes built into Mocha using the
+new API methods.</p>
+<img alt="Jasmine Nyancat Runner" class="align-center" src="http://f.cl.ly/items/1C1r2K1I35361a1j300o/Screen%20Shot%202012-11-30%20at%2012.08.59%20PM.png" />
+<p>The general approach is to have your test runner within the headless browser
+make a call out to phantom with <tt class="docutils literal">window.callPhantom</tt> and use it as a sort of
+message bus to report progress within the test reporter. And within your
+PhantomJS executed Javascript, hook onto <tt class="docutils literal">page.onCallback</tt> and pass some parameterized
+objects around to notify Phantom of the child page's state.</p>
+<div class="section" id="jasmine-reporter">
+<h2>Jasmine Reporter</h2>
+<p>Here's a stripped down version of what I have in place to do the console
+reporting to help illustrate the new API methods.</p>
+<p><strong>new-console-jasmine-reporter.js</strong></p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35</pre></div></td><td class="code"><div class="highlight"><pre><span class="c1">// A simple jasmine reporter that will report over the `callPhantom` API in</span>
+<span class="c1">// the new PhantomJS 1.7 release.</span>
+<span class="nx">NewConsoleReporter</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="p">};</span>
+<span class="nx">NewConsoleReporter</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">reportRunnerStarting</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">runner</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Announce that the suite is starting by letting the runner know how</span>
+    <span class="c1">// many specs are going to be ...</span></pre></div></td></tr></table></div>
+    </section>
+  </div>
+</article>
+
+<article class="home">
+  <div class="post_body">
     <h1><a href="/2012/12/05/jasmine-async">Jasmine Asynchronous Specs</a></h1>
      <div class="cat_date">
       <div class="hidden_categories">
