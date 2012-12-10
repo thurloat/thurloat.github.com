@@ -4,8 +4,8 @@
 :slug: mocha-phantom-js-jasmine-reporting
 :status: publish 
 :title: Mocha Style Reporters in Jasmine 
-:categories: Coffeescript, Testing, Phantom.js
-:tags: coffeescript, testing
+:categories: Javascript, Testing, Phantom.js
+:tags: javascript, testing
 
 Everyone and their *cat* knows that the test reporters in `Mocha`_ are much 
 more nicely put together than those in `Jasmine`_. However, in the latest 
