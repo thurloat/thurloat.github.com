@@ -36,8 +36,6 @@
      <div class="cat_date">
       <div class="hidden_categories">
         
-        <span> <a href="/category/javascript/">Javascript</a></span>
-        
         <span> <a href="/category/backbonejs/">Backbone.js</a></span>
         
         <span> <a href="/category/coffeescript/">Coffeescript</a></span>
@@ -59,22 +57,22 @@ with the addition of having the view remember which object is bound to which
 events and callbacks to unbind them later on.</li>
 <li><tt class="docutils literal">stopListening(object, events, callback)</tt>: Calling it by yourself with the
 original object, events and callback will remove it from the registry, and it
-gets called for you during <strong>remove</strong> to unbind the events with no arguments
+gets called for you during <strong>remove</strong> with no arguments
 to unbind all events for the view.</li>
 </ul>
 <p>This is big news for folks developing single page applications. Especially where
 you are building up and tearing down many views without page reloads. If you're not
-careful about managing object event listeners, you end up with lots of
+careful about managing object event listeners, you end up with many
 detached objects that will never get garbage collected. The outcome is that
-your application continues to grow in memory usage as time goes on performance
-degrades rapidly.</p>
+your application continues to grow in memory usage, and performance
+degrades rapidly as time goes on.</p>
 <div class="section" id="taking-it-further">
 <h2>Taking it Further</h2>
 <p>Being able to <tt class="docutils literal">listenTo</tt> events on objects is great, but we can take it
 an additional step in the right direction. One of my favourite parts of
 Backbone is how declarative you can keep your view classes. This makes it
 immediately obvious what a view is responsible for and what it's connected to
-just by reading ...</p></div>
+just by reading the first few lines ...</p></div>
     </section>
   </div>
 </article>
