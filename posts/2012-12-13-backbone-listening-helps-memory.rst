@@ -73,7 +73,7 @@ Pretty awesome, amirite? With this set up, it forces you to think about your
 views beforehand, and doesn't let you forget about calling ``listenTo`` to
 models and collections within a view thus even further protecting you and your
 application from memory leaks. Here's the little snippet from my **BaseView** class to 
-take care of the declarative event binding using the new ``@listenTo`` method
+take care of the declarative event binding using the new ``listenTo`` method
 in the latest Backbone.
 
 **baseview.coffee**
