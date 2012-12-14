@@ -2,16 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
   <loc>http://thurloat.com/</loc>
-  <lastmod>2012-12-10T20:49:57Z</lastmod>
+  <lastmod>2012-12-14T03:35:56Z</lastmod>
   <changefreq>daily</changefreq>
 </url>
 
 <url>
   <loc>http://thurloat.com/about</loc>
-  <lastmod>2012-12-10T20:49:57Z</lastmod>
+  <lastmod>2012-12-14T03:35:56Z</lastmod>
   <changefreq>daily</changefreq>
 </url>
 
+
+<url>
+  <loc>http://thurloat.com/2012/12/13/backone-listening-helps-memory</loc>
+  <lastmod>2012-12-13T22:30:00Z</lastmod>
+  <changefreq>daily</changefreq>
+</url>
 
 <url>
   <loc>http://thurloat.com/2012/12/10/mocha-phantomjs-jasmine-reporting</loc>

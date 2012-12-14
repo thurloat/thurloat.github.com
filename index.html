@@ -32,6 +32,55 @@
 
 <article class="home">
   <div class="post_body">
+    <h1><a href="/2012/12/13/backone-listening-helps-memory">Listening with Backbone helps your Memory</a></h1>
+     <div class="cat_date">
+      <div class="hidden_categories">
+        
+        <span> <a href="/category/javascript/">Javascript</a></span>
+        
+        <span> <a href="/category/backbonejs/">Backbone.js</a></span>
+        
+        <span> <a href="/category/coffeescript/">Coffeescript</a></span>
+            
+      </div>
+      <div class="post_date">
+      Dec. 13, 2012
+      </div>
+    </div>
+   <section>
+      <p><a class="reference external" href="http://backbonejs.com">Backbone</a> 0.99 was <a class="reference external" href="https://github.com/documentcloud/backbone/compare/0.9.2...0.9.9">released</a> today! With it came the inclusion of a long-time
+requested feature to help views manage the binding and garbage collection of
+the events bound to the objects within the view. The new methods that I'm going
+on about are:</p>
+<ul class="simple">
+<li><tt class="docutils literal">listenTo(object, events, callback)</tt>: Takes the same arguments as
+Backbone's <strong>Event.on</strong>
+with the addition of having the view remember which object is bound to which
+events and callbacks to unbind them later on.</li>
+<li><tt class="docutils literal">stopListening(object, events, callback)</tt>: Calling it by yourself with the
+original object, events and callback will remove it from the registry, and it
+gets called for you during <strong>remove</strong> to unbind the events with no arguments
+to unbind all events for the view.</li>
+</ul>
+<p>This is big news for folks developing single page applications. Especially where
+you are building up and tearing down many views without page reloads. If you're not
+careful about managing object event listeners, you end up with lots of
+detached objects that will never get garbage collected. The outcome is that
+your application continues to grow in memory usage as time goes on performance
+degrades rapidly.</p>
+<div class="section" id="taking-it-further">
+<h2>Taking it Further</h2>
+<p>Being able to <tt class="docutils literal">listenTo</tt> events on objects is great, but we can take it
+an additional step in the right direction. One of my favourite parts of
+Backbone is how declarative you can keep your view classes. This makes it
+immediately obvious what a view is responsible for and what it's connected to
+just by reading ...</p></div>
+    </section>
+  </div>
+</article>
+
+<article class="home">
+  <div class="post_body">
     <h1><a href="/2012/12/10/mocha-phantomjs-jasmine-reporting">Mocha Style Reporters in PhantomJS with Jasmine</a></h1>
      <div class="cat_date">
       <div class="hidden_categories">
