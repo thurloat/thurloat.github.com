@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Listening with Backbone helps your Memory - Thurloat.com</title>
+    <meta charset="utf-8" />
+    <link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/media/style.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/media/pygments.css" type="text/css" media="screen" />
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-8047218-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+    <script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
+</head>
+<body>
+    <header>
+        <div class="site_title">
+          <h1><a href="/">Thurloat.com</a><span><a href="/about">Adam Thurlow</a></span></h1>
+        </div>
+    </header>
+    <div id="content">
+    
+<article>
+  <header>
+    <h1>Listening with Backbone helps your Memory</h1>
+    <div class="subheader">
+      <span class="date">Dec. 13, 2012</span> - Posted by Thurloat
+    </div>
+  </header>
+  <section>
+    <p><a class="reference external" href="http://backbonejs.com">Backbone</a> 0.99 was <a class="reference external" href="https://github.com/documentcloud/backbone/compare/0.9.2...0.9.9">released</a> today! With it came the inclusion of a long-time
+requested feature to help views manage the binding and garbage collection of
+the events bound to the objects within the view. The new methods that I'm going
+on about are:</p>
+<ul class="simple">
+<li><tt class="docutils literal">listenTo(object, events, callback)</tt>: Takes the same arguments as
+Backbone's <strong>Event.on</strong>
+with the addition of having the view remember which object is bound to which
+events and callbacks to unbind them later on.</li>
+<li><tt class="docutils literal">stopListening(object, events, callback)</tt>: Calling it by yourself with the
+original object, events and callback will remove it from the registry, and it
+gets called for you during <strong>remove</strong> to unbind the events with no arguments
+to unbind all events for the view.</li>
+</ul>
+<p>This is big news for folks developing single page applications. Especially where
+you are building up and tearing down many views without page reloads. If you're not
+careful about managing object event listeners, you end up with lots of
+detached objects that will never get garbage collected. The outcome is that
+your application continues to grow in memory usage as time goes on performance
+degrades rapidly.</p>
+<div class="section" id="taking-it-further">
+<h2>Taking it Further</h2>
+<p>Being able to <tt class="docutils literal">listenTo</tt> events on objects is great, but we can take it
+an additional step in the right direction. One of my favourite parts of
+Backbone is how declarative you can keep your view classes. This makes it
+immediately obvious what a view is responsible for and what it's connected to
+just by reading the first few lines of code. Backbone is already set
+up nicely for this with properties like <tt class="docutils literal">className</tt>, <tt class="docutils literal">tag</tt>, <tt class="docutils literal">events</tt> like
+the following simple class:</p>
+<p><strong>myview.coffee</strong></p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">class</span> <span class="nx">MyView</span> <span class="k">extends</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span>
+  <span class="nv">tag: </span><span class="s2">&quot;div&quot;</span>
+  <span class="nv">className: </span><span class="s2">&quot;myView&quot;</span>
+  <span class="nv">events:</span>
+    <span class="s2">&quot;click a.btn&quot;</span><span class="o">:</span> <span class="s2">&quot;handleLinkClick&quot;</span>
+</pre></div>
+</td></tr></table><p>As I outlined above, it's being blatant about how it behaves. Now imagine that
+you've planned your view out well enough that you can describe how other
+objects are going to interact within it in the same form.</p>
+<p><strong>myview2.coffee</strong></p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">class</span> <span class="nx">MyView</span> <span class="k">extends</span> <span class="nx">BaseView</span>
+  <span class="nv">tag: </span><span class="s2">&quot;div&quot;</span>
+  <span class="nv">className: </span><span class="s2">&quot;myView&quot;</span>
+  <span class="nv">events:</span>
+    <span class="s2">&quot;click a.btn&quot;</span><span class="o">:</span> <span class="s2">&quot;handleLinkClick&quot;</span>
+
+  <span class="nv">objectEvents:</span>
+    <span class="s2">&quot;reset mycollection&quot;</span><span class="o">:</span> <span class="s2">&quot;refreshList&quot;</span>
+    <span class="s2">&quot;change:field someModel&quot;</span><span class="o">:</span> <span class="s2">&quot;refreshLabel&quot;</span>
+
+  <span class="c1"># ...</span>
+</pre></div>
+</td></tr></table><p>Pretty awesome, amirite? With this set up, it forces you to think about your
+views beforehand, and doesn't let you forget about calling <tt class="docutils literal">listenTo</tt> to
+models and collections within a view, thus even further protecting you and your
+application from memory leaks. Here's the little snippet from my <em>BaseView</em> class to
+take care of the declarative event binding using the new <tt class="docutils literal">&#64;listenTo</tt> method
+in the latest Backbone.</p>
+<p><strong>baseview.coffee</strong></p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">class</span> <span class="nx">BaseView</span> <span class="k">extends</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span>
+  <span class="c1"># Automatically hook up events in objectEvents to their respective objects</span>
+  <span class="c1"># using the fancy new `@listenTo`.</span>
+  <span class="nv">delegateEvents: </span><span class="nf">(events) -&gt;</span>
+    <span class="k">super</span>
+
+    <span class="nx">@objectEvents</span> <span class="o">or=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="nx">compositeValue</span><span class="p">,</span> <span class="nx">handler</span> <span class="k">of</span> <span class="nx">@objectEvents</span>
+      <span class="nv">x = </span><span class="nx">compositeValue</span><span class="p">.</span><span class="nx">split</span> <span class="s2">&quot; &quot;</span>
+      <span class="k">if</span> <span class="nx">x</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">2</span> <span class="o">and</span> <span class="err">@</span><span class="p">[</span><span class="nx">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span><span class="o">?</span>
+        <span class="nv">obj = </span><span class="err">@</span><span class="p">[</span><span class="nx">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+        <span class="nx">@listenTo</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nx">_</span><span class="p">.</span><span class="nx">bind</span> <span class="err">@</span><span class="p">[</span><span class="nx">handler</span><span class="p">],</span> <span class="err">@</span>
+      <span class="k">else</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s2">&quot;Tried to bind event #{x}, but the view doesn&#39;t have that object.&quot;</span>
+</pre></div>
+</td></tr></table><p>I think I can say with confidence that we're all excited about this feature
+inclusion into Backbone core. Many of us have implemented this on our own, as I
+have, and just this evening was able to remove from my own <strong>BaseView</strong>. I'm
+equally as excited for those who have not implemented this on their own and
+hope that it will help keep everyone's memory usage in check.</p>
+<p>I highly suggest checking out this <a class="reference external" href="https://docs.google.com/presentation/d/1wUVmf78gG-ra5aOxvTfYdiLkdGaR9OhXRnOlIcEmu2s/pub">presentation</a> by Google on finding memory
+leaks in your application. This upgrade in Backbone should help get you on the
+right track, however it's not going to magically solve all of your problems.</p>
+<p>Always think about how your events are going to be unbound, and good luck with 0.99!</p>
+</div>
+
+  </section>
+  <footer>
+    <div class="sharing">
+      <a href="http://twitter.com/share" 
+        class="twitter-share-button"
+        data-url="http://thurloat.com/2012/12/13/backone-listening-helps-memory"
+        data-via="thurloat"
+        data-text="Listening with Backbone helps your Memory"
+        data-count="none">Tweet</a>&nbsp;
+      <div class="g-plusone" data-size="medium" data-href="http://thurloat.com/2012/12/13/backone-listening-helps-memory"></div>
+      <script type="text/javascript">
+(function() {
+  var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+  po.src = 'https://apis.google.com/js/plusone.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+})();
+      </script>
+    </div>
+    <div class="foot_cats">
+      
+      <a href="/category/javascript/">Javascript</a>, 
+      
+      <a href="/category/backbonejs/">Backbone.js</a>, 
+      
+      <a href="/category/coffeescript/">Coffeescript</a>
+      
+    </div>
+  </footer>
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+var disqus_shortname = 'thurloatblog';
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+  dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+  </script>
+</article>
+
+    </div>
+    
+    <footer>
+        <p>
+            &copy; 2012 Adam Thurlow - All rights reserved.
+        </p> 
+    </footer>
+</body>
+</html>
