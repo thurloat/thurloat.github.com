@@ -7,7 +7,7 @@
 :categories: Backbone.js, Coffeescript 
 :tags: backbone.js, coffeescript 
 
-`Backbone`_ 0.99 was `released`_ today! With it came the inclusion of a long-time
+`Backbone`_ 0.9.9 was `released`_ today! With it came the inclusion of a long-time
 requested feature to help views manage the binding and garbage collection of
 the events bound to the objects within the view. The new methods that I'm going
 on about are:
@@ -105,7 +105,7 @@ I highly suggest checking out this `presentation`_ by Google on finding memory
 leaks in your application. This upgrade in Backbone should help get you on the
 right track, however it's not going to magically solve all of your problems.
 
-Always think about how your events are going to be unbound, and good luck with 0.99!
+Always think about how your events are going to be unbound, and good luck with 0.9.9!
 
 .. _`presentation`: https://docs.google.com/presentation/d/1wUVmf78gG-ra5aOxvTfYdiLkdGaR9OhXRnOlIcEmu2s/pub
 .. _`released`: https://github.com/documentcloud/backbone/compare/0.9.2...0.9.9
