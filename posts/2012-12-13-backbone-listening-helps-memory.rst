@@ -70,10 +70,12 @@ objects are going to interact within it in the same form.
     # ...
 
 Pretty awesome, amirite? With this set up, it forces you to think about your
-views beforehand, and doesn't let you forget about calling ``listenTo`` to
-models and collections within a view thus even further protecting you and your
-application from memory leaks. Here's the little snippet from my **BaseView** class to 
-take care of the declarative event binding using the new ``listenTo`` method
+views beforehand, and doesn't let you forget about calling ``listenTo`` on 
+models and collections within a view, even further protecting you and your
+application from memory leaks. 
+
+Here's the little snippet from my **BaseView** class that
+takes care of the declarative event binding using the ``listenTo`` method
 in the latest Backbone.
 
 **baseview.coffee**
@@ -96,10 +98,11 @@ in the latest Backbone.
           console.log "Tried to bind event #{x}, but the view doesn't have that object."
 
 I think I can say with confidence that we're all excited about this feature
-inclusion into Backbone core. Many of us have implemented this on our own, as I
-have, and just this evening was able to remove from my own **BaseView**. I'm 
-equally as excited for those who have not implemented this on their own and 
-hope that it will help keep everyone's memory usage in check.
+being included into Backbone core. Many of us have had to implement this on our own,
+as I have, and just this evening I was able to remove my implementation
+of **listenTo** and **stopListening** from my BaseView class in favour of what
+I included above. I'm equally excited for those who haven't been using any method for tracking
+event bindings and hope that it will help keep memory usage in check.
 
 I highly suggest checking out this `presentation`_ by Google on finding memory
 leaks in your application. This upgrade in Backbone should help get you on the
