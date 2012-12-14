@@ -27,17 +27,19 @@ body > header .site_title {
   margin: 0 auto;
   width: 760px; 
 }
-body > header .site_title h1 { 
+body > header .site_title span.title { 
   font-size: 2.75em; 
   line-height: 1.6em; 
   font-weight: 400;
   text-shadow: -1px 1px 1px rgba(0,0,0,0.8);
+  font-family: 'Helvetica Neue', Helvetica, sans-serif; 
 }
-body > header .site_title h1 a { color: #737F8C; }
-body > header .site_title h1 a:hover { color: #C7CCD1; }
-body > header .site_title h1 span { float: right; }
-body > header .site_title h1 span a { color: #8C8073; }
-body > header .site_title h1 span a:hover { color: #D1CCC7; }
+body > header .site_title span.title a { 
+    color: #737F8C; }
+body > header .site_title span.title a:hover { color: #C7CCD1; }
+body > header .site_title span.title span { float: right; }
+body > header .site_title span.title span a { color: #8C8073; }
+body > header .site_title span.title span a:hover { color: #D1CCC7; }
 .avatar_holder {
   width: 45px;
   height: 45px;
