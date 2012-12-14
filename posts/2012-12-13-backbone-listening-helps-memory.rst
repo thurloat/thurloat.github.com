@@ -18,15 +18,15 @@ on about are:
   events and callbacks to unbind them later on.
 - ``stopListening(object, events, callback)``: Calling it by yourself with the
   original object, events and callback will remove it from the registry, and it
-  gets called for you during **remove** to unbind the events with no arguments
+  gets called for you during **remove** with no arguments
   to unbind all events for the view.
 
 This is big news for folks developing single page applications. Especially where
 you are building up and tearing down many views without page reloads. If you're not
-careful about managing object event listeners, you end up with lots of
+careful about managing object event listeners, you end up with many 
 detached objects that will never get garbage collected. The outcome is that
-your application continues to grow in memory usage as time goes on performance
-degrades rapidly.
+your application continues to grow in memory usage, and performance
+degrades rapidly as time goes on.
 
 Taking it Further
 -----------------
@@ -71,8 +71,8 @@ objects are going to interact within it in the same form.
 
 Pretty awesome, amirite? With this set up, it forces you to think about your
 views beforehand, and doesn't let you forget about calling ``listenTo`` to
-models and collections within a view, thus even further protecting you and your
-application from memory leaks. Here's the little snippet from my *BaseView* class to 
+models and collections within a view thus even further protecting you and your
+application from memory leaks. Here's the little snippet from my **BaseView** class to 
 take care of the declarative event binding using the new ``@listenTo`` method
 in the latest Backbone.
 
