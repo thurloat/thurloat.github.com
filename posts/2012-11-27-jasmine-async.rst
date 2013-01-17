@@ -200,7 +200,7 @@ making your asynchronous testing a little smoother than it was before. <`Gist`_>
   @asyncIt = (desc, test) ->
 
     spec = jasmine.getEnv().it desc
-    __spy = new sinon.spy
+    __spy = jasmine.createSpy("async spy")
     __done = no
     _NATIVE_ERR = window.onerror
 
@@ -243,7 +243,7 @@ making your asynchronous testing a little smoother than it was before. <`Gist`_>
       # session loading before the test starts, and wrapping the insides in a
       # spec failer and reporter.
       try
-        test.apply spec, [ complete, __app ]
+        test.apply spec, [ complete ]
       catch e
         spec.fail e
         complete e 
