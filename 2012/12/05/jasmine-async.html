@@ -20,6 +20,7 @@
 
     </script>
     <script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
+    <link rel="alternate" type="application/rss+xml"  href="/atom.xml" title="RSS Feed for Thurloat.com">
 </head>
 <body>
     <header>
@@ -307,7 +308,7 @@ making your asynchronous testing a little smoother than it was before. &lt;<a cl
 59</pre></div></td><td class="code"><div class="highlight"><pre><span class="vi">@asyncIt = </span><span class="nf">(desc, test) -&gt;</span>
 
   <span class="nv">spec = </span><span class="nx">jasmine</span><span class="p">.</span><span class="nx">getEnv</span><span class="p">().</span><span class="nx">it</span> <span class="nx">desc</span>
-  <span class="nv">__spy = </span><span class="k">new</span> <span class="nx">sinon</span><span class="p">.</span><span class="nx">spy</span>
+  <span class="nv">__spy = </span><span class="nx">jasmine</span><span class="p">.</span><span class="nx">createSpy</span><span class="p">(</span><span class="s2">&quot;async spy&quot;</span><span class="p">)</span>
   <span class="nv">__done = </span><span class="kc">no</span>
   <span class="nv">_NATIVE_ERR = </span><span class="nb">window</span><span class="p">.</span><span class="nx">onerror</span>
 
@@ -350,7 +351,7 @@ making your asynchronous testing a little smoother than it was before. &lt;<a cl
     <span class="c1"># session loading before the test starts, and wrapping the insides in a</span>
     <span class="c1"># spec failer and reporter.</span>
     <span class="k">try</span>
-      <span class="nx">test</span><span class="p">.</span><span class="nx">apply</span> <span class="nx">spec</span><span class="p">,</span> <span class="p">[</span> <span class="nx">complete</span><span class="p">,</span> <span class="nx">__app</span> <span class="p">]</span>
+      <span class="nx">test</span><span class="p">.</span><span class="nx">apply</span> <span class="nx">spec</span><span class="p">,</span> <span class="p">[</span> <span class="nx">complete</span> <span class="p">]</span>
     <span class="k">catch</span> <span class="nx">e</span>
       <span class="nx">spec</span><span class="p">.</span><span class="nx">fail</span> <span class="nx">e</span>
       <span class="nx">complete</span> <span class="nx">e</span>
