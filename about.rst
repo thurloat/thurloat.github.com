@@ -5,7 +5,7 @@
 :status: publish
 :title: About
 
-Hi! I'm Adam Thurlow -- a 26 year old fiancée with cats. I masquerade as a 
+Hi! I'm Adam Thurlow -- a 27 year old husband with cats. I masquerade as a 
 software engineer living in Halifax, Nova Scotia. I am an ardent programmer, I
 have a passion for learning new technology and I do my best to evangelize the 
 ones that I believe in.
